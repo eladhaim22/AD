@@ -3,18 +3,17 @@ package  Hibernate;
 
 import org.hibernate.HibernateException;
 
-import java.io.Serializable;
 import java.util.List;
 
-public interface IGenericDao<Entity, K extends Serializable> {
+public interface IGenericDao<Entidad> {
 
-    Entity Buscar(K id);
+    Entidad Buscar(int index);
 
-    void Actualizar(Entity t);
+    void Actualizar(Entidad t);
 
-    void Guardar(Entity t) throws HibernateException;
+    void Guardar(Entidad t) throws HibernateException;
 
-    void Eliminar(Entity t);
+    void Eliminar(Entidad t);
 
-    List<Entity> ListarTodos() throws HibernateException;
+    List<Entidad> ListarTodos() throws HibernateException;
 }
