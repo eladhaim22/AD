@@ -1,16 +1,17 @@
 package Hibernate;
 
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.*;
+import org.hibernate.Query;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.List;
+import java.util.*;
 
-public class GenericDao<Entidad> implements IGenericDao<Entidad> {
 
-    public Class<Entidad> domainClass = getDomainClass();
+public class GenericDao<Entity, K extends Serializable> implements IGenericDao<Entity, K> {
+
+    public Class<Entity> domainClass = getDomainClass();
     private Session session;
 
     protected Class getDomainClass() {
@@ -28,17 +29,13 @@ public class GenericDao<Entidad> implements IGenericDao<Entidad> {
         return session;
     }
 
-    public Entidad Buscar(int index) {
-        Entidad returnValue = (Entidad)getHibernateTemplate().get(domainClass,index);
-        if(returnValue != null){
-            Hibernate.initialize(returnValue);
-            return returnValue;
-        }else{
-            return null;
-        }
+    public Entity Buscar(K id) {
+        Entity returnValue = (Entity) getHibernateTemplate().load(domainClass, id);
+        session.getTransaction().commit();
+        return returnValue;
     }
 
-    public void Actualizar(Entidad t) throws HibernateException {
+    public void Actualizar(Entity t) throws HibernateException {
         try {
             getHibernateTemplate().update(t);
             session.getTransaction().commit();
@@ -47,7 +44,7 @@ public class GenericDao<Entidad> implements IGenericDao<Entidad> {
         }
     }
 
-    public void Guardar(Entidad t) throws HibernateException {
+    public void Guardar(Entity t) throws HibernateException {
         try {
             getHibernateTemplate().save(t);
             session.getTransaction().commit();
@@ -56,12 +53,12 @@ public class GenericDao<Entidad> implements IGenericDao<Entidad> {
         }
     }
 
-    public void Eliminar(Entidad t) {
+    public void Eliminar(Entity t) {
         getHibernateTemplate().delete(t);
         session.getTransaction().commit();
     }
 
-    public List<Entidad> ListarTodos() throws HibernateException {
+    public List<Entity> ListarTodos() throws HibernateException {
         List objects = null;
         try {
             getHibernateTemplate();
