@@ -1,0 +1,10 @@
+package Model;
+
+
+
+
+
+
+public class Ficha {
+	public Object Attribute1;
+}

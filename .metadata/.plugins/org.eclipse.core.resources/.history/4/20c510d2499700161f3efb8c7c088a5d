@@ -1,0 +1,11 @@
+package dto;
+
+import java.rmi.RemoteException;
+
+public interface ITestDto {
+	public int getId() throws RemoteException;
+	public void setId(int id) throws RemoteException;
+	public String getTest() throws RemoteException;
+	public void setTest(String test) throws RemoteException;
+	
+}

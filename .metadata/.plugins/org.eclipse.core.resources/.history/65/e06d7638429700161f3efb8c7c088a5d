@@ -1,0 +1,76 @@
+package hbt;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
+import dominio.*;
+public class HibernateUtil {
+	
+	
+	private static final SessionFactory sessionFactory;
+	static
+    {
+        try
+        {
+        	 AnnotationConfiguration config = new AnnotationConfiguration();
+        	 config.addAnnotatedClass(dominio.AutorizacionDeEnvio.class);
+        	 config.addAnnotatedClass(dominio.AutorizacionDeTransporte.class);
+        	 config.addAnnotatedClass(dominio.AvionetaParticular.class);
+        	 config.addAnnotatedClass(dominio.CamionConCaja.class);
+        	 config.addAnnotatedClass(dominio.Camioneta.class);
+        	 config.addAnnotatedClass(dominio.CamionTanque.class);
+        	 config.addAnnotatedClass(dominio.Certificado.class);
+        	 config.addAnnotatedClass(dominio.Cliente.class);
+        	 config.addAnnotatedClass(dominio.ClienteEmpresa.class);
+        	 config.addAnnotatedClass(dominio.ClienteEmpresaDelegaLogistica.class);
+        	 config.addAnnotatedClass(dominio.ClienteParticular.class);
+        	 config.addAnnotatedClass(dominio.CuentaCorriente.class);
+        	 config.addAnnotatedClass(dominio.Deposito.class);
+        	 config.addAnnotatedClass(dominio.Destinatario.class);
+        	 config.addAnnotatedClass(dominio.Destino.class);
+        	 config.addAnnotatedClass(dominio.Empleado.class);
+        	 config.addAnnotatedClass(dominio.Envio.class);
+        	 config.addAnnotatedClass(dominio.EnvioTransportado.class);
+        	 config.addAnnotatedClass(dominio.Factura.class);
+        	 config.addAnnotatedClass(dominio.ItemPedido.class);
+        	 config.addAnnotatedClass(dominio.Manifiesto.class);
+        	 config.addAnnotatedClass(dominio.ManifiestoPaquete.class);
+        	 config.addAnnotatedClass(dominio.ManifiestoPedido.class);
+        	 config.addAnnotatedClass(dominio.MapaDeRutas.class);
+        	 config.addAnnotatedClass(dominio.Mercaderia.class);
+        	 config.addAnnotatedClass(dominio.MercaderiaNoRestringida.class);
+        	 config.addAnnotatedClass(dominio.MercaderiaRestringida.class);
+        	 config.addAnnotatedClass(dominio.Novedad.class);
+        	 config.addAnnotatedClass(dominio.OperacionDeMantenimiento.class);
+        	 config.addAnnotatedClass(dominio.OperacionDeMantenimientoKilometros.class);
+        	 config.addAnnotatedClass(dominio.OperacionDeMantenimientoTiempo.class);
+        	 config.addAnnotatedClass(dominio.OtroVehiculoExterno.class);
+        	 config.addAnnotatedClass(dominio.Paquete.class);
+        	 config.addAnnotatedClass(dominio.Pedido.class);
+        	 config.addAnnotatedClass(dominio.PlanDeMantenimiento.class);
+        	 config.addAnnotatedClass(dominio.Politica.class);
+        	 config.addAnnotatedClass(dominio.PoliticaDeArmasYExplosivos.class);
+        	 config.addAnnotatedClass(dominio.Recibo.class);
+        	 config.addAnnotatedClass(dominio.Registro.class);
+        	 config.addAnnotatedClass(dominio.Remito.class);
+        	 config.addAnnotatedClass(dominio.Taller.class);
+        	 config.addAnnotatedClass(dominio.Tractor.class);
+        	 config.addAnnotatedClass(dominio.Transporte.class);
+        	 config.addAnnotatedClass(dominio.TransporteExterno.class);
+        	 config.addAnnotatedClass(dominio.TransporteInterno.class);
+        	 config.addAnnotatedClass(dominio.Ubicacion.class);
+        	 //todas las clases de domnio
+             sessionFactory = config.buildSessionFactory();
+        }
+        catch (Throwable ex)
+        {
+            System.err.println("Initial SessionFactory creation failed." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+    }
+  
+    public static SessionFactory getSessionFactory()
+    {
+        return sessionFactory;
+    }
+	
+}

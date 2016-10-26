@@ -1,0 +1,67 @@
+package Controllers;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.util.Iterator;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import ejemplo_1.bean.Test;
+import ejemplo_1.interfaz.TDAManejoDatos;
+
+public class HolaMundo extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
+	
+	TDAManejoDatos manejoAlumnos;
+	Test alumno;
+    /**
+     * Default constructor. 
+     */
+    public HolaMundo() {
+        // TODO Auto-generated constructor stub
+    }
+
+    public boolean getStub() {
+    	
+    	try {
+			manejoAlumnos = (TDAManejoDatos)Naming.lookup ("//localhost/GestionAlumnos");
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+    }
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			response.setContentType("text/html");
+		    PrintWriter out = response.getWriter();
+
+		    if(getStub()) 
+	    	{
+	    		try {
+	    			Test test = new Test(0,"bla");
+	    			manejoAlumnos.envioTest(test);
+	    			
+	    		} catch (RemoteException e) {
+	    			// TODO Auto-generated catch block
+	    			e.printStackTrace();
+	    		}
+	    	} 
+		  }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+
+}

@@ -1,0 +1,7 @@
+package ejemplo_1.interfaz;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.Set;
+import ejemplo_1.bean.Test;
+

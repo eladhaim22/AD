@@ -1,0 +1,43 @@
+package dto;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.Vector;
+
+
+public interface IVistaManifiesto  extends Remote {
+	
+	private static final long serialVersionUID = 1L;
+	private int id;
+	private String test;
+	
+	@Override
+	public String toString() {
+		return "sadasd";
+	}
+
+	public Test(int id, String test) {
+		super();
+		this.id = id;
+		this.test = test;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getTest() {
+		return test;
+	}
+
+	public void setTest(String test) throw Rem
+	
+}

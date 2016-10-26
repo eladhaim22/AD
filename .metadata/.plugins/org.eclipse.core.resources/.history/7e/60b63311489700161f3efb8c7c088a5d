@@ -1,0 +1,15 @@
+package service;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+import remoto.ITestService;
+import dominio.*;
+import dto.ITestDto;
+
+public class TestService implements ITestService  {
+	public void envioTest(ITestDto test)throws RemoteException{
+		
+	}
+
+}
