@@ -1,22 +1,18 @@
 package dominio;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Sucursal {
-	private int numero;
-	private String ubicacion;
+public class Sucursal extends EntityClass {
 	private String nombre;
-	private ArrayList<Empleado> empleados;
-	private MapaDeRuta mapaDeRuta;
-	public void agregarEmpleado(String dni) {
+	private Addres direccion;
+	private Salon salon;
+	private Cocina cocina;
+	private Carta carta;
+	private Caja caja;
+	private Area area;
+	private Administracion administracion;
+	private Deposito deposito;
+	private List<Mozo> mozos = new ArrayList<Mozo>();
 	
-	}
-	
-	public void actualizarMapaDeRuta(String registroVehiculo, int longitud, int latitud) {
-	
-	}
-	
-	public void modificarNovedad(RutaSucursal ruta, boolean estado) {
-	
-	}
 }

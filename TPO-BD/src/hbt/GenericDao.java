@@ -9,7 +9,8 @@ import java.util.List;
 
 public class GenericDao<Entidad> implements IGenericDao<Entidad> {
 
-    public Class<Entidad> domainClass = getDomainClass();
+    protected Class<Entidad> domainClass = getDomainClass();
+
     private Session session;
 
     protected Class getDomainClass() {
@@ -21,7 +22,7 @@ public class GenericDao<Entidad> implements IGenericDao<Entidad> {
         return domainClass;
     }
 
-    private Session getHibernateTemplate() {
+    protected Session getHibernateTemplate() {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         return session;

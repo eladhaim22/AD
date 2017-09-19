@@ -1,13 +1,14 @@
 package dominio;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-public class Factura {
-	private Cliente cliente;
-	private Envio envio;
-	private int numero;
-	private ArrayList<Envio> envios;
-	public float calcularTotal() {
-		return 0;
-	}
+public class Factura extends EntityClass {
+	private Date FechaDePago;
+	private Date FechaDeCierre;
+	private MedioPago medioPago;
+	private Mozo mozo;
+	private Mesa mesa;
+	private List<ItemFactura> itemsFactura = new ArrayList<ItemFactura>();
 }
