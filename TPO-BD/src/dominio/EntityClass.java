@@ -1,6 +1,12 @@
 package dominio;
 
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public class EntityClass {
+	
+	@Id
 	private Long id;
 
 	public Long getId() {

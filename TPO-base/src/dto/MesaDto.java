@@ -5,7 +5,6 @@ import java.rmi.Remote;
 
 public class MesaDto implements Serializable {
 	private String numero;
-	private String capacidad;
-	private Long mozoId;
+	private int capacidad;
 	private boolean isEmpty;
 }

@@ -18,7 +18,6 @@ public class MesaMapper {
         MesaDto mesaDto = new MesaDto();
         mesaDto.setCapacidad(mesa.getCapacidad());
         mesaDto.setEmpty(mesa.isEmpty());
-        mesaDto.setMozoId(mesa.getMozo().getId());
         mesaDto.setNumero(mesa.getNumero());
         return mesaDto;
     }

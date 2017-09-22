@@ -3,8 +3,7 @@ package dto;
 
 public class MesaDto {
 	private String numero;
-	private String capacidad;
-	private Long mozoId;
+	private int capacidad;
 	private boolean isEmpty;
 
 	public String getNumero() {
@@ -15,20 +14,12 @@ public class MesaDto {
 		this.numero = numero;
 	}
 
-	public String getCapacidad() {
+	public int getCapacidad() {
 		return capacidad;
 	}
 
-	public void setCapacidad(String capacidad) {
+	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
-	}
-
-	public Long getMozoId() {
-		return mozoId;
-	}
-
-	public void setMozoId(Long mozoId) {
-		this.mozoId = mozoId;
 	}
 
 	public boolean isEmpty() {

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Sucursal extends EntityClass {
 	private String nombre;
-	private Addres direccion;
+	private Address direccion;
 	private Salon salon;
 	private Cocina cocina;
 	private Carta carta;

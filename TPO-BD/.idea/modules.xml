@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TPO-BD.iml" filepath="$PROJECT_DIR$/TPO-BD.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../TPO-Cliente/TPO-Cliente.iml" filepath="$PROJECT_DIR$/../TPO-Cliente/TPO-Cliente.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../TPO-base/TPO-base.iml" filepath="$PROJECT_DIR$/../TPO-base/TPO-base.iml" />
     </modules>
   </component>
 </project>
