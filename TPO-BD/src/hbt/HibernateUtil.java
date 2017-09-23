@@ -11,7 +11,7 @@ public class HibernateUtil {
         try
         {
             AnnotationConfiguration config = new AnnotationConfiguration();
-            config.addAnnotatedClass(Addres.class);
+            config.addAnnotatedClass(Address.class);
             config.addAnnotatedClass(Administracion.class);
             config.addAnnotatedClass(Area.class);
             config.addAnnotatedClass(AsientoContable.class);
@@ -19,6 +19,7 @@ public class HibernateUtil {
             config.addAnnotatedClass(Carta.class);
             config.addAnnotatedClass(Cocina.class);
             config.addAnnotatedClass(Comanda.class);
+            config.addAnnotatedClass(Deposito.class);
             config.addAnnotatedClass(DepositoCentral.class);
             config.addAnnotatedClass(DepositoLocal.class);
             config.addAnnotatedClass(Factura.class);

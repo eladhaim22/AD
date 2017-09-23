@@ -23,8 +23,13 @@ public class GenericDao<Entidad> implements IGenericDao<Entidad> {
     }
 
     protected Session getHibernateTemplate() {
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+        try {
+        	session = HibernateUtil.getSessionFactory().openSession();
+        	session.beginTransaction();
+        }
+        catch(Exception ex) {
+        	System.out.println(ex.getMessage());
+        }
         return session;
     }
 
