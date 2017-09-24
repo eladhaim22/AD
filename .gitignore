@@ -37,7 +37,12 @@ local.properties
 .loadpath
 .factorypath
 /src/main/resources/rebel.xml
-*/bin/*
+TPO-BD/bin/*
+TPO-base/bin/*
+TPO-Cliente/bin/*
+TPO-BD/*.classpath
+TPO-base/*.classpath
+TPO-Cliente/*.classpath
 # External tool builders
 .externalToolBuilders/**
 
