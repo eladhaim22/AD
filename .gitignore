@@ -40,9 +40,9 @@ local.properties
 TPO-BD/bin/*
 TPO-base/bin/*
 TPO-Cliente/bin/*
-TPO-BD/*.classpath
-TPO-base/*.classpath
-TPO-Cliente/*.classpath
+TPO-BD/.classpath
+TPO-base/.classpath
+TPO-Cliente/.classpath
 # External tool builders
 .externalToolBuilders/**
 
