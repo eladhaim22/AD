@@ -32,12 +32,12 @@ tmp/**/*
 *.swp
 *~.nib
 local.properties
-.classpath
+*.classpath
 .settings/
 .loadpath
 .factorypath
 /src/main/resources/rebel.xml
-
+*/bin/*
 # External tool builders
 .externalToolBuilders/**
 
