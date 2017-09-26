@@ -1,6 +1,0 @@
-package Model;
-
-public class NovedadRuta {
-	private RutaSucursal ruta;
-	private boolean estado;
-}

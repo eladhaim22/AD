@@ -1,7 +1,0 @@
-package hbt;
-
-import Model.*;
-
-public class TestDao extends GenericDao<Test> {
-	
-}

@@ -1,9 +1,0 @@
-package Model;
-
-
-
-
-
-
-public class Kms extends Tarea {
-}

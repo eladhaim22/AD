@@ -1,7 +1,0 @@
-package Model;
-public class ClienteEmpresa extends Cliente {
-	private CuentaCorriente CC;
-	public void generarCC() {
-	
-	}
-}
