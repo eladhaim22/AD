@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-@DiscriminatorValue(value = "itemComplejo")
+@DiscriminatorValue(value = "ItemComplejo")
 public class ItemComplejo extends Item {
 	
 	@OneToOne

@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "mediosDePago")
+@Table(name = "MediosDePago")
 public class MedioPago extends EntityClass {
 	
 	@Column(name = "type")

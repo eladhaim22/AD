@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name ="recetas")
+@Table(name ="Recetas")
 public class Receta  extends EntityClass {
 	
 	@OneToMany

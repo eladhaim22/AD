@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "facturas")
+@Table(name = "Facturas")
 public class Factura extends EntityClass {
 
 	@Column(name = "fecha_de_pago")

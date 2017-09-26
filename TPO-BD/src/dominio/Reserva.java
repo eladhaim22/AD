@@ -12,11 +12,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "reservas")
+@Table(name = "Reservas")
 public class Reserva extends EntityClass {
 	
 	@OneToMany 
-	@JoinTable(name = "reservas_mesas", joinColumns= {
+	@JoinTable(name = "Reservas_Mesas", joinColumns= {
 			@JoinColumn(name = "reserva_id")
 	},inverseJoinColumns = {@JoinColumn(name = "mesa_id")})
 	private List<Mesa> mesas = new ArrayList<Mesa>();

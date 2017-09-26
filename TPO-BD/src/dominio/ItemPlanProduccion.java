@@ -7,7 +7,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity 
-@Table(name ="itemsPlanProduccion")
+@Table(name ="ItemsPlanProduccion")
 public class ItemPlanProduccion extends EntityClass {
 	
 	@Column(name = "cantidadSolicitada")
