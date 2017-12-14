@@ -1,7 +1,7 @@
 package mappers;
 
 
-import dominio.Factura;
+import entities.FacturaEntity;
 import dto.FacturaDto;
 
 public class FacturaMapper {
@@ -16,7 +16,7 @@ public class FacturaMapper {
 	        return mapper;
 	    }
 	 
-	 public FacturaDto ToDto(Factura Factura){
+	 public FacturaDto ToDto(FacturaEntity Factura){
 		 	FacturaDto FacturaDto = new FacturaDto();
 		 	FacturaDto.setNumeroFactura(Factura.getNumeroFactura());
 		 	FacturaDto.setFecha(Factura.getFecha());

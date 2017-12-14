@@ -5,11 +5,11 @@ import java.util.List;
 
 import daos.ProductoDao;
 import daos.SemielaboradoDao;
-import dominio.Ingrediente;
-import dominio.ItemRemito;
-import dominio.Producto;
-import dominio.Remito;
-import dominio.Semielaborado;
+import entities.IngredienteEntity;
+import entities.ItemRemitoEntity;
+import entities.ProductoEntity;
+import entities.RemitoEntity;
+import entities.SemielaboradoEntity;
 
 public class DepositoService extends GenericService {
 	
@@ -23,12 +23,12 @@ private static DepositoService instance;
 	
 	public void generarRemito(){
 		openSession();
-		Remito remito = new Remito();
-		List<Semielaborado> Semielaborados = new SemielaboradoDao().ListarTodos();
-		for(Semielaborado Semielaborado : Semielaborados){
-			for(Ingrediente ingrediente : Semielaborado.getIngredientes()){
+		RemitoEntity remito = new RemitoEntity();
+		List<SemielaboradoEntity> Semielaborados = new SemielaboradoDao().ListarTodos();
+		for(SemielaboradoEntity Semielaborado : Semielaborados){
+			for(IngredienteEntity ingrediente : Semielaborado.getIngredientes()){
 				if(ingrediente.getStock().getCantidadActual()<=ingrediente.getStock().getPuntoDeReposicion()){
-					ItemRemito item=new ItemRemito();
+					ItemRemitoEntity item=new ItemRemitoEntity();
 					item.setCantidad(ingrediente.getStock().getPuntoDeReposicion());
 					item.setIngrediente(ingrediente);
 					java.util.Date fecha = new Date();
@@ -38,11 +38,11 @@ private static DepositoService instance;
 				}
 			}
 		}
-		List<Producto> productos = new ProductoDao().ListarTodos();
-		for(Producto Producto : productos){
-			for(Ingrediente ingrediente : Producto.getIngredientes()){
+		List<ProductoEntity> productos = new ProductoDao().ListarTodos();
+		for(ProductoEntity Producto : productos){
+			for(IngredienteEntity ingrediente : Producto.getIngredientes()){
 				if(ingrediente.getStock().getCantidadActual()<=ingrediente.getStock().getPuntoDeReposicion()){
-					ItemRemito item=new ItemRemito();
+					ItemRemitoEntity item=new ItemRemitoEntity();
 					item.setCantidad(ingrediente.getStock().getPuntoDeReposicion());
 					item.setIngrediente(ingrediente);
 					java.util.Date fecha = new Date();

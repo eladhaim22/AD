@@ -1,11 +1,12 @@
 package daos;
 
-import java.util.List;
-
-import dominio.Sector;
+import entities.SectorEntity;
 import hbt.GenericDao;
+import model.Sector;
 
-public class SectorDao extends GenericDao<Sector> {
+import java.util.stream.Collectors;
+
+public class SectorDao extends GenericDao<Sector,SectorEntity> {
 	
 	private static SectorDao dao;
 
@@ -14,5 +15,21 @@ public class SectorDao extends GenericDao<Sector> {
             dao = new SectorDao();
         }
         return dao;
+    }
+
+    @Override
+    public SectorEntity toEntity(Sector sector) {
+        return new SectorEntity(sector.getNumeroSector(),sector.getNombre(),
+                sector.getMesas().stream().map(mesa -> MesaDao.getDao().toEntity(mesa))
+                .collect(Collectors.toSet()),
+                sector.getCantMesas(),MozoDao.getDao().toEntity(sector.getMozoAsociado()));
+    }
+
+    @Override
+    public Sector toNegocio(SectorEntity sectorEntity) {
+        return new Sector(sectorEntity.getNumeroSector(),sectorEntity.getNombre(),
+                sectorEntity.getMesas().stream().map(mesa -> MesaDao.getDao().toNegocio(mesa))
+                        .collect(Collectors.toSet()),
+                sectorEntity.getCantMesas(),MozoDao.getDao().toNegocio(sectorEntity.getMozoAsociado()));
     }
 }

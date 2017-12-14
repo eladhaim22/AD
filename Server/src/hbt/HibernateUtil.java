@@ -2,7 +2,7 @@ package hbt;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
-import dominio.*;
+import entities.*;
 
 public class HibernateUtil {
     private static final SessionFactory sessionFactory;
@@ -11,40 +11,36 @@ public class HibernateUtil {
         try
         {
             AnnotationConfiguration config = new AnnotationConfiguration();
-            config.addAnnotatedClass(Area.class);
-            config.addAnnotatedClass(Cajero.class);
-            config.addAnnotatedClass(Carta.class);
-            config.addAnnotatedClass(Deposito.class);
-            config.addAnnotatedClass(Factura.class);
-            config.addAnnotatedClass(Ingrediente_Semielaborado.class);
-            config.addAnnotatedClass(IngredienteProducto.class);
-            config.addAnnotatedClass(ItemCarta.class);
-            config.addAnnotatedClass(ItemDeposito.class);
-            config.addAnnotatedClass(ItemPedido.class);
-            config.addAnnotatedClass(ItemPP.class);
-            config.addAnnotatedClass(Login.class);
-            config.addAnnotatedClass(Lote.class);
-            config.addAnnotatedClass(LoteProducto.class);
-            config.addAnnotatedClass(LoteSemielaborado.class);
-            config.addAnnotatedClass(Marca.class);
-            config.addAnnotatedClass(Mesa.class);
-            config.addAnnotatedClass(Mozo.class);
-            config.addAnnotatedClass(Pedido.class);
-            config.addAnnotatedClass(PlanDeProduccion.class);
-            config.addAnnotatedClass(Plato.class);
-            config.addAnnotatedClass(Presentacion.class);
-            config.addAnnotatedClass(Producto.class);
-            config.addAnnotatedClass(Proveedor.class);
-            config.addAnnotatedClass(Semielaborado.class);
-            config.addAnnotatedClass(Sector.class);
-            config.addAnnotatedClass(Sucursal.class);
-            config.addAnnotatedClass(Usuario.class);
-            config.addAnnotatedClass(RegistroCaja.class);
-            config.addAnnotatedClass(Liquidacion.class);
-            config.addAnnotatedClass(Remito.class);
-            config.addAnnotatedClass(ItemRemito.class);
-            config.addAnnotatedClass(Deposito.class);
-            config.addAnnotatedClass(Stock.class);
+            config.addAnnotatedClass(AreaEntity.class);
+            config.addAnnotatedClass(BarraEntity.class);
+            config.addAnnotatedClass(CafeteriaEntity.class);
+            config.addAnnotatedClass(CartaEntity.class);
+            config.addAnnotatedClass(CocinaEntity.class);
+            config.addAnnotatedClass(FacturaEntity.class);
+            config.addAnnotatedClass(IngredienteSemielaboradoEntity.class);
+            config.addAnnotatedClass(IngredienteEntity.class);
+            config.addAnnotatedClass(IngredienteProductoEntity.class);
+            config.addAnnotatedClass(ItemCartaEntity.class);
+            config.addAnnotatedClass(ItemFacturaEntity.class);
+            config.addAnnotatedClass(ComandaEntity.class);
+            config.addAnnotatedClass(ItemPPEntity.class);
+            config.addAnnotatedClass(ItemRemitoEntity.class);
+            config.addAnnotatedClass(LiquidacionEntity.class);
+            config.addAnnotatedClass(MarcaEntity.class);
+            config.addAnnotatedClass(MesaEntity.class);
+            config.addAnnotatedClass(MozoEntity.class);
+            config.addAnnotatedClass(PedidoEntity.class);
+            config.addAnnotatedClass(PlanDeProduccionEntity.class);
+            config.addAnnotatedClass(PlatoEntity.class);
+            config.addAnnotatedClass(PresentacionEntity.class);
+            config.addAnnotatedClass(ProductoEntity.class);
+            config.addAnnotatedClass(ProveedorEntity.class);
+            config.addAnnotatedClass(RegistroCajaEntity.class);
+            config.addAnnotatedClass(RemitoEntity.class);
+            config.addAnnotatedClass(SectorEntity.class);
+            config.addAnnotatedClass(SemielaboradoEntity.class);
+            config.addAnnotatedClass(StockEntity.class);
+            config.addAnnotatedClass(SucursalEntity.class);
             sessionFactory = config.buildSessionFactory();
         }
         catch (Throwable ex)

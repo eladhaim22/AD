@@ -1,6 +1,6 @@
 package mappers;
 
-import dominio.Plato;
+import entities.PlatoEntity;
 import dto.PlatoDto;
 
 public class PlatoMapper {
@@ -15,7 +15,7 @@ public class PlatoMapper {
 	        return mapper;
 	    }
 	 
-	 public PlatoDto ToDto(Plato Plato){
+	 public PlatoDto ToDto(PlatoEntity Plato){
 		 	PlatoDto PlatoDto = new PlatoDto();
 		 	PlatoDto.setPlatoId(Plato.getPlatoId());
 		 	PlatoDto.setNombre(Plato.getNombre());

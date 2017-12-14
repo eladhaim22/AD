@@ -5,11 +5,11 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 import java.util.Map;
 
+import daos.PedidoDao;
 import dto.CartaDto;
 import dto.FacturaDto;
 import dto.ItemCartaDto;
-import dto.ItemPedidoDto;
-import dto.LoginDto;
+import dto.ComandaDto;
 import dto.MesaDto;
 import dto.MozoDto;
 import dto.PedidoDto;
@@ -25,7 +25,6 @@ import service.MozoService;
 import service.PedidoService;
 import service.SectorService;
 import service.SucursalService;
-import service.UsuarioService;
 
 public class AdminstracionService extends UnicastRemoteObject implements IAdminstracionService {
 
@@ -76,8 +75,15 @@ public class AdminstracionService extends UnicastRemoteObject implements IAdmins
 		return PedidoService.getInstance().obtenerPedidoPorMesa(mesaId);
 	}
 
-	public void agregarItemPedido(int pedidoId, List<ItemPedidoDto> listItems) throws RemoteException {
-		PedidoService.getInstance().agregarItemPedido(pedidoId, listItems);
+	@Override
+	public void agregarComandas(int pedidoId, List<ComandaDto> comandas) throws RemoteException {
+
+	}
+
+	public void actualizarPedido(PedidoDto pedidoDto) throws RemoteException {
+		//PedidoDao.getDao().buscar(pedidoDto.getNumeroPedido());
+
+		//PedidoService.getInstance().agregarItemPedido(pedidoId, comandas);
 	}
 
 	public PedidoDto obtenerPedido(int pedidoId) throws RemoteException{
@@ -106,10 +112,6 @@ public class AdminstracionService extends UnicastRemoteObject implements IAdmins
 
 	public void registrarPagoFactura(int facturaId, String medioPago, int mesaId) throws RemoteException{
 		SucursalService.getInstance().registrarPagoFactura(facturaId, medioPago, mesaId);
-	}
-
-	public Boolean autenticarUsuario(LoginDto login) throws RemoteException {
-		return UsuarioService.getInstance().autenticarUsuario(login);
 	}
 
 	public List<MesaDto> obtenerMesas(int sucursal_id, int mozoId, int CantComensales) throws RemoteException {

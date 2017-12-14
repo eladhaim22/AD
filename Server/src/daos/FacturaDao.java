@@ -1,20 +1,13 @@
 package daos;
 
-import dominio.Deposito;
-import dominio.Factura;
-import dominio.Pedido;
+import entities.FacturaEntity;
 import hbt.GenericDao;
-import net.sourceforge.jtds.jdbc.DateTime;
+import model.Factura;
+import model.ItemFactura;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
-import java.util.Date;
-import java.util.List;
+import java.util.stream.Collectors;
 
-import org.hibernate.Query;
-
-public class FacturaDao extends GenericDao<Factura> {
+public class FacturaDao extends GenericDao<Factura,FacturaEntity> {
 
 	private static FacturaDao dao;
 
@@ -25,9 +18,21 @@ public class FacturaDao extends GenericDao<Factura> {
         return dao;
     }
     
-	public Factura buscarNumeroPedido(Integer numeroPedido) {
-		Factura factura = (Factura) getHibernateTemplate().createQuery("select F from Pedido P join P.factura F where P.numeroPedido = :numeroPedido").setInteger("numeroPedido",numeroPedido ).uniqueResult();
+	public FacturaEntity buscarNumeroPedido(Integer numeroPedido) {
+		FacturaEntity factura = (FacturaEntity) getHibernateTemplate().createQuery("select F from Pedido P join P.factura F where P.numeroPedido = :numeroPedido").setInteger("numeroPedido",numeroPedido ).uniqueResult();
 		return factura;
 	}
 
+
+    public FacturaEntity toEntity(Factura factura) {
+        return new FacturaEntity(factura.getNumeroFactura(),factura.getFecha(),factura.getMonto(),factura.getMedioPago(),factura.isPagado(),factura.getItemsFactura().stream().map(itemFactura ->
+                ItemFacturaDao.getDao().toEntity(itemFactura)).collect(Collectors.toSet())
+        );
+    }
+
+    public Factura toNegocio(FacturaEntity facturaEntity) {
+        return new Factura(facturaEntity.getNumeroFactura(),facturaEntity.getFecha(),facturaEntity.getMonto(),facturaEntity.getMedioPago(),facturaEntity.isPagado(),facturaEntity.getItemsFactura().stream().map(itemFactura ->
+                ItemFacturaDao.getDao().toNegocio(itemFactura)).collect(Collectors.toSet())
+        );
+    }
 }

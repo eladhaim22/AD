@@ -1,6 +1,6 @@
 package mappers;
 
-import dominio.Pedido;
+import entities.PedidoEntity;
 import dto.PedidoDto;
 
 public class PedidoMapper {
@@ -15,7 +15,7 @@ public class PedidoMapper {
 	        return mapper;
 	    }
 	 
-	 public PedidoDto ToDto(Pedido Pedido){
+	 public PedidoDto ToDto(PedidoEntity Pedido){
 		 	dto.PedidoDto PedidoDto = new PedidoDto();
 		 	PedidoDto.setNumeroPedido(Pedido.getNumeroPedido());
 		 	PedidoDto.setCantComensales(Pedido.getCantComensales());

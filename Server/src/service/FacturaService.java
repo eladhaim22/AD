@@ -2,11 +2,10 @@ package service;
 
 import java.util.Date;
 
-import daos.FacturaDao;
 import daos.PedidoDao;
-import dominio.Factura;
-import dominio.ItemPedido;
-import dominio.Pedido;
+import entities.FacturaEntity;
+import entities.ComandaEntity;
+import entities.PedidoEntity;
 
 public class FacturaService extends GenericService {
 	
@@ -20,12 +19,12 @@ private static FacturaService instance;
 
 	public void generarFactura(int mesaId) {
 		openSession();
-		Pedido p;
+		PedidoEntity p;
 		p = PedidoDao.getDao().buscarPorMesa(mesaId);
-		Factura f = new Factura();
+		FacturaEntity f = new FacturaEntity();
 		f.setFecha(new Date());
 		float monto = 0;
-		for(ItemPedido ip : p.getItems())
+		for(ComandaEntity ip : p.getComandas())
 		{
 			monto =+ ip.getItem().getPrecio()*ip.getCantidad();
 		}

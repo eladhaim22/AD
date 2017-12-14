@@ -1,9 +1,10 @@
 package daos;
 
-import dominio.Marca;
+import entities.MarcaEntity;
 import hbt.GenericDao;
+import model.Marca;
 
-public class MarcaDao extends GenericDao<Marca> {
+public class MarcaDao extends GenericDao<Marca,MarcaEntity> {
 	
 	private static MarcaDao dao;
 
@@ -12,5 +13,15 @@ public class MarcaDao extends GenericDao<Marca> {
             dao = new MarcaDao();
         }
         return dao;
+    }
+
+    @Override
+    public MarcaEntity toEntity(Marca marca) {
+        return new MarcaEntity(marca.getId(),marca.getNombre(),marca.getNivel(),marca.getComentarios());
+    }
+
+    @Override
+    public Marca toNegocio(MarcaEntity marcaEntity) {
+        return new Marca(marcaEntity.getId(),marcaEntity.getNombre(),marcaEntity.getNivel(),marcaEntity.getComentarios());
     }
 }

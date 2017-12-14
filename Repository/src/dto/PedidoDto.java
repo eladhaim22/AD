@@ -1,19 +1,45 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class PedidoDto implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
 	private Integer numeroPedido;
+
+	private Integer mozoId;
 	
 	private Integer cantComensales;
 	
 	private Date FechaApertura;
 
 	private Date FechaCierre;
+
+	private Integer mesaId;
+
+	private List<ComandaDto> comandas = new ArrayList<>();
+
+	private FacturaDto factura;
+
+	public Integer getNumeroPedido() {
+		return numeroPedido;
+	}
+
+	public void setNumeroPedido(Integer numeroPedido) {
+		this.numeroPedido = numeroPedido;
+	}
+
+	public Integer getMozoId() {
+		return mozoId;
+	}
+
+	public void setMozoId(Integer mozoId) {
+		this.mozoId = mozoId;
+	}
 
 	public Integer getCantComensales() {
 		return cantComensales;
@@ -39,13 +65,27 @@ public class PedidoDto implements Serializable{
 		FechaCierre = fechaCierre;
 	}
 
-	public Integer getNumeroPedido() {
-		return numeroPedido;
+	public Integer getMesaId() {
+		return mesaId;
 	}
 
-	public void setNumeroPedido(Integer numeroPedido) {
-		this.numeroPedido = numeroPedido;
+	public void setMesaId(Integer mesaId) {
+		this.mesaId = mesaId;
 	}
 
-	
+	public List<ComandaDto> getComandas() {
+		return comandas;
+	}
+
+	public void setComandas(List<ComandaDto> comandas) {
+		this.comandas = comandas;
+	}
+
+	public FacturaDto getFactura() {
+		return factura;
+	}
+
+	public void setFactura(FacturaDto factura) {
+		this.factura = factura;
+	}
 }

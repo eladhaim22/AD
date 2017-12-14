@@ -1,6 +1,6 @@
 package mappers;
 
-import dominio.Mozo;
+import entities.MozoEntity;
 import dto.MozoDto;
 
 public class MozoMapper {
@@ -15,9 +15,9 @@ public class MozoMapper {
 	        return mapper;
 	    }
 	 
-	 public MozoDto ToDto(Mozo Mozo){
+	 public MozoDto ToDto(MozoEntity Mozo){
 		 	MozoDto MozoDto = new MozoDto();
-		 	MozoDto.setNroUsuario(Mozo.getNroUsuario());
+		 	MozoDto.setId(Mozo.getId());
 		 	MozoDto.setNombre(Mozo.getNombre());
 		 	MozoDto.setPorcComision(Mozo.getPorcComision());
 		 	MozoDto.setTipo("Mozo");

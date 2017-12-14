@@ -1,13 +1,14 @@
 package service;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import daos.PedidoDao;
-import dominio.ItemCarta;
-import dominio.ItemPedido;
-import dominio.Pedido;
-import dto.ItemPedidoDto;
+import entities.ItemCartaEntity;
+import entities.ComandaEntity;
+import entities.PedidoEntity;
+import dto.ComandaDto;
 import dto.PedidoDto;
 import mappers.PedidoMapper;
 
@@ -23,30 +24,31 @@ public class PedidoService extends GenericService{
 
 	public PedidoDto obtenerPedidoPorMesa(int mesaId) {
 		openSession();
-		Pedido pedido = PedidoDao.getDao().buscarPorMesa(mesaId);
+		PedidoEntity pedido = PedidoDao.getDao().buscarPorMesa(mesaId);
 		PedidoDto pedidoDto = PedidoMapper.getMapper().ToDto(pedido);
 		commitAndCloseSession();
 		return pedidoDto;
 	}
 
-	public void agregarItemPedido(int pedidoId, List<ItemPedidoDto> listItems) {
+	public void agregarItemPedido(int pedidoId, List<ComandaDto> listItems) {
 		openSession();
-		Pedido p = PedidoDao.getDao().Buscar(pedidoId);
-		
-		List<ItemPedido> list = new ArrayList<ItemPedido>();
-		for(ItemPedidoDto i : listItems)
+		PedidoEntity p = PedidoDao.getDao().buscar(pedidoId);
+		p.getComandas().clear();
+		Set<ComandaEntity> comandas = new HashSet<ComandaEntity>();
+		for(ComandaDto i : listItems)
 		{
-			ItemPedido ip = new ItemPedido();
-			ItemCarta ic = new ItemCarta();
-			
+			ComandaEntity ip = new ComandaEntity();
+			ItemCartaEntity ic = new ItemCartaEntity();
+
+
 			ic.setItemCartaId(i.getItem().getItemCartaId());
 			ip.setItem(ic);
 			ip.setCantidad(i.getCantidad());
 			
-			list.add(ip);
+			comandas.add(ip);
 		}
 		
-		p.setItems(list);
+		p.setComandas(comandas);
 		
 		PedidoDao.getDao().Actualizar(p);
 		commitAndCloseSession();
@@ -54,7 +56,7 @@ public class PedidoService extends GenericService{
 
 	public PedidoDto obtenerPedido(int pedidoId) {
 		openSession();
-		PedidoDto pedidoDto = PedidoMapper.getMapper().ToDto(PedidoDao.getDao().Buscar(pedidoId));
+		PedidoDto pedidoDto = PedidoMapper.getMapper().ToDto(PedidoDao.getDao().buscar(pedidoId));
 		commitAndCloseSession();
 		return pedidoDto;
 	}	

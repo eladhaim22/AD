@@ -2,25 +2,15 @@ package service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-import daos.FacturaDao;
-import daos.LiquidacionDao;
 import daos.MesaDao;
-import daos.PedidoDao;
 import daos.RegistroCajaDao;
 import daos.SucursalDao;
-import dominio.Liquidacion;
-import dominio.Mesa;
-import dominio.Mozo;
-import dominio.Pedido;
-import dominio.RegistroCaja;
-import dominio.Sucursal;
+import entities.MesaEntity;
+import entities.RegistroCajaEntity;
+import entities.SucursalEntity;
 
 public class CajaService extends GenericService {
 	
@@ -39,12 +29,12 @@ public class CajaService extends GenericService {
 		Double valorEsperado = null;
 		Instant instant = Instant.now().truncatedTo(ChronoUnit.DAYS);
 		Date date = Date.from(instant);
-		RegistroCaja registroCaja = RegistroCajaDao.getDao().getByDate(date, sucursalId);
+		RegistroCajaEntity registroCaja = RegistroCajaDao.getDao().getByDate(date, sucursalId);
 		if(registroCaja == null) {
-			List<Mesa> mesas = MesaDao.getDao().obtenerMesasPorSucursal(sucursalId);
-			Sucursal sucurasl = SucursalDao.getDao().Buscar(sucursalId);
+			List<MesaEntity> mesas = MesaDao.getDao().obtenerMesasPorSucursal(sucursalId);
+			SucursalEntity sucurasl = SucursalDao.getDao().buscar(sucursalId);
 			valorEsperado = RegistroCajaDao.getDao().calcualrValorCajaEsperado(mesas);
-			registroCaja = new RegistroCaja();
+			registroCaja = new RegistroCajaEntity();
 			registroCaja.setDate(date);
 			registroCaja.setSucursal(sucurasl);
 			registroCaja.setValorCaja(dineroEnCaja);

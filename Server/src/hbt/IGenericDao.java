@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IGenericDao<Entidad> {
 
-    Entidad Buscar(int index);
+    Entidad buscar(int index);
 
     void Actualizar(Entidad t);
 

@@ -4,9 +4,9 @@ import java.util.List;
 
 import daos.PlanDeProduccionDao;
 import daos.SemielaboradoDao;
-import dominio.ItemPP;
-import dominio.PlanDeProduccion;
-import dominio.Semielaborado;
+import entities.ItemPPEntity;
+import entities.PlanDeProduccionEntity;
+import entities.SemielaboradoEntity;
 
 public class PlanDeProduccionService extends GenericService {
 
@@ -22,15 +22,15 @@ public class PlanDeProduccionService extends GenericService {
 	public void controlarPlanDeEjecucionPorSucursal(int sucursalId, int cantidad, int semielaboradoId){
 		openSession();
 		PlanDeProduccionDao planDao= new PlanDeProduccionDao();
-		List<PlanDeProduccion> planes = planDao.obtenerPorSucursal(sucursalId);
+		List<PlanDeProduccionEntity> planes = planDao.obtenerPorSucursal(sucursalId);
 		int SemiElaboradosProducidos=0;
-		for(PlanDeProduccion plan : planes){
-			for(ItemPP item : plan.getItems()){
+		for(PlanDeProduccionEntity plan : planes){
+			for(ItemPPEntity item : plan.getItems()){
 				SemiElaboradosProducidos=SemiElaboradosProducidos+item.getCantidad();
 			}
 			if(SemiElaboradosProducidos >= plan.getObjetivo() * 0.6){
-				Semielaborado semiElaborado = new SemielaboradoDao().Buscar(semielaboradoId);
-				ItemPP item = new ItemPP();
+				SemielaboradoEntity semiElaborado = new SemielaboradoDao().buscar(semielaboradoId);
+				ItemPPEntity item = new ItemPPEntity();
 				item.setCantidad(cantidad);
 				item.setSemielaborado(semiElaborado);
 				item.setFinalizado_flag(false);

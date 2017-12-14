@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import BusinessDelgate.BusinessDelegate;
 import Exceptions.ServiceError;
+import dto.ComandaDto;
 import dto.ItemCartaDto;
-import dto.ItemPedidoDto;
 import excepciones.AgregarItemPedidoException;
 import excepciones.LookupException;
 import excepciones.ObtenerPedidoException;
@@ -44,10 +44,10 @@ public class CargarPlatos extends HttpServlet {
 		String cantidades = request.getParameter("hddItemsCants");
 		int pedidoId = Integer.parseInt(request.getParameter("hddPedidoId"));
 
-		List<ItemPedidoDto> listItems = new ArrayList<ItemPedidoDto>();
+		List<ComandaDto> listItems = new ArrayList<ComandaDto>();
 		for (int i = 0; i < itemsIds.split(",").length; i++) {
 			ItemCartaDto vo = new ItemCartaDto();
-			ItemPedidoDto voPedido = new ItemPedidoDto();
+			ComandaDto voPedido = new ComandaDto();
 
 			ItemCartaDto ic;
 			try {
@@ -66,7 +66,7 @@ public class CargarPlatos extends HttpServlet {
 		}
 
 		try {
-			BusinessDelegate.getInstance().agregarItemPedido(pedidoId, listItems);
+			BusinessDelegate.getInstance().agregarComanda(pedidoId, listItems);
 		} catch (ServiceError e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

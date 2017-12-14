@@ -3,11 +3,10 @@ package service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import daos.MesaDao;
-import dominio.Mesa;
+import entities.MesaEntity;
 import dto.MesaDto;
 import mappers.MesaMapper;
 
@@ -23,12 +22,12 @@ public class MesaService extends GenericService {
 	
 	public List<MesaDto> obtenerMesasDisponibles(int sucursal_id, int mozoId, int cantComensales) {
 		openSession();
-		List<Mesa> Mesas = MesaDao.getDao().ListarMesasDisponibles(sucursal_id,mozoId,cantComensales);
-		Mesas = Mesas.stream().sorted(Comparator.comparing(Mesa::getCapacidad)).collect(Collectors.toList());
+		List<MesaEntity> Mesas = MesaDao.getDao().ListarMesasDisponibles(sucursal_id,mozoId,cantComensales);
+		Mesas = Mesas.stream().sorted(Comparator.comparing(MesaEntity::getCapacidad)).collect(Collectors.toList());
 		List<MesaDto> MesasDto = new ArrayList<MesaDto>();
 		
 		if(Mesas.size()>0){
-			for(Mesa m :Mesas){
+			for(MesaEntity m :Mesas){
 				MesaDto MesaDto = MesaMapper.getMapper().ToDto(m);
 				MesasDto.add(MesaDto);
 			}
@@ -39,7 +38,7 @@ public class MesaService extends GenericService {
 
 	public void cerrarMesa(int mesaId) {
 		openSession();
-		Mesa m = MesaDao.getDao().Buscar(mesaId);
+		MesaEntity m = MesaDao.getDao().buscar(mesaId);
 		if(m!=null)
 		{
 			m.setEmpty(true);

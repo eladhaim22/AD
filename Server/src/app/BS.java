@@ -5,8 +5,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 import controller.AdminstracionService;
-import daos.MesaDao;
-import dominio.Mesa;
 import remoto.IAdminstracionService;
 
 public class BS {

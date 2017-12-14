@@ -1,6 +1,6 @@
 package mappers;
 
-import dominio.Mesa;
+import entities.MesaEntity;
 import dto.MesaDto;
 
 public class MesaMapper {
@@ -14,7 +14,7 @@ public class MesaMapper {
         return mapper;
     }
 
-    public MesaDto ToDto(Mesa mesa){
+    public MesaDto ToDto(MesaEntity mesa){
         MesaDto mesaDto = new MesaDto();
         mesaDto.setId(mesa.getMesaId());
         mesaDto.setCapacidad(mesa.getCapacidad());

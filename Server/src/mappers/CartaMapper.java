@@ -1,6 +1,6 @@
 package mappers;
 
-import dominio.Carta;
+import entities.CartaEntity;
 import dto.CartaDto;
 
 
@@ -15,7 +15,7 @@ public class CartaMapper {
 	        return mapper;
 	    }
 	 
-	 public CartaDto ToDto(Carta Carta){
+	 public CartaDto ToDto(CartaEntity Carta){
 		 	CartaDto CartaDto = new CartaDto();
 		 	CartaDto.setCartaId(Carta.getCartaId());
 		 	CartaDto.setNombre(Carta.getNombre());

@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import dto.CartaDto;
+import dto.ComandaDto;
 import dto.FacturaDto;
 import dto.ItemCartaDto;
-import dto.ItemPedidoDto;
 import dto.LoginDto;
 import dto.MesaDto;
 import dto.MozoDto;
@@ -27,7 +27,7 @@ public interface IAdminstracionService extends Remote {
 	List<MesaDto> obtenerMesasAbiertaPorSucursal(int sucursalId) throws RemoteException;
 	List<MesaDto> obtenerMesasDisponibles(int sucursal_id, int mozoId, int cantComensales) throws RemoteException;
 	PedidoDto obtenerPedidoPorMesa(int mesaId) throws RemoteException;
-	void agregarItemPedido(int pedidoId, List<ItemPedidoDto> listItems) throws RemoteException;
+	void agregarComandas(int pedidoId, List<ComandaDto> comandas) throws RemoteException;
 	PedidoDto obtenerPedido(int pedidoId) throws RemoteException;
 	List<SectorDto> obtenerSectores() throws RemoteException;
 	List<SucursalDto> obtenerSucursales() throws RemoteException;
@@ -36,7 +36,6 @@ public interface IAdminstracionService extends Remote {
 	List<MesaDto> getMesasImpagas(int sucursalId, int mozoId) throws RemoteException;
 	FacturaDto getDatosFactura(int mesaId) throws RemoteException;
 	void registrarPagoFactura(int facturaId, String medioPago, int mesaId) throws RemoteException;
-	Boolean autenticarUsuario(LoginDto login) throws RemoteException;
 	Map<String,Double> calcularComissionEnSucursal(int sucursalId) throws RemoteException;
 	Double cerrarCaja(int sucursalId,double dineroEnCaja) throws RemoteException;
 	void generarRemito() throws RemoteException;

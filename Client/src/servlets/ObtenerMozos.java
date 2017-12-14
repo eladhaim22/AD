@@ -87,7 +87,7 @@ public class ObtenerMozos extends HttpServlet {
 					"<select name=\"cbMozo\" id=\"comboMozos\" size=\"1\">\n";
 									    
 			    	for (MozoDto a : lista) {
-			    		HTML=HTML + "<option value=\"" + a.getNroUsuario() + "\">\n" +
+			    		HTML=HTML + "<option value=\"" + a.getId() + "\">\n" +
 				            a.getNombre() +					            
 				            "</option>\n";
 			    	}					    

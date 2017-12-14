@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import daos.CartaDao;
-import dominio.Carta;
-import dominio.ItemCarta;
+import entities.CartaEntity;
+import entities.ItemCartaEntity;
 import dto.CartaDto;
 import dto.ItemCartaDto;
 import mappers.CartaMapper;
@@ -23,11 +23,11 @@ public class CartaService extends GenericService{
 
 	public List<CartaDto> obtenerCartasPorSucursal(int sucursalId) {
 		openSession();
-		List<Carta> cartas = new CartaDao().obtenerCartasPorSucursal(sucursalId);
+		List<CartaEntity> cartas = new CartaDao().obtenerCartasPorSucursal(sucursalId);
 		List<CartaDto> cartasDto = new ArrayList<CartaDto>();
 		CartaMapper map = new CartaMapper();
 		
-		for(Carta c : cartas){
+		for(CartaEntity c : cartas){
 			cartasDto.add(map.ToDto(c));
 		}
 		commitAndCloseSession();
@@ -36,10 +36,10 @@ public class CartaService extends GenericService{
 
 	public List<ItemCartaDto> obtenerItemCarta(int cartaId) {
 		openSession();
-		List<ItemCarta> items = CartaDao.getDao().obtenerItemCarta(cartaId);
+		List<ItemCartaEntity> items = CartaDao.getDao().obtenerItemCarta(cartaId);
 		List<ItemCartaDto> itemsDto = new ArrayList<ItemCartaDto>();
 		
-		for(ItemCarta i : items){
+		for(ItemCartaEntity i : items){
 			itemsDto.add(ItemCartaMapper.getMapper().ToDto(i));
 		}
 		commitAndCloseSession();
@@ -48,7 +48,7 @@ public class CartaService extends GenericService{
 
 	public ItemCartaDto obtenerItemCartaById(int id) {
 		openSession();
-		ItemCarta item = CartaDao.getDao().obtenerItemCartaById(id);
+		ItemCartaEntity item = CartaDao.getDao().obtenerItemCartaById(id);
 		ItemCartaDto itemCartaDto = ItemCartaMapper.getMapper().ToDto(item);
 		commitAndCloseSession();
 		return itemCartaDto;

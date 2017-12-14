@@ -1,9 +1,9 @@
 package BusinessDelgate;
 
 import dto.CartaDto;
+import dto.ComandaDto;
 import dto.FacturaDto;
 import dto.ItemCartaDto;
-import dto.ItemPedidoDto;
 import dto.LoginDto;
 import dto.MesaDto;
 import dto.MozoDto;
@@ -66,15 +66,7 @@ public class BusinessDelegate {
 			throw new ServiceError(e.getMessage());
 		}	
     }
-    
-    public Boolean autenticarUsuario(LoginDto login) throws ServiceError {
-		try {
-			getStub();
-			return administracionService.autenticarUsuario(login);
-		} catch (RemoteException e) {
-			throw new ServiceError(e.getMessage());
-		}	
-	}
+   
     
     public List<MozoDto> obtenerMozos(int sucursalId) throws ServiceError{
 		try {
@@ -159,9 +151,9 @@ public class BusinessDelegate {
 		}	
 	}
 
-	public void agregarItemPedido(int pedidoId, List<ItemPedidoDto> listItems) throws  ServiceError {
+	public void agregarComanda(int pedidoId, List<ComandaDto> comandas) throws  ServiceError {
     	try{
-    		administracionService.agregarItemPedido(pedidoId,listItems);
+    		administracionService.agregarComandas(pedidoId,comandas);
     	} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
 		}	

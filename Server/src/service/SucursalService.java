@@ -10,11 +10,8 @@ import daos.MesaDao;
 import daos.MozoDao;
 import daos.PedidoDao;
 import daos.SucursalDao;
-import dominio.Factura;
-import dominio.Mesa;
-import dominio.Mozo;
-import dominio.Pedido;
-import dominio.Sucursal;
+import entities.*;
+import entities.PedidoEntity;
 import dto.FacturaDto;
 import dto.MesaDto;
 import dto.MozoDto;
@@ -38,13 +35,13 @@ public class SucursalService extends GenericService{
 	
 	public List<MozoDto> obtenerMozos(int sucursal_id) {
 		openSession();
-		List<Mozo> Mozos = MozoDao.getDao().obtenerMozosSucursal(sucursal_id);
+		List<MozoEntity> Mozos = MozoDao.getDao().obtenerMozosSucursal(sucursal_id);
 		
 		List<MozoDto> MozosDto = new ArrayList<MozoDto>();
 		
 		
 		if(Mozos.size()>0){
-			for(Mozo m :Mozos){
+			for(MozoEntity m :Mozos){
 				MozoDto MozoDto = MozoMapper.getMapper().ToDto(m);
 				MozosDto.add(MozoDto);
 			}
@@ -56,11 +53,11 @@ public class SucursalService extends GenericService{
 	
 	public List<MesaDto> obtenerMesasAbiertaPorSucursal(int sucursalId) {
 		openSession();
-		List<Mesa> mesas = new MesaDao().obtenerMesasAbiertaPorSucursal(sucursalId);
+		List<MesaEntity> mesas = new MesaDao().obtenerMesasAbiertaPorSucursal(sucursalId);
 		List<MesaDto> mesasDto = new ArrayList<MesaDto>();
 		MesaMapper map = new MesaMapper();
 		
-		for(Mesa m : mesas){
+		for(MesaEntity m : mesas){
 			mesasDto.add(map.ToDto(m));
 		}
 
@@ -70,7 +67,7 @@ public class SucursalService extends GenericService{
 
 	public void agregarSucursal(SucursalDto s){
 		openSession();
-		Sucursal sucursal = new Sucursal();
+		SucursalEntity sucursal = new SucursalEntity();
 		sucursal.setDireccion(s.getDireccion());
 		sucursal.setEmail(s.getEmail());
 		sucursal.setNombre(s.getNombre());
@@ -83,12 +80,12 @@ public class SucursalService extends GenericService{
 	
 	public PedidoDto confirmarAperturaMesa(int mesaId, int cantComensales, int mozoId){
 		openSession();
-		Mesa mesaAsignada = MesaDao.getDao().Buscar(mesaId);		
-		Pedido nuevoPedido = new Pedido();
+		MesaEntity mesaAsignada = MesaDao.getDao().buscar(mesaId);
+		PedidoEntity nuevoPedido = new PedidoEntity();
 		nuevoPedido.setCantComensales(cantComensales);
 		nuevoPedido.setFechaApertura(new Date(System.currentTimeMillis()));
 		nuevoPedido.setMesaAsociada(mesaAsignada);
-		Mozo mozo = MozoDao.getDao().Buscar(mozoId);
+		MozoEntity mozo = MozoDao.getDao().buscar(mozoId);
 		nuevoPedido.setMozo(mozo);
 		mesaAsignada.setEmpty(false);
 		mesaAsignada.setEstaPago(false);
@@ -101,12 +98,12 @@ public class SucursalService extends GenericService{
 	
 	public List<MesaDto> getMesasImpagas(int sucursalId, int mozoId){
 		openSession();
-		List<Mesa> mesasImpagas = MesaDao.getDao().buscarMesasImpagas(sucursalId, mozoId);
+		List<MesaEntity> mesasImpagas = MesaDao.getDao().buscarMesasImpagas(sucursalId, mozoId);
 		
 		List<MesaDto> MesasDto = new ArrayList<MesaDto>();
 		
 		if(mesasImpagas.size()>0){
-			for(Mesa m :mesasImpagas){
+			for(MesaEntity m :mesasImpagas){
 				MesaDto MesaDto = MesaMapper.getMapper().ToDto(m);
 				MesasDto.add(MesaDto);
 			}
@@ -119,8 +116,8 @@ public class SucursalService extends GenericService{
 	
 	public FacturaDto getDatosFactura(int mesaId){
 		openSession();
-		Pedido pedidoEncontrado = PedidoDao.getDao().buscarPorMesa(mesaId);
-		Factura facturaEncontrada = FacturaDao.getDao().buscarNumeroPedido(pedidoEncontrado.getNumeroPedido());
+		PedidoEntity pedidoEncontrado = PedidoDao.getDao().buscarPorMesa(mesaId);
+		FacturaEntity facturaEncontrada = FacturaDao.getDao().buscarNumeroPedido(pedidoEncontrado.getNumeroPedido());
 		
 		FacturaDto facturaDto = FacturaMapper.getMapper().ToDto(facturaEncontrada);
 		commitAndCloseSession();
@@ -129,16 +126,16 @@ public class SucursalService extends GenericService{
 	
 	public void registrarPagoFactura(int facturaId, String medioPago, int mesaId){
 		openSession();
-		Factura facturaEncontrada = FacturaDao.getDao().Buscar(facturaId);
+		FacturaEntity facturaEncontrada = FacturaDao.getDao().buscar(facturaId);
 		facturaEncontrada.setMedioPago(medioPago);
 		facturaEncontrada.setPagado(true);
 		FacturaDao.getDao().Actualizar(facturaEncontrada);
 		
-		Pedido pedidoEncontrado = PedidoDao.getDao().buscarPorMesa(mesaId);
+		PedidoEntity pedidoEncontrado = PedidoDao.getDao().buscarPorMesa(mesaId);
 		pedidoEncontrado.setFechaCierre(new Date(System.currentTimeMillis()));
 		PedidoDao.getDao().Actualizar(pedidoEncontrado);
 		
-		Mesa mesaEncontrada = MesaDao.getDao().Buscar(mesaId);
+		MesaEntity mesaEncontrada = MesaDao.getDao().buscar(mesaId);
 		mesaEncontrada.setEmpty(true);
 		mesaEncontrada.setEstaPago(true);
 		MesaDao.getDao().Actualizar(mesaEncontrada);
@@ -148,10 +145,10 @@ public class SucursalService extends GenericService{
 
 	public List<SucursalDto> obtenerSucursales() throws RemoteException {
 		openSession();
-		List<Sucursal> sucursales = SucursalDao.getDao().ListarTodos();
+		List<SucursalEntity> sucursales = SucursalDao.getDao().ListarTodos();
 		List<SucursalDto> sucursalesDto = new ArrayList<SucursalDto>();
 		if(sucursales.size()>0){
-			for(Sucursal s :sucursales){
+			for(SucursalEntity s :sucursales){
 				SucursalDto sucursalDto = SucursalMapper.getMapper().ToDto(s);
 				sucursalesDto.add(sucursalDto);
 			}
