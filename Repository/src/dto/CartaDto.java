@@ -1,7 +1,9 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class CartaDto implements Serializable{
 	
@@ -11,6 +13,7 @@ public class CartaDto implements Serializable{
 	private String nombre;
 	private Date fechaInicio;
 	private Date fechaFinal;
+	private List<ItemCartaDto> itemCartaDtos = new ArrayList<>();
 	public Integer getCartaId() {
 		return cartaId;
 	}
@@ -36,7 +39,11 @@ public class CartaDto implements Serializable{
 		this.fechaFinal = fechaFinal;
 	}
 
-	
-	
+	public List<ItemCartaDto> getItemCartaDtos() {
+		return itemCartaDtos;
+	}
 
+	public void setItemCartaDtos(List<ItemCartaDto> itemCartaDtos) {
+		this.itemCartaDtos = itemCartaDtos;
+	}
 }

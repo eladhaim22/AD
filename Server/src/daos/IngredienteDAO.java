@@ -2,7 +2,6 @@ package daos;
 
 import entities.*;
 import entities.IngredienteProductoEntity;
-import hbt.GenericDao;
 import model.*;
 
 public class IngredienteDAO extends GenericDao<Ingrediente, IngredienteEntity>{

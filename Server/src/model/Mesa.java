@@ -1,5 +1,8 @@
 package model;
 
+import daos.MesaDao;
+import dto.MesaDto;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -58,4 +61,17 @@ public class Mesa{
 		this.estaPago = estaPago;
 	}
 
+	public void save(){
+		MesaDao.getDao().save(this);
+	}
+
+	public MesaDto toDto(){
+		MesaDto mesaDto = new MesaDto();
+		mesaDto.setId(this.getMesaId());
+		mesaDto.setCapacidad(this.getCapacidad());
+		mesaDto.setEmpty(this.isEmpty());
+		mesaDto.setNumero(this.getNumeroMesa());
+		mesaDto.setEmpty(this.isEstaPago());
+		return mesaDto;
+	}
 }

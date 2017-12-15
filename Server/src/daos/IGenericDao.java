@@ -1,4 +1,4 @@
-package  hbt;
+package daos;
 
 import org.hibernate.HibernateException;
 

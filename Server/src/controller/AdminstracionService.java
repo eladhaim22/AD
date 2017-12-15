@@ -2,10 +2,10 @@ package controller;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
-import daos.PedidoDao;
+import daos.*;
 import dto.CartaDto;
 import dto.FacturaDto;
 import dto.ItemCartaDto;
@@ -15,15 +15,10 @@ import dto.MozoDto;
 import dto.PedidoDto;
 import dto.SectorDto;
 import dto.SucursalDto;
+import model.*;
 import remoto.IAdminstracionService;
-import service.CajaService;
-import service.CartaService;
 import service.DepositoService;
-import service.FacturaService;
-import service.MesaService;
 import service.MozoService;
-import service.PedidoService;
-import service.SectorService;
 import service.SucursalService;
 
 public class AdminstracionService extends UnicastRemoteObject implements IAdminstracionService {
@@ -43,36 +38,58 @@ public class AdminstracionService extends UnicastRemoteObject implements IAdmins
 
 	}
 	public ItemCartaDto obtenerItemCartaById(int id) throws RemoteException {
-		return CartaService.getInstance().obtenerItemCartaById(id);
+		return ItemCartaDao.getDao().obtenerItemCartaById(id).toDto();
 	}
 
-	public List<ItemCartaDto> obtenerItemCarta(int cartaId) throws RemoteException {
-		return CartaService.getInstance().obtenerItemCarta(cartaId);
+	public CartaDto obtenerCartaPorId(int cartaId) throws RemoteException {
+		return CartaDao.getDao().buscar(cartaId).toDto();
 	}
 
 	public List<CartaDto> obtenerCartasPorSucursal(int sucursalId) throws RemoteException {
-		return CartaService.getInstance().obtenerCartasPorSucursal(sucursalId);
+		return CartaDao.getDao().obtenerCartasPorSucursal(sucursalId).stream()
+				.map(carta -> carta.toDto()).collect(Collectors.toList());
 	}
 
 	public void generarFactura(int mesaId) throws RemoteException {
-		FacturaService.getInstance().generarFactura(mesaId);
+		Pedido pedido = PedidoDao.getDao().buscarPorMesa(mesaId);
+		Set<ItemFactura> itemFacturas = new HashSet<>();
+		itemFacturas = pedido.getComandas().stream().map(comanda ->
+			new ItemFactura(){{
+				setCantidad(comanda.getCantidad());
+				setNombrePlato(comanda.getItem().getPlatoAsociado().getNombre());
+				setPrecio(comanda.getItem().getPrecio());
+			}}
+		).collect(Collectors.toSet());
+		Factura factura = new Factura();
+		factura.setItemsFactura(itemFacturas);
+		factura.setFecha(new Date());
+		factura.calcularFactura();
+		pedido.setFactura(factura);
+		pedido.save();
 	}
 
 	public void cerrarMesa(int mesaId) throws RemoteException {
-		MesaService.getInstance().cerrarMesa(mesaId);
+		Mesa m = MesaDao.getDao().buscar(mesaId);
+		if(m!=null)
+		{
+			m.setEmpty(true);
+		}
+		m.save();
 	}
 
 	public List<MesaDto> obtenerMesasAbiertaPorSucursal(int sucursalId) throws RemoteException {
-		return SucursalService.getInstance().obtenerMesasAbiertaPorSucursal(sucursalId);
+		return MesaDao.getDao().obtenerMesasAbiertaPorSucursal(sucursalId)
+				.stream().map(mesa -> mesa.toDto()).collect(Collectors.toList());
 	}
 
 	public List<MesaDto> obtenerMesasDisponibles(int sucursal_id, int mozoId, int cantComensales)
 			throws RemoteException {
-		return MesaService.getInstance().obtenerMesasDisponibles(sucursal_id, mozoId, cantComensales);
+		return MesaDao.getDao().ListarMesasDisponibles(sucursal_id, mozoId, cantComensales)
+				.stream().map(mesa -> mesa.toDto()).collect(Collectors.toList());
 	}
 
 	public PedidoDto obtenerPedidoPorMesa(int mesaId) throws RemoteException {
-		return PedidoService.getInstance().obtenerPedidoPorMesa(mesaId);
+		return PedidoDao.getDao().buscarPorMesa(mesaId).toDto();
 	}
 
 	@Override
@@ -87,23 +104,27 @@ public class AdminstracionService extends UnicastRemoteObject implements IAdmins
 	}
 
 	public PedidoDto obtenerPedido(int pedidoId) throws RemoteException{
-		return PedidoService.getInstance().obtenerPedido(pedidoId);
+		return PedidoDao.getDao().buscar(pedidoId).toDto();
 	}
 
 	public List<SectorDto> obtenerSectores() throws RemoteException{
-		return SectorService.getInstance().obtenerSectores();
+		return SectorDao.getDao().ListarTodos().stream()
+				.map(sector -> sector.toDto()).collect(Collectors.toList());
 	}
 
 	public List<SucursalDto> obtenerSucursales() throws RemoteException{
-		return SucursalService.getInstance().obtenerSucursales();
+		return SucursalDao.getDao().ListarTodos().stream()
+				.map(sucursal -> sucursal.toDto()).collect(Collectors.toList());
 	}
 
 	public List<MozoDto> obtenerMozos(int sucursal_id) throws RemoteException{
-		return SucursalService.getInstance().obtenerMozos(sucursal_id);
+		return MozoDao.getDao().obtenerMozosSucursal(sucursal_id).stream()
+				.map(mozo -> mozo.toDto()).collect(Collectors.toList());
 	}
 	
 	public List<MesaDto> getMesasImpagas(int sucursalId, int mozoId) throws RemoteException{
-		return SucursalService.getInstance().getMesasImpagas(sucursalId, mozoId);
+		return MesaDao.getDao().buscarMesasImpagas(sucursalId,mozoId)
+				.stream().map(mesa -> mesa.toDto()).collect(Collectors.toList());
 	}
 
 	public FacturaDto getDatosFactura(int mesaId) throws RemoteException{
@@ -115,12 +136,22 @@ public class AdminstracionService extends UnicastRemoteObject implements IAdmins
 	}
 
 	public List<MesaDto> obtenerMesas(int sucursal_id, int mozoId, int CantComensales) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		MesaDao.getDao().ListarMesasDisponibles(sucursal_id,mozoId,CantComensales)
+				.stream().map(mesa -> mesa.toDto()).collect(Collectors.toList());
 	}
 
 	public PedidoDto confirmarAperturaMesa(int mesaId, int cantComensales,int mozoId) throws RemoteException {
-		return SucursalService.getInstance().confirmarAperturaMesa(mesaId, cantComensales,mozoId);
+		Mesa mesaAsignada = MesaDao.getDao().buscar(mesaId);
+		Pedido nuevoPedido = new Pedido();
+		nuevoPedido.setCantComensales(cantComensales);
+		nuevoPedido.setFechaApertura(new Date(System.currentTimeMillis()));
+		nuevoPedido.setMesaAsociada(mesaAsignada);
+		Mozo mozo = MozoDao.getDao().buscar(mozoId);
+		nuevoPedido.setMozo(mozo);
+		mesaAsignada.setEmpty(false);
+		mesaAsignada.setEstaPago(false);
+		nuevoPedido.save();
+		mesaAsignada.save();
 	}
 	
 	public Map<String,Double> calcularComissionEnSucursal(int sucursalId) throws RemoteException {
@@ -128,7 +159,15 @@ public class AdminstracionService extends UnicastRemoteObject implements IAdmins
 	}
 	
 	public Double cerrarCaja(int sucursalId,double dineroEnCaja) throws RemoteException {
-		return CajaService.getInstance().cerrarCaja(sucursalId, dineroEnCaja);
+		RegistroCaja registroCaja = RegistroCajaDao.getDao().getByDate(new Date(),sucursalId);
+		if(registroCaja == null){
+			registroCaja = new RegistroCaja();
+		}
+		registroCaja.setDate(new Date());
+		registroCaja.setSucursal(SucursalDao.getDao().buscar(sucursalId));
+		registroCaja.setValorCaja(dineroEnCaja);
+		List<Factura> facturas = FacturaDao.getDao().obtenerFacturasDeHoy(sucursalId);
+		return registroCaja.cerrarCaja(facturas);
 	}
 	
 	public void generarRemito() throws RemoteException{

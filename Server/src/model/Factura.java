@@ -1,5 +1,7 @@
 package model;
 
+import dto.FacturaDto;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,14 +21,18 @@ public class Factura {
 	
 	private Date fecha;
 	
-	private float Monto;
+	private double Monto;
 
 	private String medioPago;
 	
 	private boolean pagado;
 	
 	private Set<ItemFactura> itemsFactura = new HashSet<>();
-	
+
+	public Factura() {
+
+	}
+
 	public String getMedioPago() {
 		return medioPago;
 	}
@@ -45,7 +51,7 @@ public class Factura {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public float getMonto() {
+	public double getMonto() {
 		return Monto;
 	}
 	public void setMonto(float monto) {
@@ -64,5 +70,18 @@ public class Factura {
 		this.itemsFactura = itemsFactura;
 	}
 
-	
+	public FacturaDto ToDto(){
+		FacturaDto FacturaDto = new FacturaDto();
+		FacturaDto.setNumeroFactura(this.getNumeroFactura());
+		FacturaDto.setFecha(this.getFecha());
+		FacturaDto.setMedioPago(this.getMedioPago());
+		FacturaDto.setMonto(this.getMonto());
+		FacturaDto.setPagado(this.isPagado());
+		return FacturaDto;
+	}
+
+	public void calcularFactura() {
+		this.Monto = this.itemsFactura.stream().mapToDouble(itemFactura ->
+				itemFactura.getPrecio() * itemFactura.getCantidad()).sum();
+	}
 }

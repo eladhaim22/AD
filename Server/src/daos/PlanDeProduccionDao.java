@@ -1,11 +1,13 @@
 package daos;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import entities.PlanDeProduccionEntity;
-import hbt.GenericDao;
+import hbt.HibernateUtil;
 import model.PlanDeProduccion;
+import org.hibernate.Session;
 
 public class PlanDeProduccionDao extends GenericDao<PlanDeProduccion,PlanDeProduccionEntity> {
 
@@ -17,15 +19,7 @@ public class PlanDeProduccionDao extends GenericDao<PlanDeProduccion,PlanDeProdu
         }
         return dao;
     }
-    
-	public List<PlanDeProduccionEntity> obtenerPorSucursal(Integer sucursalId)
-	{
-		List<PlanDeProduccionEntity> list = getHibernateTemplate().createQuery("from PlanDeProduccion pp where pp.sucursalId = :sucirsalId ")
-				.setInteger("sucursalId", sucursalId)
-				.list();
-		return list;
-	}
-
+	
 	@Override
 	public PlanDeProduccionEntity toEntity(PlanDeProduccion planDeProduccion) {
 		return new PlanDeProduccionEntity(planDeProduccion.getId(),

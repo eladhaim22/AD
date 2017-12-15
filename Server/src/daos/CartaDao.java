@@ -1,14 +1,16 @@
 package daos;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import entities.CartaEntity;
 import entities.ItemCartaEntity;
-import hbt.GenericDao;
+import hbt.HibernateUtil;
 import model.Carta;
+import model.ItemCarta;
+import org.hibernate.Session;
 
 public class CartaDao extends GenericDao<Carta,CartaEntity>{
 
@@ -20,31 +22,18 @@ public class CartaDao extends GenericDao<Carta,CartaEntity>{
         }
         return dao;
     }
-	
-	@SuppressWarnings("unchecked")
-	public List<CartaEntity> obtenerCartasPorSucursal(int sucursalId) {
+
+	public List<Carta> obtenerCartasPorSucursal(int sucursalId) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
 		Date date = new Date();
-		List<CartaEntity> list = getHibernateTemplate().createQuery("Select C from Sucursal S join S.cartas C where S.sucursalId = :sucursal_id and C.fechaInicio < :date and C.fechaFinal > :date")
+		List<CartaEntity> listE = session.createQuery("Select C from Sucursal S join S.cartas C where S.sucursalId = :sucursal_id and C.fechaInicio < :date and C.fechaFinal > :date")
 				.setInteger("sucursal_id", sucursalId).setTimestamp("date", date).list();
-		
-		return list;	
+		List<Carta> cartas = new ArrayList<>();
+		cartas.addAll(listE.stream().map(cartaEntity -> this.toNegocio(cartaEntity)).collect(Collectors.toList()));
+		session.close();
+		return cartas;
 	}
-
-	@SuppressWarnings("unchecked")
-	public List<ItemCartaEntity> obtenerItemCarta(int cartaId) {
-		List<ItemCartaEntity> list = getHibernateTemplate().createQuery("Select I from Carta C join C.items I where C.cartaId = :cartaId")
-				.setInteger("cartaId", cartaId).list();
-		
-		return list;
-	}
-
-	public ItemCartaEntity obtenerItemCartaById(int id) {
-		ItemCartaEntity objetoEncontrado;
-		objetoEncontrado = (ItemCartaEntity)getHibernateTemplate().get(ItemCartaEntity.class, id);
-		
-		return objetoEncontrado;
-	}
-
 
 	public CartaEntity toEntity(Carta carta) {
 		CartaEntity cartaEntity = new CartaEntity(carta.getCartaId(),carta.getNombre(),carta.getFechaInicio(),carta.getFechaFinal(),carta.getActivo(),

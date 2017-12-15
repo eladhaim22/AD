@@ -1,10 +1,6 @@
 package daos;
 
-import entities.BarraEntity;
-import entities.CafeteriaEntity;
-import entities.CocinaEntity;
 import entities.ItemPPEntity;
-import hbt.GenericDao;
 import model.*;
 
 public class ItemPPDao extends GenericDao<ItemPP, ItemPPEntity>{

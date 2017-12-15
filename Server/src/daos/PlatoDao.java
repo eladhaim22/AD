@@ -1,8 +1,6 @@
 package daos;
 
 import entities.PlatoEntity;
-import hbt.GenericDao;
-import model.Ingrediente;
 import model.Plato;
 
 import java.util.stream.Collectors;

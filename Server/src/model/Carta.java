@@ -1,8 +1,12 @@
 package model;
 
+import dto.CartaDto;
+import sun.text.resources.ar.CollationData_ar;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Carta {
 
@@ -77,6 +81,16 @@ public class Carta {
 
 	public void setCartaId(Integer cartaId) {
 		this.cartaId = cartaId;
+	}
+
+	public CartaDto toDto(){
+		CartaDto CartaDto = new CartaDto();
+		CartaDto.setCartaId(this.cartaId);
+		CartaDto.setNombre(this.nombre);
+		CartaDto.setFechaInicio(this.fechaInicio);
+		CartaDto.setFechaFinal(this.fechaFinal);
+		CartaDto.setItemCartaDtos(this.items.stream().map(itemCarta -> itemCarta.toDto()).collect(Collectors.toList()));
+		return CartaDto;
 	}
 	
 }

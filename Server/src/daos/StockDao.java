@@ -1,10 +1,6 @@
 package daos;
 
-import entities.BarraEntity;
-import entities.CafeteriaEntity;
-import entities.CocinaEntity;
 import entities.StockEntity;
-import hbt.GenericDao;
 import model.*;
 
 public class StockDao extends GenericDao<Stock, StockEntity> {

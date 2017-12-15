@@ -1,5 +1,8 @@
 package model;
 
+import daos.PedidoDao;
+import dto.PedidoDto;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -7,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Pedido {
-	public Pedido(Integer numeroPedido, Integer cantComensales, Factura factura, Mozo mozo, Date fechaApertura, Date fechaCierre, Set<Comanda> comandas, Mesa mesaAsociada) {
+	public Pedido(Integer numeroPedido, Integer cantComensales, Factura factura, Mozo mozo, Date fechaApertura, Date fechaCierre, Set<Comanda> comandas, Mesa mesaAsociada,Sucursal sucursal) {
 		this.numeroPedido = numeroPedido;
 		this.cantComensales = cantComensales;
 		this.factura = factura;
@@ -16,6 +19,7 @@ public class Pedido {
 		FechaCierre = fechaCierre;
 		this.comandas = comandas;
 		this.mesaAsociada = mesaAsociada;
+		this.sucursal = sucursal;
 	}
 
 	private Integer numeroPedido;
@@ -26,8 +30,13 @@ public class Pedido {
 	private Date FechaCierre;
 	private Set<Comanda> comandas = new HashSet<Comanda>();
 	private Mesa mesaAsociada;
+	private Sucursal sucursal;
 
-	public Integer getNumeroPedido() {
+    public Pedido() {
+
+    }
+
+    public Integer getNumeroPedido() {
 		return numeroPedido;
 	}
 
@@ -90,6 +99,26 @@ public class Pedido {
 	public void setMozo(Mozo mozo) {
 		this.mozo = mozo;
 	}
-	
-	
+
+	public Sucursal getSucursal() {
+		return sucursal;
+	}
+
+	public void setSucursal(Sucursal sucursal) {
+		this.sucursal = sucursal;
+	}
+
+	public void save(){
+		PedidoDao.getDao().save(this);
+	}
+
+
+	public PedidoDto toDto(){
+		dto.PedidoDto PedidoDto = new PedidoDto();
+		PedidoDto.setNumeroPedido(this.getNumeroPedido());
+		PedidoDto.setCantComensales(this.getCantComensales());
+		PedidoDto.setFechaApertura(this.getFechaApertura());
+		PedidoDto.setFechaCierre(this.getFechaCierre());
+		return PedidoDto;
+	}
 }

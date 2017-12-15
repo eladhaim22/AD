@@ -5,8 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 import entities.LiquidacionEntity;
-import hbt.GenericDao;
+import hbt.HibernateUtil;
 import model.Liquidacion;
+import org.hibernate.Session;
 
 public class LiquidacionDao extends GenericDao<Liquidacion,LiquidacionEntity>{
 
@@ -19,15 +20,18 @@ public class LiquidacionDao extends GenericDao<Liquidacion,LiquidacionEntity>{
         return dao;
     }
     
-    public LiquidacionEntity obtenerLiquidacionDeLaFecha(int mozo) {
-		Instant instant = Instant.now().truncatedTo(ChronoUnit.DAYS);
+    public Liquidacion obtenerLiquidacionDeLaFecha(int mozo) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Instant instant = Instant.now().truncatedTo(ChronoUnit.DAYS);
 		Date date = Date.from(instant);
-		List<LiquidacionEntity> liquidacions = getHibernateTemplate().createQuery("select L from Liquidacion L where L.fecha = :date and L.mozo.id = :mozoId")
+		List<LiquidacionEntity> liquidacions = session.createQuery("select L from Liquidacion L where L.fecha = :date and L.mozo.id = :mozoId")
 			.setInteger("mozoId",mozo).setTimestamp("date", date).list();
-        if(liquidacions.isEmpty()) {
-        	return null;
+		Liquidacion liquidacion = null;
+		if(!liquidacions.isEmpty()) {
+        	liquidacion = this.toNegocio(liquidacions.get(0));
         }
-        	return liquidacions.get(0);
+        return liquidacion;
     }
 
     @Override

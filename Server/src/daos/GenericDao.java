@@ -1,15 +1,13 @@
-package hbt;
-import com.sun.org.apache.xpath.internal.operations.Neg;
+package daos;
+import hbt.HibernateUtil;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.*;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GenericDao<Negocio,Entity> implements IGenericDao<Negocio> {
+public abstract class GenericDao<Negocio,Entity>{
 
     protected Class<Entity> entityClass = getEntityClass();
 
@@ -21,43 +19,23 @@ public abstract class GenericDao<Negocio,Entity> implements IGenericDao<Negocio>
         }
         return entityClass;
     }
-    
-    protected Session getHibernateTemplate() {
-    	return HibernateUtil.getSessionFactory().getCurrentSession();
-    }
+
 
     public Negocio buscar(int index) {
         Negocio resultado = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
         Entity entity = (Entity) session.get(entityClass,index);
         resultado = this.toNegocio(entity);
         session.close();
         return resultado;
     }
 
-    public void Actualizar(Negocio t) throws HibernateException {
-        try {
-            getHibernateTemplate().update(t);
-        } catch (HibernateException e) {
-            throw new HibernateException(e);
-        }
-    }
-
-    public void Guardar(Negocio t) throws HibernateException {
-        try {
-            getHibernateTemplate().save(t);
-        } catch (HibernateException e) {
-            throw new HibernateException(e);
-        }
-    }
-
-    public void Eliminar(Negocio t) {
-        getHibernateTemplate().delete(t);
-    }
 
     public List<Negocio> ListarTodos() throws HibernateException {
         List<Negocio> resultado = new ArrayList<Negocio>();
         Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
         List<Entity> entities = (List<Entity>)session.createQuery("from " + entityClass.getName())          .list();
         for(Entity entity : entities)
             resultado.add(this.toNegocio(entity));
@@ -68,7 +46,7 @@ public abstract class GenericDao<Negocio,Entity> implements IGenericDao<Negocio>
     public void save(Negocio negocio){
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        session.save(this.toEntity(negocio));
+        session.saveOrUpdate(this.toEntity(negocio));
         session.getTransaction().commit();
         session.close();
     }

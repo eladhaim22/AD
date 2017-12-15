@@ -3,14 +3,16 @@ package daos;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import entities.MesaEntity;
 import entities.PedidoEntity;
-import hbt.GenericDao;
+import hbt.HibernateUtil;
 import model.Pedido;
+import org.hibernate.Session;
 
 public class PedidoDao extends GenericDao<Pedido,PedidoEntity> {
 
@@ -23,20 +25,30 @@ public class PedidoDao extends GenericDao<Pedido,PedidoEntity> {
         return dao;
     }
 
-	public PedidoEntity buscarPorMesa(Integer numeroMesa){
-		PedidoEntity pedido = (PedidoEntity) getHibernateTemplate().createQuery("select p from Pedido p join p.mesaAsociada m where m.mesaId = :nroMesa and p.FechaCierre is null").setInteger("nroMesa",numeroMesa ).uniqueResult();
+	public Pedido buscarPorMesa(Integer numeroMesa){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		PedidoEntity pedidoE = (PedidoEntity) session.createQuery("select p from Pedido p join p.mesaAsociada m where m.mesaId = :nroMesa and p.FechaCierre is null").setInteger("nroMesa",numeroMesa ).uniqueResult();
+		Pedido pedido = this.toNegocio(pedidoE);
+		session.close();
 		return pedido;
 
 	}
 
-	public List<PedidoEntity> listarPedidosDeHoy(List<MesaEntity> mesas) {
+	public List<Pedido> listarPedidosDeHoy(int sucursalId) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
 		Instant instant = Instant.now().truncatedTo(ChronoUnit.DAYS);
 		Date datefrom = Date.from(instant);
 		instant = Instant.now().plusSeconds(86400);
 		instant = instant.truncatedTo(ChronoUnit.DAYS);
 		Date dateto = Date.from(instant);	
-		List<PedidoEntity> pedidos = getHibernateTemplate().createQuery("select P from Pedido P where P.FechaCierre >= :dateFrom and P.FechaCierre < :dateTo and P.mesaAsociada in (:mesas)")
-				.setParameterList("mesas", mesas).setTimestamp("dateFrom", datefrom).setTimestamp("dateTo", dateto).list();
+		List<PedidoEntity> pedidosE = session.createQuery("select P from Pedido P where P.FechaCierre >= :dateFrom and P.FechaCierre < :dateTo and P.sucursal.sucursalId = :sucursalId")
+				.setTimestamp("dateFrom", datefrom).setTimestamp("dateTo", dateto)
+				.setInteger("sucursalId",sucursalId).list();
+		List<Pedido> pedidos = new ArrayList<>();
+		pedidosE.stream().map(pedidoEntity -> this.toNegocio(pedidoEntity)).collect(Collectors.toList());
+		session.close();
         return pedidos;
 	}
 
@@ -47,7 +59,8 @@ public class PedidoDao extends GenericDao<Pedido,PedidoEntity> {
 				MozoDao.getDao().toEntity(pedido.getMozo()),pedido.getFechaApertura(),
 				pedido.getFechaCierre(),pedido.getComandas().stream().map(comanda ->
 				ComandaDao.getDao().toEntity(comanda)).collect(Collectors.toSet()),
-				MesaDao.getDao().toEntity(pedido.getMesaAsociada()));
+				MesaDao.getDao().toEntity(pedido.getMesaAsociada()),
+				SucursalDao.getDao().toEntity(pedido.getSucursal()));
 	}
 
 	@Override
@@ -56,6 +69,7 @@ public class PedidoDao extends GenericDao<Pedido,PedidoEntity> {
 				MozoDao.getDao().toNegocio(pedidoEntity.getMozo()),pedidoEntity.getFechaApertura(),
 				pedidoEntity.getFechaCierre(),pedidoEntity.getComandas().stream().map(comanda ->
 				ComandaDao.getDao().toNegocio(comanda)).collect(Collectors.toSet()),
-				MesaDao.getDao().toNegocio(pedidoEntity.getMesaAsociada()));
+				MesaDao.getDao().toNegocio(pedidoEntity.getMesaAsociada()),
+				SucursalDao.getDao().toNegocio(pedidoEntity.getSucursal()));
 	}
 }

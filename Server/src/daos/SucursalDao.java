@@ -1,12 +1,9 @@
 package daos;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import entities.SucursalEntity;
-import hbt.GenericDao;
-import model.Sector;
 import model.Sucursal;
 
 public class SucursalDao extends GenericDao<Sucursal,SucursalEntity> {
@@ -19,13 +16,7 @@ public class SucursalDao extends GenericDao<Sucursal,SucursalEntity> {
         }
         return dao;
     }
-	
-	public void grabarTodas(List<SucursalEntity> objetoNuevo){
-		for(SucursalEntity s : objetoNuevo){
-			getHibernateTemplate().saveOrUpdate(s);
-		}		
-		
-	}
+
 
     @Override
     public SucursalEntity toEntity(Sucursal sucursal) {

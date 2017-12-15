@@ -1,7 +1,6 @@
 package daos;
 
 import entities.MarcaEntity;
-import hbt.GenericDao;
 import model.Marca;
 
 public class MarcaDao extends GenericDao<Marca,MarcaEntity> {

@@ -1,6 +1,9 @@
 package model;
 
+import daos.RegistroCajaDao;
+
 import java.util.Date;
+import java.util.List;
 
 public class RegistroCaja {
 	public RegistroCaja(Integer id, Sucursal sucursal, Date date, double valorCaja, double valorEsperado) {
@@ -17,7 +20,11 @@ public class RegistroCaja {
 	private double valorCaja;
 	private double valorEsperado;
 
-	public Integer getId() {
+    public RegistroCaja() {
+
+    }
+
+    public Integer getId() {
 		return id;
 	}
 
@@ -55,6 +62,16 @@ public class RegistroCaja {
 
 	public void setValorEsperado(double valorTotal) {
 		this.valorEsperado = valorTotal;
+	}
+
+	public void save(){
+		RegistroCajaDao.getDao().save(this);
+	}
+
+	public Double cerrarCaja(List<Factura> facturas){
+		this.valorCaja = facturas.stream().mapToDouble(factura -> factura.getMonto()).sum();
+		save();
+		return this.valorCaja;
 	}
 
 }

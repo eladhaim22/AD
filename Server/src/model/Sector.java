@@ -1,8 +1,10 @@
 package model;
 
-import javax.persistence.*;
+import dto.SectorDto;
+
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Sector {
 	public Sector(Integer numeroSector, String nombre, Set<Mesa> mesas, Integer cantMesas, Mozo mozoAsociado) {
@@ -57,5 +59,13 @@ public class Sector {
 
 	public void setCantMesas(Integer cantMesas) {
 		this.cantMesas = cantMesas;
+	}
+
+	public SectorDto toDto(){
+		SectorDto SectorDto = new SectorDto();
+		SectorDto.setNumeroSector(this.getNumeroSector());
+		SectorDto.setNombre(this.getNombre());
+		SectorDto.setMesas(this.getMesas().stream().map(mesa -> mesa.toDto()).collect(Collectors.toList()	));
+		return SectorDto;
 	}
 }

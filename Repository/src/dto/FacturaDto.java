@@ -10,7 +10,7 @@ public class FacturaDto implements Serializable{
 	
 	private Date fecha;
 	
-	private float Monto;
+	private double Monto;
 
 	private String medioPago;
 	
@@ -32,11 +32,11 @@ public class FacturaDto implements Serializable{
 		this.fecha = fecha;
 	}
 
-	public float getMonto() {
+	public double getMonto() {
 		return Monto;
 	}
 
-	public void setMonto(float monto) {
+	public void setMonto(double monto) {
 		Monto = monto;
 	}
 

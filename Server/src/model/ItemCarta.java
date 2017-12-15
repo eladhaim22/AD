@@ -1,5 +1,7 @@
 package model;
 
+import dto.ItemCartaDto;
+
 public class ItemCarta {
 
 	public ItemCarta(Integer itemCartaId, float precio, Plato platoAsociado, float adicionalComision) {
@@ -17,8 +19,12 @@ public class ItemCarta {
 	
 	private float adicionalComision;
 
+    public ItemCarta() {
 
-	public Integer getItemCartaId() {
+    }
+
+
+    public Integer getItemCartaId() {
 		return itemCartaId;
 	}
 
@@ -48,6 +54,15 @@ public class ItemCarta {
 
 	public void setAdicionalComision(float adicionalComision) {
 		this.adicionalComision = adicionalComision;
+	}
+
+	public ItemCartaDto toDto(){
+		ItemCartaDto ItemCartaDto = new ItemCartaDto();
+		ItemCartaDto.setItemCartaId(this.getItemCartaId());
+		ItemCartaDto.setPrecio(this.getPrecio());
+		ItemCartaDto.setPlatoAsociado(this.getPlatoAsociado().toDto());
+		ItemCartaDto.setAdicionalComision(this.getAdicionalComision());
+		return ItemCartaDto;
 	}
 
 }

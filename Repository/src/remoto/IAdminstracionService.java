@@ -19,7 +19,7 @@ import dto.SucursalDto;
 public interface IAdminstracionService extends Remote {
 	void cargarDatosIniciales() throws RemoteException;
 	ItemCartaDto obtenerItemCartaById(int id) throws RemoteException;
-	List<ItemCartaDto> obtenerItemCarta(int cartaId) throws RemoteException;
+	CartaDto obtenerCartaPorId(int cartaId) throws RemoteException;
 	List<CartaDto> obtenerCartasPorSucursal(int sucursalId) throws RemoteException;
 	void generarFactura(int mesaId) throws RemoteException;
 	void cerrarMesa(int mesaId) throws RemoteException;

@@ -18,7 +18,12 @@ public class ItemFactura {
 	private String nombrePlato;
 	private float cantidad;
 	private float precio;
-	public Integer getId() {
+
+    public ItemFactura() {
+
+    }
+
+    public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {

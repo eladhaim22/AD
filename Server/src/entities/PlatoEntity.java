@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name="platos")
 public class PlatoEntity {
 
-	public PlatoEntity(int platoId,String nombre, String unidadMedida, Float porcionesXUnidad, String comentarios, String rubro, Set<IngredienteEntity> ingredientes, IngredientEntity area) {
+	public PlatoEntity(int platoId,String nombre, String unidadMedida, Float porcionesXUnidad, String comentarios, String rubro, Set<IngredienteEntity> ingredientes, AreaEntity area) {
 		this.platoId = platoId;
 		this.nombre = nombre;
 		this.unidadMedida = unidadMedida;
@@ -38,7 +38,7 @@ public class PlatoEntity {
 	private Set<IngredienteEntity> ingredientes = new HashSet<IngredienteEntity>();
 
 	@OneToOne
-	private IngredientEntity area;
+	private AreaEntity area;
 
 	
 	public String getNombre() {
@@ -101,11 +101,11 @@ public class PlatoEntity {
 		this.platoId = platoId;
 	}
 
-	public IngredientEntity getArea() {
+	public AreaEntity getArea() {
 		return area;
 	}
 
-	public void setArea(IngredientEntity area) {
+	public void setArea(AreaEntity area) {
 		this.area = area;
 	}
 	

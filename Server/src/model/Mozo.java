@@ -1,5 +1,7 @@
 package model;
 
+import dto.MozoDto;
+
 import javax.persistence.*;
 public class Mozo {
 
@@ -40,6 +42,15 @@ public class Mozo {
 	public double calcularComision(float monto, float porcExtra)
 	{
 		return (monto * (this.porcComision + porcExtra) / 100); 
+	}
+
+	public MozoDto toDto(){
+		MozoDto MozoDto = new MozoDto();
+		MozoDto.setId(this.getId());
+		MozoDto.setNombre(this.getNombre());
+		MozoDto.setPorcComision(this.getPorcComision());
+		MozoDto.setTipo("Mozo");
+		return MozoDto;
 	}
 
 }

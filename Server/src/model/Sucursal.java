@@ -1,11 +1,11 @@
 package model;
 
 import daos.SucursalDao;
+import dto.SucursalDto;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class Sucursal {
@@ -115,5 +115,17 @@ public class Sucursal {
 
 	public void save(){
 		SucursalDao.getDao().save(this);
+	}
+
+	public SucursalDto toDto(){
+		SucursalDto SucursalDto = new SucursalDto();
+		SucursalDto.setCartas(this.getCartas().stream().map(carta -> carta.toDto()).collect(Collectors.toList()));
+		SucursalDto.setDireccion(this.getDireccion());
+		SucursalDto.setNombre(this.getNombre());
+		SucursalDto.setEmail(this.getEmail());
+		SucursalDto.setTelefono(this.getTelefono());
+		SucursalDto.setSucursalId(this.getSucursalId());
+		SucursalDto.setSectores(this.getSectores().stream().map(sector -> sector.toDto()).collect(Collectors.toList()));
+		return SucursalDto;
 	}
 }

@@ -1,5 +1,7 @@
 package entities;
 
+import model.Sucursal;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -11,7 +13,7 @@ import javax.persistence.*;
 @Table(name="pedidos")
 public class PedidoEntity{
 
-	public PedidoEntity(Integer cantComensales, FacturaEntity factura, MozoEntity mozo, Date fechaApertura, Date fechaCierre, Set<ComandaEntity> comandas, MesaEntity mesaAsociada) {
+	public PedidoEntity(Integer cantComensales, FacturaEntity factura, MozoEntity mozo, Date fechaApertura, Date fechaCierre, Set<ComandaEntity> comandas, MesaEntity mesaAsociada,SucursalEntity sucursal) {
 		this.cantComensales = cantComensales;
 		this.factura = factura;
 		this.mozo = mozo;
@@ -19,6 +21,7 @@ public class PedidoEntity{
 		FechaCierre = fechaCierre;
 		this.comandas = comandas;
 		this.mesaAsociada = mesaAsociada;
+		this.sucursal = sucursal;
 	}
 
 	@Id
@@ -45,6 +48,9 @@ public class PedidoEntity{
 	@ManyToOne	 
 	@JoinColumn(name="mesaId")
 	private MesaEntity mesaAsociada;
+
+	@OneToOne
+	private SucursalEntity sucursal;
 
 	public Integer getNumeroPedido() {
 		return numeroPedido;
@@ -109,6 +115,12 @@ public class PedidoEntity{
 	public void setMozo(MozoEntity mozo) {
 		this.mozo = mozo;
 	}
-	
-	
+
+	public SucursalEntity getSucursal() {
+		return sucursal;
+	}
+
+	public void setSucursal(SucursalEntity sucursal) {
+		this.sucursal = sucursal;
+	}
 }

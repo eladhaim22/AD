@@ -1,7 +1,6 @@
 package daos;
 
 import entities.*;
-import hbt.GenericDao;
 import model.*;
 
 public class AreaDao extends GenericDao<Area, AreaEntity>{

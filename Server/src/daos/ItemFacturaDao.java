@@ -1,9 +1,6 @@
 package daos;
 
-import entities.ItemCartaEntity;
 import entities.ItemFacturaEntity;
-import hbt.GenericDao;
-import model.ItemCarta;
 import model.ItemFactura;
 
 public class ItemFacturaDao extends GenericDao<ItemFactura, ItemFacturaEntity> {

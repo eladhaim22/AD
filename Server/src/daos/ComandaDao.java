@@ -1,16 +1,7 @@
 package daos;
 
-import entities.CartaEntity;
 import entities.ComandaEntity;
-import entities.ItemCartaEntity;
-import hbt.GenericDao;
-import model.Carta;
 import model.Comanda;
-import model.ItemCarta;
-
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class ComandaDao extends GenericDao<Comanda, ComandaEntity>{
 

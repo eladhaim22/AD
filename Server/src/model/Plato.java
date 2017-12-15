@@ -1,5 +1,9 @@
 package model;
 
+import daos.PedidoDao;
+import daos.PlatoDao;
+import dto.PlatoDto;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -91,7 +95,18 @@ public class Plato {
 	public void setArea(Area area) {
 		this.area = area;
 	}
-	
-	
 
+	public void save(){
+		PlatoDao.getDao().save(this);
+	}
+
+	public PlatoDto toDto(){
+		PlatoDto PlatoDto = new PlatoDto();
+		PlatoDto.setPlatoId(this.getPlatoId());
+		PlatoDto.setNombre(this.getNombre());
+		PlatoDto.setUnidadMedida(this.getUnidadMedida());
+		PlatoDto.setPorcionesXUnidad(this.getPorcionesXUnidad());
+		PlatoDto.setComentarios(this.getComentarios());
+		return PlatoDto;
+	}
 }

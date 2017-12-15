@@ -142,10 +142,10 @@ public class BusinessDelegate {
 		}	
 	}
 	
-	public List<ItemCartaDto> obtenerItemCarta(int cartaId) throws ServiceError
+	public CartaDto obtenerCartaPorId(int cartaId) throws ServiceError
 	{
     	try{
-    		return administracionService.obtenerItemCarta(cartaId);
+    		return administracionService.obtenerCartaPorId(cartaId);
     	} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
 		}	

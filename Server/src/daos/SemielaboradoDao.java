@@ -1,7 +1,6 @@
 package daos;
 
 import entities.SemielaboradoEntity;
-import hbt.GenericDao;
 import model.Semielaborado;
 
 import java.util.stream.Collectors;

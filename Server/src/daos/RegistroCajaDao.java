@@ -2,44 +2,41 @@ package daos;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import entities.FacturaEntity;
 import entities.MesaEntity;
 import entities.RegistroCajaEntity;
-import hbt.GenericDao;
+import hbt.HibernateUtil;
+import model.Factura;
 import model.RegistroCaja;
+import org.hibernate.Session;
 
 public class RegistroCajaDao extends GenericDao<RegistroCaja,RegistroCajaEntity>{
 
 	private static RegistroCajaDao dao;
 
-    public static RegistroCajaDao getDao(){
-        if(dao == null){
-            dao = new RegistroCajaDao();
-        }
-        return dao;
-    }
-	
-    public double calcualrValorCajaEsperado(List<MesaEntity> mesas) {
-    	Instant instant = Instant.now().truncatedTo(ChronoUnit.DAYS);
-		Date datefrom = Date.from(instant);
-		instant = Instant.now().plusSeconds(86400);
-		instant = instant.truncatedTo(ChronoUnit.DAYS);
-		Date dateto = Date.from(instant);
-		List<FacturaEntity> facturas = getHibernateTemplate().createQuery("select F from Pedido P join P.factura F where P.FechaCierre >= :dateFrom and P.FechaCierre < :dateTo and P.mesaAsociada in (:mesas)")
-				.setParameterList("mesas", mesas).setTimestamp("dateFrom", datefrom).setTimestamp("dateTo", dateto).list();
-		return facturas.stream().mapToDouble(f -> f.getMonto()).sum();
-    }	
+    public static RegistroCajaDao getDao() {
+		if (dao == null) {
+			dao = new RegistroCajaDao();
+		}
+		return dao;
+	}
     
-    public RegistroCajaEntity getByDate(Date date, int sucursalId) {
-    	List<RegistroCajaEntity> registroCaja = getHibernateTemplate().createQuery("select RC from RegistroCaja RC where date = :date and RC.sucursal.sucursalId  = :sucursalId")
+    public RegistroCaja getByDate(Date date, int sucursalId) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+    	RegistroCaja registroCaja = null;
+		List<RegistroCajaEntity> registroCajaE = session.createQuery("select RC from RegistroCaja RC where date = :date and RC.sucursal.sucursalId  = :sucursalId")
     			.setTimestamp("date",date).setInteger("sucursalId", sucursalId).list();
-    	if(registroCaja.isEmpty()) {
-    		return null;
-    	}
-    	return registroCaja.get(0);
+    	if(!registroCajaE.isEmpty()) {
+    		registroCaja = this.toNegocio(registroCajaE.get(0));
+		}
+		session.close();
+    	return registroCaja;
     }
 
 	@Override

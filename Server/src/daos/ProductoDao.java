@@ -1,8 +1,6 @@
 package daos;
 
 import entities.ProductoEntity;
-import hbt.GenericDao;
-import model.Presentacion;
 import model.Producto;
 
 import java.util.stream.Collectors;

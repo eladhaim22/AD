@@ -1,5 +1,7 @@
 package model;
 
+import dto.ComandaDto;
+
 public class Comanda {
 
 	public Comanda(Integer id, Integer cantidad, String estado, Pedido pedido, ItemCarta item) {
@@ -56,5 +58,14 @@ public class Comanda {
 
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
+	}
+
+	public ComandaDto toDto(){
+		ComandaDto comandaDto = new ComandaDto();
+		comandaDto.setItemPedidoId(this.getId());
+		comandaDto.setCantidad(this.getCantidad());
+		comandaDto.setEstado(this.getEstado());
+		comandaDto.setItem(this.getItem().toDto());
+		return comandaDto;
 	}
 }

@@ -1,10 +1,9 @@
 package daos;
 
-import entities.CartaEntity;
 import entities.ItemCartaEntity;
-import hbt.GenericDao;
-import model.Carta;
+import hbt.HibernateUtil;
 import model.ItemCarta;
+import org.hibernate.Session;
 
 public class ItemCartaDao extends GenericDao<ItemCarta, ItemCartaEntity> {
 
@@ -15,6 +14,16 @@ public class ItemCartaDao extends GenericDao<ItemCarta, ItemCartaEntity> {
             dao = new ItemCartaDao();
         }
         return dao;
+    }
+
+    public ItemCarta obtenerItemCartaById(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        ItemCartaEntity objetoEncontrado;
+        objetoEncontrado = (ItemCartaEntity)session.get(ItemCartaEntity.class, id);
+        ItemCarta itemCarta = this.toNegocio(objetoEncontrado);
+        session.close();
+        return itemCarta;
     }
 
     public ItemCartaEntity toEntity(ItemCarta itemCarta) {

@@ -1,7 +1,6 @@
 package daos;
 
 import entities.SectorEntity;
-import hbt.GenericDao;
 import model.Sector;
 
 import java.util.stream.Collectors;
