@@ -6,7 +6,10 @@ import javax.persistence.*;
 @Table (name = "itemsCarta")
 public class ItemCartaEntity {
 
-	public ItemCartaEntity(int itemCartaId,float precio, PlatoEntity platoAsociado, float adicionalComision) {
+	public ItemCartaEntity() {
+	}
+
+	public ItemCartaEntity(int itemCartaId, float precio, PlatoEntity platoAsociado, float adicionalComision) {
 		this.itemCartaId = itemCartaId;
 		this.precio = precio;
 		this.platoAsociado = platoAsociado;

@@ -6,7 +6,10 @@ import javax.persistence.*;
 @Table (name = "comandas")
 public class ComandaEntity {
 
-	public ComandaEntity(int id,Integer cantidad, String estado, PedidoEntity pedido, ItemCartaEntity item) {
+	public ComandaEntity() {
+	}
+
+	public ComandaEntity(int id, Integer cantidad, String estado, PedidoEntity pedido, ItemCartaEntity item) {
 		this.id = id;
 		this.cantidad = cantidad;
 		this.estado = estado;

@@ -7,7 +7,10 @@ import javax.persistence.*;
 @Table(name="presentaciones")
 public class PresentacionEntity{
 
-	public PresentacionEntity(int presentacionId,String nombre, float tamanio) {
+	public PresentacionEntity() {
+	}
+
+	public PresentacionEntity(int presentacionId, String nombre, float tamanio) {
 		this.presentacionId = presentacionId;
 		this.nombre = nombre;
 		this.tamanio = tamanio;

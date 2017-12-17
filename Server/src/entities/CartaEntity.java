@@ -8,7 +8,11 @@ import javax.persistence.*;
 @Entity
 @Table (name="cartas")
 public class CartaEntity {
-	public CartaEntity(int cartaId,String nombre, Date fechaInicio, Date fechaFinal, boolean activo, Set<ItemCartaEntity> items) {
+
+	public CartaEntity() {
+	}
+
+	public CartaEntity(int cartaId, String nombre, Date fechaInicio, Date fechaFinal, boolean activo, Set<ItemCartaEntity> items) {
 		this.cartaId = cartaId;
 		this.nombre = nombre;
 		this.fechaInicio = fechaInicio;

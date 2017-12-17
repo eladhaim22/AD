@@ -8,6 +8,9 @@ import javax.persistence.*;
 @DiscriminatorColumn( name="nombre", discriminatorType=DiscriminatorType.STRING)
 public class AreaEntity {
 
+    public AreaEntity() {
+    }
+
     @Id
     @GeneratedValue
     private Integer areaId;

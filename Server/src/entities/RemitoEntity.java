@@ -15,6 +15,9 @@ import javax.persistence.Table;
 @Table(name="Remitos")
 public class RemitoEntity {
 
+	public RemitoEntity() {
+	}
+
 	public RemitoEntity(Date fecha, List<ItemRemitoEntity> itemsRemito) {
 		this.fecha = fecha;
 		this.itemsRemito = itemsRemito;

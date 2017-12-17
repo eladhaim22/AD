@@ -10,7 +10,10 @@ import javax.persistence.*;
 @Table (name = "facturas")
 public class FacturaEntity {
 
-	public FacturaEntity(int numeroFactura,Date fecha, double monto, String medioPago, boolean pagado, Set<ItemFacturaEntity> itemsFactura) {
+	public FacturaEntity() {
+	}
+
+	public FacturaEntity(int numeroFactura, Date fecha, double monto, String medioPago, boolean pagado, Set<ItemFacturaEntity> itemsFactura) {
 		this.numeroFactura = numeroFactura;
 		this.fecha = fecha;
 		Monto = monto;

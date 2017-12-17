@@ -30,7 +30,7 @@ public class RegistroCajaDao extends GenericDao<RegistroCaja,RegistroCajaEntity>
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
     	RegistroCaja registroCaja = null;
-		List<RegistroCajaEntity> registroCajaE = session.createQuery("select RC from RegistroCaja RC where date = :date and RC.sucursal.sucursalId  = :sucursalId")
+		List<RegistroCajaEntity> registroCajaE = session.createQuery("select RC from RegistroCajaEntity RC where date = :date and RC.sucursal.sucursalId  = :sucursalId")
     			.setTimestamp("date",date).setInteger("sucursalId", sucursalId).list();
     	if(!registroCajaE.isEmpty()) {
     		registroCaja = this.toNegocio(registroCajaE.get(0));

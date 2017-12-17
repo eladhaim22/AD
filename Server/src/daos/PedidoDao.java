@@ -28,7 +28,7 @@ public class PedidoDao extends GenericDao<Pedido,PedidoEntity> {
 	public Pedido buscarPorMesa(Integer numeroMesa){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		PedidoEntity pedidoE = (PedidoEntity) session.createQuery("select p from Pedido p join p.mesaAsociada m where m.mesaId = :nroMesa and p.FechaCierre is null").setInteger("nroMesa",numeroMesa ).uniqueResult();
+		PedidoEntity pedidoE = (PedidoEntity) session.createQuery("select p from PedidoEntity p join p.mesaAsociada m where m.mesaId = :nroMesa and p.FechaCierre is null").setInteger("nroMesa",numeroMesa ).uniqueResult();
 		Pedido pedido = this.toNegocio(pedidoE);
 		session.close();
 		return pedido;
@@ -43,7 +43,7 @@ public class PedidoDao extends GenericDao<Pedido,PedidoEntity> {
 		instant = Instant.now().plusSeconds(86400);
 		instant = instant.truncatedTo(ChronoUnit.DAYS);
 		Date dateto = Date.from(instant);	
-		List<PedidoEntity> pedidosE = session.createQuery("select P from Pedido P where P.FechaCierre >= :dateFrom and P.FechaCierre < :dateTo and P.sucursal.sucursalId = :sucursalId")
+		List<PedidoEntity> pedidosE = session.createQuery("select P from PedidoEntity P where P.FechaCierre >= :dateFrom and P.FechaCierre < :dateTo and P.sucursal.sucursalId = :sucursalId")
 				.setTimestamp("dateFrom", datefrom).setTimestamp("dateTo", dateto)
 				.setInteger("sucursalId",sucursalId).list();
 		List<Pedido> pedidos = new ArrayList<>();

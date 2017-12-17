@@ -27,7 +27,7 @@ public class FacturaDao extends GenericDao<Factura,FacturaEntity> {
         Factura factura = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        FacturaEntity facturaE =  (FacturaEntity) session.createQuery("select F from Pedido P join P.factura F where P.numeroPedido = :numeroPedido").setInteger("numeroPedido",numeroPedido ).uniqueResult();
+        FacturaEntity facturaE =  (FacturaEntity) session.createQuery("select F from PedidoEntity P join P.factura F where P.numeroPedido = :numeroPedido").setInteger("numeroPedido",numeroPedido ).uniqueResult();
         factura = this.toNegocio(facturaE);
         session.close();
 		return factura;
@@ -41,7 +41,7 @@ public class FacturaDao extends GenericDao<Factura,FacturaEntity> {
         instant = Instant.now().plusSeconds(86400);
         instant = instant.truncatedTo(ChronoUnit.DAYS);
         Date dateto = Date.from(instant);
-        List<FacturaEntity> facturasE = session.createQuery("select F from Pedido P join P.factura F where P.FechaCierre >= :dateFrom and P.FechaCierre < :dateTo and P.sucursal.sucursalId = :sucursalId")
+        List<FacturaEntity> facturasE = session.createQuery("select F from PedidoEntity P join P.factura F where P.FechaCierre >= :dateFrom and P.FechaCierre < :dateTo and P.sucursal.sucursalId = :sucursalId")
                 .setTimestamp("dateFrom", datefrom).setTimestamp("dateTo", dateto)
                 .setInteger("sucursalId",sucursalId).list();
         List<Factura> facturas = new ArrayList<>();

@@ -12,6 +12,9 @@ import javax.persistence.Table;
 @Table(name="ItemsRemitos")
 public class ItemRemitoEntity {
 
+	public ItemRemitoEntity() {
+	}
+
 	public ItemRemitoEntity(int cantidad, IngredienteEntity ingrediente) {
 		this.cantidad = cantidad;
 		this.ingrediente = ingrediente;

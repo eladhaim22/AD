@@ -9,7 +9,10 @@ import javax.persistence.Table;
 @Table(name = "itemsFactura")
 public class ItemFacturaEntity {
 
-	public ItemFacturaEntity(int id,String nombrePlato, float cantidad, float precio) {
+	public ItemFacturaEntity() {
+	}
+
+	public ItemFacturaEntity(int id, String nombrePlato, float cantidad, float precio) {
 		this.id = id;
 		this.nombrePlato = nombrePlato;
 		this.cantidad = cantidad;

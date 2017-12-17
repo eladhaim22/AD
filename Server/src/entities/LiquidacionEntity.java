@@ -12,7 +12,10 @@ import javax.persistence.Table;
 @Table(name ="liquidaciones")
 public class LiquidacionEntity {
 
-	public LiquidacionEntity(int id,MozoEntity usuario, Date fecha, Double value) {
+	public LiquidacionEntity() {
+	}
+
+	public LiquidacionEntity(int id, MozoEntity usuario, Date fecha, Double value) {
 		this.id = id;
 		this.usuario = usuario;
 		this.fecha = fecha;

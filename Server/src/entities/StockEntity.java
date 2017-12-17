@@ -11,7 +11,10 @@ import javax.persistence.Table;
 @Table(name="Stocks")
 public class StockEntity {
 
-	public StockEntity(int stockId,int cantidadActual, int puntoDeReposicion) {
+	public StockEntity() {
+	}
+
+	public StockEntity(int stockId, int cantidadActual, int puntoDeReposicion) {
 		this.StockId = stockId;
 		this.CantidadActual = cantidadActual;
 		this.PuntoDeReposicion = puntoDeReposicion;

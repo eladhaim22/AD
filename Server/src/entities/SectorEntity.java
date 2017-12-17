@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Table(name="sectores")
 public class SectorEntity {
 
+	public SectorEntity() {
+	}
+
 	public SectorEntity(int numeroSector, String nombre, Set<MesaEntity> mesas, Integer cantMesas, MozoEntity mozoAsociado) {
 		this.numeroSector = numeroSector;
 		this.nombre = nombre;

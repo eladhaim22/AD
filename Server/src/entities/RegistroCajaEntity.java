@@ -12,7 +12,10 @@ import javax.persistence.Table;
 @Table(name ="RegistroSCaja")
 public class RegistroCajaEntity {
 
-	public RegistroCajaEntity(int id,SucursalEntity sucursal, Date date, double valorCaja, double valorEsperado) {
+	public RegistroCajaEntity() {
+	}
+
+	public RegistroCajaEntity(int id, SucursalEntity sucursal, Date date, double valorCaja, double valorEsperado) {
 		this.id = id;
 		this.sucursal = sucursal;
 		this.date = date;

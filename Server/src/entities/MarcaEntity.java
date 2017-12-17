@@ -6,7 +6,11 @@ import javax.persistence.*;
 @Table (name="marcas")
 public class MarcaEntity {
 
-	public MarcaEntity(int marcaId,String nombre, Integer nivel, String comentarios) {
+	public MarcaEntity() {
+
+	}
+
+	public MarcaEntity(int marcaId, String nombre, Integer nivel, String comentarios) {
 		this.marcaId = marcaId;
 		this.nombre = nombre;
 		this.nivel = nivel;

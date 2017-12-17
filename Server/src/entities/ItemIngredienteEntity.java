@@ -15,6 +15,9 @@ public class ItemIngredienteEntity {
 
     private float cantidad;
 
+    public ItemIngredienteEntity() {
+    }
+
     public ItemIngredienteEntity(int id, IngredienteEntity ingrediente, float cantidad) {
         this.id = id;
         this.ingrediente = ingrediente;

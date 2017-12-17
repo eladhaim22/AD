@@ -5,7 +5,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "mozos")
 public class MozoEntity {
-	public MozoEntity(int id,String nombre, float porcComision) {
+	public MozoEntity() {
+	}
+
+	public MozoEntity(int id, String nombre, float porcComision) {
 		this.id = id;
 		this.nombre = nombre;
 		this.porcComision = porcComision;

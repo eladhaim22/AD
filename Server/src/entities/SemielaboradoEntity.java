@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Table(name="semielaborados")
 public class SemielaboradoEntity {
 
+	public SemielaboradoEntity() {
+	}
+
 	public SemielaboradoEntity(Integer seminelabodadoId, String nombre, String unidadMedida, float porcionesXUnidad, float tiempoElaboracionXUnidad, Set<IngredienteEntity> ingredientes) {
 		this.seminelabodadoId = seminelabodadoId;
 		this.nombre = nombre;

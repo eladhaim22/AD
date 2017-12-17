@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 @DiscriminatorValue("barra")
 public class BarraEntity extends AreaEntity {
 
+    public BarraEntity() {
+    }
+
     public BarraEntity(int areaId) {
         super(areaId);
     }

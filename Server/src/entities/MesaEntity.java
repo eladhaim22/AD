@@ -8,7 +8,10 @@ import javax.persistence.*;
 @Table(name="mesas")
 public class MesaEntity{
 
-	public MesaEntity(int mesaId,Integer numeroMesa, Integer capacidad, boolean isEmpty, boolean estaPago) {
+	public MesaEntity() {
+	}
+
+	public MesaEntity(int mesaId, Integer numeroMesa, Integer capacidad, boolean isEmpty, boolean estaPago) {
 		this.mesaId = mesaId;
 		this.numeroMesa = numeroMesa;
 		this.capacidad = capacidad;

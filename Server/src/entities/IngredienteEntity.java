@@ -6,7 +6,10 @@ import javax.persistence.*;
 @Table(name="ingredientes")
 public class IngredienteEntity {
 
-	public IngredienteEntity(int ingredienteId,String nombre, StockEntity stock,String unidadDeMedida) {
+	public IngredienteEntity() {
+	}
+
+	public IngredienteEntity(int ingredienteId, String nombre, StockEntity stock, String unidadDeMedida) {
 		this.ingredienteId = ingredienteId;
 		this.nombre = nombre;
 		this.stock = stock;

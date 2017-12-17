@@ -24,7 +24,7 @@ public class MozoDao extends GenericDao<Mozo,MozoEntity>{
 	public List<Mozo> obtenerMozosSucursal(int sucursal_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		List<MozoEntity> lista = session.createQuery("select M from Sucursal S join S.sectores SS join SS.mozoAsociado M where S.sucursalId = :sucursal_id").setInteger("sucursal_id", sucursal_id).list();
+		List<MozoEntity> lista = session.createQuery("select M from SucursalEntity S join S.sectores SS join SS.mozoAsociado M where S.sucursalId = :sucursal_id").setInteger("sucursal_id", sucursal_id).list();
 		List<Mozo> mozos = new ArrayList<>();
 		mozos = lista.stream().map(mozoEntity -> this.toNegocio(mozoEntity)).collect(Collectors.toList());
 		session.close();

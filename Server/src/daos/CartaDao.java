@@ -27,7 +27,7 @@ public class CartaDao extends GenericDao<Carta,CartaEntity>{
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Date date = new Date();
-		List<CartaEntity> listE = session.createQuery("Select C from Sucursal S join S.cartas C where S.sucursalId = :sucursal_id and C.fechaInicio < :date and C.fechaFinal > :date")
+		List<CartaEntity> listE = session.createQuery("Select C from SucursalEntity S join S.cartas C where S.sucursalId = :sucursal_id and C.fechaInicio < :date and C.fechaFinal > :date")
 				.setInteger("sucursal_id", sucursalId).setTimestamp("date", date).list();
 		List<Carta> cartas = new ArrayList<>();
 		cartas.addAll(listE.stream().map(cartaEntity -> this.toNegocio(cartaEntity)).collect(Collectors.toList()));

@@ -25,7 +25,7 @@ public class LiquidacionDao extends GenericDao<Liquidacion,LiquidacionEntity>{
         session.beginTransaction();
         Instant instant = Instant.now().truncatedTo(ChronoUnit.DAYS);
 		Date date = Date.from(instant);
-		List<LiquidacionEntity> liquidacions = session.createQuery("select L from Liquidacion L where L.fecha = :date and L.mozo.id = :mozoId")
+		List<LiquidacionEntity> liquidacions = session.createQuery("select L from LiquidacionEntity L where L.fecha = :date and L.mozo.id = :mozoId")
 			.setInteger("mozoId",mozo).setTimestamp("date", date).list();
 		Liquidacion liquidacion = null;
 		if(!liquidacions.isEmpty()) {
