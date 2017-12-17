@@ -3,15 +3,10 @@ package service;
 import java.util.Date;
 import java.util.List;
 
-import daos.ProductoDao;
 import daos.SemielaboradoDao;
-import entities.IngredienteEntity;
-import entities.ItemRemitoEntity;
-import entities.ProductoEntity;
-import entities.RemitoEntity;
-import entities.SemielaboradoEntity;
+import model.*;
 
-public class DepositoService extends GenericService {
+public class DepositoService {
 	
 private static DepositoService instance;
 	
@@ -22,13 +17,12 @@ private static DepositoService instance;
 	}
 	
 	public void generarRemito(){
-		openSession();
-		RemitoEntity remito = new RemitoEntity();
-		List<SemielaboradoEntity> Semielaborados = new SemielaboradoDao().ListarTodos();
-		for(SemielaboradoEntity Semielaborado : Semielaborados){
-			for(IngredienteEntity ingrediente : Semielaborado.getIngredientes()){
+		Remito remito = new Remito();
+		List<Semielaborado> Semielaborados = new SemielaboradoDao().ListarTodos();
+		for(Semielaborado Semielaborado : Semielaborados){
+			for(Ingrediente ingrediente : Semielaborado.getIngredientes()){
 				if(ingrediente.getStock().getCantidadActual()<=ingrediente.getStock().getPuntoDeReposicion()){
-					ItemRemitoEntity item=new ItemRemitoEntity();
+					ItemRemito item=new ItemRemito();
 					item.setCantidad(ingrediente.getStock().getPuntoDeReposicion());
 					item.setIngrediente(ingrediente);
 					java.util.Date fecha = new Date();
@@ -38,11 +32,11 @@ private static DepositoService instance;
 				}
 			}
 		}
-		List<ProductoEntity> productos = new ProductoDao().ListarTodos();
-		for(ProductoEntity Producto : productos){
-			for(IngredienteEntity ingrediente : Producto.getIngredientes()){
+		/*List<Producto> productos = new ProductoDao().ListarTodos();
+		for(Producto Producto : productos){
+			for(Ingrediente ingrediente : Producto.getIngredientes()){
 				if(ingrediente.getStock().getCantidadActual()<=ingrediente.getStock().getPuntoDeReposicion()){
-					ItemRemitoEntity item=new ItemRemitoEntity();
+					ItemRemito item=new ItemRemito();
 					item.setCantidad(ingrediente.getStock().getPuntoDeReposicion());
 					item.setIngrediente(ingrediente);
 					java.util.Date fecha = new Date();
@@ -51,8 +45,7 @@ private static DepositoService instance;
 					ingrediente.getStock().setCantidadActual(ingrediente.getStock().getCantidadActual()+ingrediente.getStock().getPuntoDeReposicion());
 				}
 			}
-		}
-		commitAndCloseSession();
+		}*/
 	}
 
 }

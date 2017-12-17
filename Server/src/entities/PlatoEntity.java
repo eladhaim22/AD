@@ -8,15 +8,16 @@ import javax.persistence.*;
 @Table(name="platos")
 public class PlatoEntity {
 
-	public PlatoEntity(int platoId,String nombre, String unidadMedida, Float porcionesXUnidad, String comentarios, String rubro, Set<IngredienteEntity> ingredientes, AreaEntity area) {
+	public PlatoEntity(int platoId,String nombre, String unidadMedida, Float porcionesXUnidad, String comentarios, String rubro, Set<ItemIngredienteEntity> ingredientes, AreaEntity area,String receta) {
 		this.platoId = platoId;
 		this.nombre = nombre;
 		this.unidadMedida = unidadMedida;
 		this.porcionesXUnidad = porcionesXUnidad;
 		this.comentarios = comentarios;
 		this.rubro = rubro;
-		this.ingredientes = ingredientes;
+		this.itemsIngredientes = ingredientes;
 		this.area = area;
+		this.receta = receta;
 	}
 
 	@Id
@@ -32,10 +33,12 @@ public class PlatoEntity {
 	private String comentarios;
 	
 	private String rubro;
-	
+
+	private String receta;
+
 	@OneToMany (cascade=CascadeType.ALL)
     @JoinColumn(name="platoId")
-	private Set<IngredienteEntity> ingredientes = new HashSet<IngredienteEntity>();
+	private Set<ItemIngredienteEntity> itemsIngredientes = new HashSet<ItemIngredienteEntity>();
 
 	@OneToOne
 	private AreaEntity area;
@@ -73,10 +76,14 @@ public class PlatoEntity {
 		this.comentarios = comentarios;
 	}
 
-	public Set<IngredienteEntity> getIngredientes() {
-		return ingredientes;
+	public Set<ItemIngredienteEntity> getItemsIngredientes() {
+		return itemsIngredientes;
 	}
-	
+
+	public void setItemsIngredientes(Set<ItemIngredienteEntity> itemsIngredientes) {
+		this.itemsIngredientes = itemsIngredientes;
+	}
+
 	public String getRubro() {
 		return rubro;
 	}
@@ -85,12 +92,12 @@ public class PlatoEntity {
 		this.rubro = rubro;
 	}
 
-	public void setIngredientes(Set<IngredienteEntity> ingredientes) {
-		this.ingredientes = ingredientes;
+	public String getReceta() {
+		return receta;
 	}
-	
-	public void setNuevoIngrediente(IngredienteEntity newIngrediente){
-		ingredientes.add(newIngrediente);
+
+	public void setReceta(String receta) {
+		this.receta = receta;
 	}
 
 	public Integer getPlatoId() {
@@ -108,7 +115,5 @@ public class PlatoEntity {
 	public void setArea(AreaEntity area) {
 		this.area = area;
 	}
-	
-	
 
 }

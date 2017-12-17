@@ -1,6 +1,7 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class PlatoDto implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -9,6 +10,8 @@ public class PlatoDto implements Serializable{
 	private String unidadMedida;
 	private Float porcionesXUnidad;
 	private String comentarios;
+	private String receta;
+	private List<IngredienteDto> ingredients;
 	public Integer getPlatoId() {
 		return platoId;
 	}
@@ -39,6 +42,18 @@ public class PlatoDto implements Serializable{
 	public void setComentarios(String comentarios) {
 		this.comentarios = comentarios;
 	}
+    public void setReceta(String receta) {
+        this.receta = receta;
+    }
+    public String getReceta(){
+		return receta;
+	}
 
-	
+	public List<IngredienteDto> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<IngredienteDto> ingredients) {
+		this.ingredients = ingredients;
+	}
 }

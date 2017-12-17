@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Factura {
 
-	public Factura(Integer numeroFactura, Date fecha, float monto, String medioPago, boolean pagado, 		Set<ItemFactura> itemsFactura) {
+	public Factura(Integer numeroFactura, Date fecha, double monto, String medioPago, boolean pagado, 		Set<ItemFactura> itemsFactura) {
 		this.numeroFactura = numeroFactura;
 		this.fecha = fecha;
 		Monto = monto;
@@ -70,7 +70,7 @@ public class Factura {
 		this.itemsFactura = itemsFactura;
 	}
 
-	public FacturaDto ToDto(){
+	public FacturaDto toDto(){
 		FacturaDto FacturaDto = new FacturaDto();
 		FacturaDto.setNumeroFactura(this.getNumeroFactura());
 		FacturaDto.setFecha(this.getFecha());

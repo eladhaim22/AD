@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table (name = "facturas")
 public class FacturaEntity {
 
-	public FacturaEntity(int numeroFactura,Date fecha, float monto, String medioPago, boolean pagado, Set<ItemFacturaEntity> itemsFactura) {
+	public FacturaEntity(int numeroFactura,Date fecha, double monto, String medioPago, boolean pagado, Set<ItemFacturaEntity> itemsFactura) {
 		this.numeroFactura = numeroFactura;
 		this.fecha = fecha;
 		Monto = monto;
@@ -25,7 +25,7 @@ public class FacturaEntity {
 	
 	private Date fecha;
 	
-	private float Monto;
+	private double Monto;
 
 	private String medioPago;
 	
@@ -54,10 +54,10 @@ public class FacturaEntity {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public float getMonto() {
+	public double getMonto() {
 		return Monto;
 	}
-	public void setMonto(float monto) {
+	public void setMonto(double monto) {
 		Monto = monto;
 	}
 	public Integer getNumeroFactura() {

@@ -13,8 +13,12 @@ public class ItemRemito {
 	private int cantidad;
 	private Ingrediente ingrediente;
 
+    public ItemRemito() {
 
-	public Integer getItemRemitoId() {
+    }
+
+
+    public Integer getItemRemitoId() {
 		return itemRemitoId;
 	}
 

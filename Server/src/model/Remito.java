@@ -14,7 +14,12 @@ public class Remito {
 	private Integer numero;
 	private Date fecha;
 	private List<ItemRemito> itemsRemito;
-	public Integer getNumero() {
+
+    public Remito() {
+
+    }
+
+    public Integer getNumero() {
 		return numero;
 	}
 	public void setNumero(Integer numero) {

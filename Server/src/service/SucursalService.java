@@ -17,12 +17,9 @@ import dto.MesaDto;
 import dto.MozoDto;
 import dto.PedidoDto;
 import dto.SucursalDto;
-import model.Mesa;
-import model.Mozo;
-import model.Pedido;
-import model.Sucursal;
+import model.*;
 
-public class SucursalService extends GenericService{
+public class SucursalService{
 	
 	private static SucursalService instance;
 	
@@ -32,42 +29,28 @@ public class SucursalService extends GenericService{
 		return instance;
 	}
 
-
-	public PedidoDto confirmarAperturaMesa(int mesaId, int cantComensales, int mozoId){
-
-		PedidoDto pedidoDto = PedidoMapper.getMapper().ToDto(nuevoPedido);
-		commitAndCloseSession();
-		return pedidoDto;
-	}
-
 	
-	public FacturaDto getDatosFactura(int mesaId){
-		openSession();
-		PedidoEntity pedidoEncontrado = PedidoDao.getDao().buscarPorMesa(mesaId);
-		FacturaEntity facturaEncontrada = FacturaDao.getDao().buscarNumeroPedido(pedidoEncontrado.getNumeroPedido());
+	public Factura getDatosFactura(int mesaId){
+		Pedido pedidoEncontrado = PedidoDao.getDao().buscarPorMesa(mesaId);
+		Factura facturaEncontrada = FacturaDao.getDao().buscarNumeroPedido(pedidoEncontrado.getNumeroPedido());
 		
-		FacturaDto facturaDto = FacturaMapper.getMapper().ToDto(facturaEncontrada);
-		commitAndCloseSession();
-		return facturaDto;
+		return facturaEncontrada;
 	}
 	
 	public void registrarPagoFactura(int facturaId, String medioPago, int mesaId){
-		openSession();
-		FacturaEntity facturaEncontrada = FacturaDao.getDao().buscar(facturaId);
+		Factura facturaEncontrada = FacturaDao.getDao().buscar(facturaId);
 		facturaEncontrada.setMedioPago(medioPago);
 		facturaEncontrada.setPagado(true);
-		FacturaDao.getDao().Actualizar(facturaEncontrada);
+		FacturaDao.getDao().save(facturaEncontrada);
 		
-		PedidoEntity pedidoEncontrado = PedidoDao.getDao().buscarPorMesa(mesaId);
+		Pedido pedidoEncontrado = PedidoDao.getDao().buscarPorMesa(mesaId);
 		pedidoEncontrado.setFechaCierre(new Date(System.currentTimeMillis()));
-		PedidoDao.getDao().Actualizar(pedidoEncontrado);
+		PedidoDao.getDao().save(pedidoEncontrado);
 		
-		MesaEntity mesaEncontrada = MesaDao.getDao().buscar(mesaId);
+		Mesa mesaEncontrada = MesaDao.getDao().buscar(mesaId);
 		mesaEncontrada.setEmpty(true);
 		mesaEncontrada.setEstaPago(true);
-		MesaDao.getDao().Actualizar(mesaEncontrada);
-
-		commitAndCloseSession();
+		MesaDao.getDao().save(mesaEncontrada);
 	}
 
 

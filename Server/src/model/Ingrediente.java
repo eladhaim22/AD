@@ -1,16 +1,17 @@
 package model;
 
-public abstract class Ingrediente {
+public class Ingrediente {
 
-	public Ingrediente(Integer ingredienteId, float cantidad, Stock stock) {
+	public Ingrediente(Integer ingredienteId, String nombre, Stock stock,String unidadDeMedida) {
 		this.ingredienteId = ingredienteId;
-		this.cantidad = cantidad;
+		this.nombre = nombre;
 		this.stock = stock;
+		this.unidadDeMedida = unidadDeMedida;
 	}
 
 	private Integer ingredienteId;
 	
-	private float cantidad;
+	private String nombre;
 
 	public Integer getIngredienteId() {
 		return ingredienteId;
@@ -18,16 +19,18 @@ public abstract class Ingrediente {
 	
 	private Stock stock;
 
+	private String unidadDeMedida;
+
 	public void setIngredienteId(Integer ingredienteId) {
 		this.ingredienteId = ingredienteId;
 	}
 
-	public float getCantidad() {
-		return cantidad;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setCantidad(float cantidad) {
-		this.cantidad = cantidad;
+	public void setNombre(float cantidad) {
+		this.nombre = nombre;
 	}
 
 	public Stock getStock() {
@@ -37,7 +40,12 @@ public abstract class Ingrediente {
 	public void setStock(Stock stock) {
 		this.stock = stock;
 	}
-	
-	
 
+	public String getUnidadDeMedida() {
+		return unidadDeMedida;
+	}
+
+	public void setUnidadDeMedida(String unidadDeMedida) {
+		this.unidadDeMedida = unidadDeMedida;
+	}
 }

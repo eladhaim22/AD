@@ -16,7 +16,11 @@ public class Liquidacion {
 	private Date fecha;
 	private Double value;
 
-	public Integer getId() {
+    public Liquidacion() {
+
+    }
+
+    public Integer getId() {
 		return id;
 	}
 

@@ -83,7 +83,7 @@
 				<td>Plato:</td>
 				<td>
 	               <select name="cbItemCarta" id="comboItemCarta">
-	           		<% for (ItemCartaDto m : BusinessDelegate.getInstance().obtenerItemCarta(Integer.parseInt(request.getParameter("cartaId")))) { %>
+	           		<% for (ItemCartaDto m : BusinessDelegate.getInstance().obtenerCartaPorId(Integer.parseInt(request.getParameter("cartaId"))).getItemCartaDtos()) { %>
 			            <option value="<%=m.getItemCartaId().toString() %>">
 			            	<%=m.getPlatoAsociado().getNombre() %>			            
 			            </option>

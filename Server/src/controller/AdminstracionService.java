@@ -128,7 +128,7 @@ public class AdminstracionService extends UnicastRemoteObject implements IAdmins
 	}
 
 	public FacturaDto getDatosFactura(int mesaId) throws RemoteException{
-		return SucursalService.getInstance().getDatosFactura(mesaId);
+		return SucursalService.getInstance().getDatosFactura(mesaId).toDto();
 	}
 
 	public void registrarPagoFactura(int facturaId, String medioPago, int mesaId) throws RemoteException{
@@ -136,7 +136,7 @@ public class AdminstracionService extends UnicastRemoteObject implements IAdmins
 	}
 
 	public List<MesaDto> obtenerMesas(int sucursal_id, int mozoId, int CantComensales) throws RemoteException {
-		MesaDao.getDao().ListarMesasDisponibles(sucursal_id,mozoId,CantComensales)
+		return MesaDao.getDao().ListarMesasDisponibles(sucursal_id,mozoId,CantComensales)
 				.stream().map(mesa -> mesa.toDto()).collect(Collectors.toList());
 	}
 
@@ -152,6 +152,7 @@ public class AdminstracionService extends UnicastRemoteObject implements IAdmins
 		mesaAsignada.setEstaPago(false);
 		nuevoPedido.save();
 		mesaAsignada.save();
+		return nuevoPedido.toDto();
 	}
 	
 	public Map<String,Double> calcularComissionEnSucursal(int sucursalId) throws RemoteException {

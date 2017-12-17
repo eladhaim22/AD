@@ -15,8 +15,12 @@ import entities.LiquidacionEntity;
 import entities.MesaEntity;
 import entities.MozoEntity;
 import entities.PedidoEntity;
+import model.Liquidacion;
+import model.Mesa;
+import model.Mozo;
+import model.Pedido;
 
-public class MozoService extends GenericService {
+public class MozoService {
 	
 	private static MozoService instance;
 	
@@ -29,40 +33,38 @@ public class MozoService extends GenericService {
 	}
 
 	public Map<String,Double> calcularComissionEnSucursal(int sucursalId) {
-		openSession();
-		List<MesaEntity> mesas = MesaDao.getDao().obtenerMesasPorSucursal(sucursalId);
-		List<PedidoEntity> pedidos = PedidoDao.getDao().listarPedidosDeHoy(mesas);
-		Map<MozoEntity, List<PedidoEntity>> mozosPedidos =
-				pedidos.stream().collect(Collectors.groupingBy(PedidoEntity::getMozo));
+		List<Mesa> mesas = MesaDao.getDao().obtenerMesasPorSucursal(sucursalId);
+		List<Pedido> pedidos = PedidoDao.getDao().listarPedidosDeHoy(sucursalId);
+		Map<Mozo, List<Pedido>> mozosPedidos =
+				pedidos.stream().collect(Collectors.groupingBy(Pedido::getMozo));
 		Map<String,Double> hashMapDtos = new HashMap<>();
-		List<PedidoEntity> ps = null;
-		for(MozoEntity mozo : mozosPedidos.keySet()) {
+		List<Pedido> ps = null;
+		for(Mozo mozo : mozosPedidos.keySet()) {
 			Double comision = 0.0; 
 			ps = mozosPedidos.get(mozo);
-			for(PedidoEntity p : ps) {
+			for(Pedido p : ps) {
 				comision+=p.getComandas().stream().filter(item -> item.getItem().getPlatoAsociado().
 						getRubro().compareTo("cafeteria") != 0)
 				.mapToDouble(pr -> 
 					mozo.calcularComision(pr.getCantidad() * pr.getItem().getPrecio(), 
 							pr.getItem().getAdicionalComision())).sum();
 			}
-			LiquidacionEntity liquadacion = LiquidacionDao.getDao().obtenerLiquidacionDeLaFecha(mozo.getId());
+			Liquidacion liquadacion = LiquidacionDao.getDao().obtenerLiquidacionDeLaFecha(mozo.getId());
 			if(liquadacion != null) {
 				liquadacion.setValue(comision);
 			}
 			else {
 				Instant instant = Instant.now().truncatedTo(ChronoUnit.DAYS);
 				Date date = Date.from(instant);
-				liquadacion = new LiquidacionEntity();
+				liquadacion = new Liquidacion();
 				liquadacion.setUsuario(mozo);
 				liquadacion.setFecha(date);
 				liquadacion.setValue(comision);
 			}
-			LiquidacionDao.getDao().Guardar(liquadacion);
+			LiquidacionDao.getDao().save(liquadacion);
 			hashMapDtos.put(mozo.getNombre(), comision);
 		}
-		
-		commitAndCloseSession();
+
 		return hashMapDtos;
 	}
 }

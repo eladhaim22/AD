@@ -1,5 +1,6 @@
 package hbt;
 
+import model.ItemIngrediente;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import entities.*;
@@ -17,9 +18,7 @@ public class HibernateUtil {
             config.addAnnotatedClass(CartaEntity.class);
             config.addAnnotatedClass(CocinaEntity.class);
             config.addAnnotatedClass(FacturaEntity.class);
-            config.addAnnotatedClass(IngredienteSemielaboradoEntity.class);
             config.addAnnotatedClass(IngredienteEntity.class);
-            config.addAnnotatedClass(IngredienteProductoEntity.class);
             config.addAnnotatedClass(ItemCartaEntity.class);
             config.addAnnotatedClass(ItemFacturaEntity.class);
             config.addAnnotatedClass(ComandaEntity.class);
@@ -32,9 +31,8 @@ public class HibernateUtil {
             config.addAnnotatedClass(PedidoEntity.class);
             config.addAnnotatedClass(PlanDeProduccionEntity.class);
             config.addAnnotatedClass(PlatoEntity.class);
+            config.addAnnotatedClass(ItemIngredienteEntity.class);
             config.addAnnotatedClass(PresentacionEntity.class);
-            config.addAnnotatedClass(ProductoEntity.class);
-            config.addAnnotatedClass(ProveedorEntity.class);
             config.addAnnotatedClass(RegistroCajaEntity.class);
             config.addAnnotatedClass(RemitoEntity.class);
             config.addAnnotatedClass(SectorEntity.class);

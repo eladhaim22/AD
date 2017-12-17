@@ -7,6 +7,9 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn( name="nombre", discriminatorType=DiscriminatorType.STRING)
 public class AreaEntity {
+
+    @Id
+    @GeneratedValue
     private Integer areaId;
 
     public AreaEntity(Integer areaId) {
