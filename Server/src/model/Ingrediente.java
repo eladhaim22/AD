@@ -62,6 +62,5 @@ public class Ingrediente {
 
     public void descontar(float v) {
 		this.stock.setCantidadActual(this.stock.getCantidadActual() - v);
-		this.update();
 	}
 }

@@ -62,4 +62,8 @@ public class Comanda {
 	public void save(){
 		ComandaDao.getDao().save(this);
 	}
+
+	public void update(){
+		ComandaDao.getDao().update(this);
+	}
 }

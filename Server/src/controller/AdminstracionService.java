@@ -88,7 +88,7 @@ public class AdminstracionService extends UnicastRemoteObject implements IAdmins
 		for(Comanda c : comandas){
 			c.setEstado("Finalizado");
 			c.getItem().getPlatoAsociado().descontarStock(c.getCantidad());
-			c.save();
+			c.update();
 		}
 	}
 

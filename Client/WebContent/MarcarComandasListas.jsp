@@ -34,8 +34,8 @@
                 <tr>
                     <td width="33%"><%= c.getItem().getPlatoAsociado().getNombre()%></td>
                     <td width="33%"><%= c.getCantidad()%></td>
-                    <td type="hidden" name="<%= "comanda" + count%>"
-                        value="<%= c.getItemPedidoId()%>" id="<%= "comanda" + count%>"></td>
+                    <td> <input type="hidden" name="<%= "comanda" + count%>"
+                        value="<%= c.getItemPedidoId()%>" id="<%= "comanda" + count%>"/></td>
                     <td width="33%"><select name="<%= "cbEstado" + count%>" id="<%= "cbEstado" + count%>" size="1">
                         <option value="Iniciado">Iniciado</option>
                         <option value="Finalizado">Finalizado</option>
