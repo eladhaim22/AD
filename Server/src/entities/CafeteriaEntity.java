@@ -12,7 +12,7 @@ public class CafeteriaEntity extends AreaEntity {
     public CafeteriaEntity() {
     }
 
-    public CafeteriaEntity(int areaId) {
+    public CafeteriaEntity(Integer areaId) {
         super(areaId);
     }
 }

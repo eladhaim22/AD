@@ -5,15 +5,15 @@ import daos.SucursalDao;
 import javax.persistence.*;
 
 public class Stock {
-	public Stock(Integer stockId, int cantidadActual, int puntoDeReposicion) {
+	public Stock(Integer stockId, float cantidadActual, float puntoDeReposicion) {
 		StockId = stockId;
 		CantidadActual = cantidadActual;
 		PuntoDeReposicion = puntoDeReposicion;
 	}
 
 	private Integer StockId;
-	private int CantidadActual;
-	private int PuntoDeReposicion;
+	private float CantidadActual;
+	private float PuntoDeReposicion;
 
 	public Integer getStockId() {
 		return StockId;
@@ -23,19 +23,19 @@ public class Stock {
 		StockId = stockId;
 	}
 
-	public int getCantidadActual() {
+	public float getCantidadActual() {
 		return CantidadActual;
 	}
 
-	public void setCantidadActual(int cantidadActual) {
+	public void setCantidadActual(float cantidadActual) {
 		CantidadActual = cantidadActual;
 	}
 
-	public int getPuntoDeReposicion() {
+	public float getPuntoDeReposicion() {
 		return PuntoDeReposicion;
 	}
 
-	public void setPuntoDeReposicion(int puntoDeReposicion) {
+	public void setPuntoDeReposicion(float puntoDeReposicion) {
 		PuntoDeReposicion = puntoDeReposicion;
 	}
 

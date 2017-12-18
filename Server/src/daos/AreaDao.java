@@ -23,7 +23,7 @@ public class AreaDao extends GenericDao<Area, AreaEntity>{
 		else {
 			if (area instanceof Barra) {
 				areaEntity = new BarraEntity(area.getAreaId());
-			} else {
+			} else if(area instanceof Cafeteria){
 				areaEntity = new CafeteriaEntity(area.getAreaId());
 			}
 
@@ -40,7 +40,7 @@ public class AreaDao extends GenericDao<Area, AreaEntity>{
 		else {
 			if (areaEntity instanceof BarraEntity) {
 				area = new Barra(areaEntity.getAreaId());
-			} else {
+			} else if(areaEntity instanceof  CafeteriaEntity){
 				area = new Cafeteria(areaEntity.getAreaId());
 			}
 

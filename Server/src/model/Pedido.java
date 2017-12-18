@@ -1,13 +1,17 @@
 package model;
 
+import daos.ItemCartaDao;
 import daos.PedidoDao;
+import dto.ComandaDto;
 import dto.PedidoDto;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Pedido {
 	public Pedido(Integer numeroPedido, Integer cantComensales, Factura factura, Mozo mozo, Date fechaApertura, Date fechaCierre, Set<Comanda> comandas, Mesa mesaAsociada,Sucursal sucursal) {
@@ -108,8 +112,9 @@ public class Pedido {
 		this.sucursal = sucursal;
 	}
 
-	public void save(){
-		PedidoDao.getDao().save(this);
+	public Pedido save(){
+		this.numeroPedido = PedidoDao.getDao().save(this);
+		return this;
 	}
 
 
@@ -119,6 +124,28 @@ public class Pedido {
 		PedidoDto.setCantComensales(this.getCantComensales());
 		PedidoDto.setFechaApertura(this.getFechaApertura());
 		PedidoDto.setFechaCierre(this.getFechaCierre());
+		PedidoDto.setComandas(this.comandas.stream().map(comanda -> comanda.toDto()).collect(
+				Collectors.toList()
+		));
 		return PedidoDto;
+	}
+
+	public void update(){
+		PedidoDao.getDao().update(this);
+	}
+
+	public void agregarComandas(List<ComandaDto> comandas) {
+		Comanda comanda = null;
+		this.comandas.clear();
+		comandas.stream().forEach(comandaDto -> {
+			this.comandas.add(new Comanda(null,comandaDto.getCantidad(),"Iniciado",
+					ItemCartaDao.getDao().buscar(comandaDto.getItem().getItemCartaId())));
+		});
+		this.update();
+	}
+
+	public void cerrarPedido() {
+		this.FechaCierre = new Date(System.currentTimeMillis());
+		this.update();
 	}
 }

@@ -16,11 +16,11 @@ public class MarcaDao extends GenericDao<Marca,MarcaEntity> {
 
     @Override
     public MarcaEntity toEntity(Marca marca) {
-        return new MarcaEntity(marca.getId(),marca.getNombre(),marca.getNivel(),marca.getComentarios());
+        return marca == null ? null : new MarcaEntity(marca.getId(),marca.getNombre(),marca.getNivel(),marca.getComentarios());
     }
 
     @Override
     public Marca toNegocio(MarcaEntity marcaEntity) {
-        return new Marca(marcaEntity.getId(),marcaEntity.getNombre(),marcaEntity.getNivel(),marcaEntity.getComentarios());
+        return marcaEntity == null ? null : new Marca(marcaEntity.getId(),marcaEntity.getNombre(),marcaEntity.getNivel(),marcaEntity.getComentarios());
     }
 }

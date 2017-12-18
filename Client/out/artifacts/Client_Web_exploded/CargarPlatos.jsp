@@ -2,7 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="dto.PedidoDto" %>
-<%@ page import="dto.ItemCartaDto" %>        
+<%@ page import="dto.ItemCartaDto" %>
+<%@ page import="dto.ComandaDto" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,7 +12,7 @@
 <script type="text/javascript">
 	var itemsCarta = new Array();
 	var cantidades = new Array();
-	
+
 	function agregarPlato()
 	{
 		 var tbl = document.getElementById('tblPlatos');
@@ -19,7 +20,7 @@
 		 var myRow = document.createElement("tr");
 		 var myCellPlate = document.createElement("td");
 		 var myCellCant = document.createElement("td");
-		 
+
 		 myTbody.appendChild(myRow);
 		 
 		 var platos =document.getElementById("comboItemCarta");
@@ -102,6 +103,18 @@
 							<td width="50%">Plato</td>
 							<td width="50%">Cantidad</td>
 						</tr>
+						<% int count =1;
+							for (ComandaDto c :pedido.getComandas()){ %>
+						    <tr>
+								<td>
+									<%= c.getItem().getPlatoAsociado().getNombre().toString() %>
+									<input type="hidden" name="<%= String.join("hddRow",String.valueOf(count)) %>" id="<%= String.join("hddRow",String.valueOf(count)) %>" value="<%= c.getItem().getItemCartaId().toString() %>"/>
+								</td>
+								<td>
+									<input type="text" name="<%= String.join("txtRow",String.valueOf(count)) %>" id="<%= String.join("txtRow",String.valueOf(count)) %>" value="<%= c.getCantidad().toString() %>"/>
+								</td>
+							</tr>
+						<% count++; }%>
 					</table>
 				</td>
 			</tr>

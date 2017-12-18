@@ -10,7 +10,7 @@ public class BarraEntity extends AreaEntity {
     public BarraEntity() {
     }
 
-    public BarraEntity(int areaId) {
+    public BarraEntity(Integer areaId) {
         super(areaId);
     }
 }

@@ -15,7 +15,7 @@ public class LiquidacionEntity {
 	public LiquidacionEntity() {
 	}
 
-	public LiquidacionEntity(int id, MozoEntity usuario, Date fecha, Double value) {
+	public LiquidacionEntity(Integer id, MozoEntity usuario, Date fecha, Double value) {
 		this.id = id;
 		this.usuario = usuario;
 		this.fecha = fecha;

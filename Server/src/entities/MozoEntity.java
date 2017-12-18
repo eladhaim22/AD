@@ -8,7 +8,7 @@ public class MozoEntity {
 	public MozoEntity() {
 	}
 
-	public MozoEntity(int id, String nombre, float porcComision) {
+	public MozoEntity(Integer id, String nombre, float porcComision) {
 		this.id = id;
 		this.nombre = nombre;
 		this.porcComision = porcComision;

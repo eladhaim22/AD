@@ -16,12 +16,12 @@ public class PresentacionDao extends GenericDao<Presentacion, PresentacionEntity
 
 	@Override
 	public PresentacionEntity toEntity(Presentacion presentacion) {
-		return new PresentacionEntity(presentacion.getPresentacionId(),presentacion.getNombre(),presentacion.getTamanio());
+		return presentacion == null ? null : new PresentacionEntity(presentacion.getPresentacionId(),presentacion.getNombre(),presentacion.getTamanio());
 	}
 
 	@Override
 	public Presentacion toNegocio(PresentacionEntity presentacionEntity) {
-		return new Presentacion(presentacionEntity.getPresentacionId(),presentacionEntity.getNombre(),
+		return presentacionEntity == null ? null : new Presentacion(presentacionEntity.getPresentacionId(),presentacionEntity.getNombre(),
 				presentacionEntity.getTamanio());
 	}
 }

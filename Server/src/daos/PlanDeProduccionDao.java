@@ -22,7 +22,7 @@ public class PlanDeProduccionDao extends GenericDao<PlanDeProduccion,PlanDeProdu
 	
 	@Override
 	public PlanDeProduccionEntity toEntity(PlanDeProduccion planDeProduccion) {
-		return new PlanDeProduccionEntity(planDeProduccion.getId(),
+		return planDeProduccion == null ? null : new PlanDeProduccionEntity(planDeProduccion.getId(),
 				planDeProduccion.getItems().stream().map(itemPP ->
 						ItemPPDao.getDao().toEntity(itemPP)).collect(Collectors.toList()),
 				planDeProduccion.getNombre(),
@@ -33,7 +33,7 @@ public class PlanDeProduccionDao extends GenericDao<PlanDeProduccion,PlanDeProdu
 
 	@Override
 	public PlanDeProduccion toNegocio(PlanDeProduccionEntity planDeProduccionEntity) {
-		return new PlanDeProduccion(planDeProduccionEntity.getId(),
+		return planDeProduccionEntity == null ? null : new PlanDeProduccion(planDeProduccionEntity.getId(),
 				planDeProduccionEntity.getItems().stream().map(itemPP -> ItemPPDao.getDao().toNegocio				(itemPP)).collect(Collectors.toList()),
 				planDeProduccionEntity.getNombre(),
 				SucursalDao.getDao().toNegocio(planDeProduccionEntity.getSucursal()),

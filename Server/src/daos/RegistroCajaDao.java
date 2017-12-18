@@ -41,14 +41,14 @@ public class RegistroCajaDao extends GenericDao<RegistroCaja,RegistroCajaEntity>
 
 	@Override
 	public RegistroCajaEntity toEntity(RegistroCaja registroCaja) {
-		return new RegistroCajaEntity(registroCaja.getId(),
+		return registroCaja == null ? null : new RegistroCajaEntity(registroCaja.getId(),
 				SucursalDao.getDao().toEntity(registroCaja.getSucursal()),registroCaja.getDate(),
 				registroCaja.getValorCaja(),registroCaja.getValorEsperado());
 	}
 
 	@Override
 	public RegistroCaja toNegocio(RegistroCajaEntity registroCajaEntity) {
-		return new RegistroCaja(registroCajaEntity.getId(),
+		return registroCajaEntity == null ? null : new RegistroCaja(registroCajaEntity.getId(),
 				SucursalDao.getDao().toNegocio(registroCajaEntity.getSucursal()),registroCajaEntity					.getDate(), registroCajaEntity.getValorCaja(),registroCajaEntity.getValorEsperado());
 	}
 }

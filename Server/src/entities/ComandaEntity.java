@@ -9,11 +9,10 @@ public class ComandaEntity {
 	public ComandaEntity() {
 	}
 
-	public ComandaEntity(int id, Integer cantidad, String estado, PedidoEntity pedido, ItemCartaEntity item) {
+	public ComandaEntity(Integer id, Integer cantidad, String estado, ItemCartaEntity item) {
 		this.id = id;
 		this.cantidad = cantidad;
 		this.estado = estado;
-		this.pedido = pedido;
 		this.item = item;
 	}
 
@@ -24,11 +23,8 @@ public class ComandaEntity {
 	private Integer cantidad;
 	@Column
 	private String estado;
-	
+
 	@ManyToOne
-	private PedidoEntity pedido;
-	
-	@ManyToOne	
 	private ItemCartaEntity item;
 
 	public Integer getId() {
@@ -63,11 +59,4 @@ public class ComandaEntity {
 		this.item = item;
 	}
 
-	public PedidoEntity getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(PedidoEntity pedido) {
-		this.pedido = pedido;
-	}
 }

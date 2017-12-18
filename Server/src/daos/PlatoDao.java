@@ -17,13 +17,13 @@ public class PlatoDao extends GenericDao<Plato,PlatoEntity>{
     }
 
     public PlatoEntity toEntity(Plato plato) {
-        return new PlatoEntity(plato.getPlatoId(),plato.getNombre(),plato.getUnidadMedida(),
+        return plato == null ? null : new PlatoEntity(plato.getPlatoId(),plato.getNombre(),plato.getUnidadMedida(),
                 plato.getPorcionesXUnidad(),plato.getComentarios(),plato.getRubro(),
                 plato.getItemsIngredientes().stream().map(itemIngrediente ->  ItemIngredienteDAO.getDao().toEntity                   (itemIngrediente)).collect(Collectors.toSet()),AreaDao.getDao().toEntity(plato.getArea()),plato.getReceta());
     }
 
     public Plato toNegocio(PlatoEntity platoEntity){
-        return new Plato(platoEntity.getPlatoId(),platoEntity.getNombre(),platoEntity.getUnidadMedida(),
+        return platoEntity == null ? null : new Plato(platoEntity.getPlatoId(),platoEntity.getNombre(),platoEntity.getUnidadMedida(),
                 platoEntity.getPorcionesXUnidad(),platoEntity.getComentarios(),platoEntity.getRubro(),          platoEntity.getItemsIngredientes().stream().map(itemIngrediente ->  ItemIngredienteDAO.getDao().toNegocio                   (itemIngrediente)).collect(Collectors.toSet()),
                 AreaDao.getDao().toNegocio(platoEntity.getArea()),platoEntity.getReceta());
 }

@@ -51,14 +51,24 @@ public class FacturaDao extends GenericDao<Factura,FacturaEntity> {
     }
 
     public FacturaEntity toEntity(Factura factura) {
-        return new FacturaEntity(factura.getNumeroFactura(),factura.getFecha(),factura.getMonto(),factura.getMedioPago(),factura.isPagado(),factura.getItemsFactura().stream().map(itemFactura ->
+        return factura == null ? null : new FacturaEntity(factura.getNumeroFactura(),factura.getFecha(),factura.getMonto(),factura.getMedioPago(),factura.isPagado(),factura.getItemsFactura().stream().map(itemFactura ->
                 ItemFacturaDao.getDao().toEntity(itemFactura)).collect(Collectors.toSet())
         );
     }
 
     public Factura toNegocio(FacturaEntity facturaEntity) {
-        return new Factura(facturaEntity.getNumeroFactura(),facturaEntity.getFecha(),facturaEntity.getMonto(),facturaEntity.getMedioPago(),facturaEntity.isPagado(),facturaEntity.getItemsFactura().stream().map(itemFactura ->
+        return facturaEntity == null ? null : new Factura(facturaEntity.getNumeroFactura(),facturaEntity.getFecha(),facturaEntity.getMonto(),facturaEntity.getMedioPago(),facturaEntity.isPagado(),facturaEntity.getItemsFactura().stream().map(itemFactura ->
                 ItemFacturaDao.getDao().toNegocio(itemFactura)).collect(Collectors.toSet())
         );
+    }
+
+    public Factura obtenerFacturaImpagaPorMesa(int mesaId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        FacturaEntity facturaE = (FacturaEntity) session.createQuery("select F from PedidoEntity P join P.factura F join P.mesaAsociada M where M.mesaId =:mesaId and F.pagado = 0")
+                .setInteger("mesaId", mesaId).uniqueResult();
+        Factura factura = this.toNegocio(facturaE);
+        session.close();
+        return factura;
     }
 }

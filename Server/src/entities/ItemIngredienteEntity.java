@@ -18,7 +18,7 @@ public class ItemIngredienteEntity {
     public ItemIngredienteEntity() {
     }
 
-    public ItemIngredienteEntity(int id, IngredienteEntity ingrediente, float cantidad) {
+    public ItemIngredienteEntity(Integer id, IngredienteEntity ingrediente, float cantidad) {
         this.id = id;
         this.ingrediente = ingrediente;
         this.cantidad = cantidad;

@@ -14,7 +14,7 @@ public class StockEntity {
 	public StockEntity() {
 	}
 
-	public StockEntity(int stockId, int cantidadActual, int puntoDeReposicion) {
+	public StockEntity(Integer stockId, float cantidadActual, float puntoDeReposicion) {
 		this.StockId = stockId;
 		this.CantidadActual = cantidadActual;
 		this.PuntoDeReposicion = puntoDeReposicion;
@@ -25,10 +25,10 @@ public class StockEntity {
 	private Integer StockId;
 	
 	@Column
-	private int CantidadActual;
+	private float CantidadActual;
 	
 	@Column
-	private int PuntoDeReposicion;
+	private float PuntoDeReposicion;
 
 	public Integer getStockId() {
 		return StockId;
@@ -38,7 +38,7 @@ public class StockEntity {
 		StockId = stockId;
 	}
 
-	public int getCantidadActual() {
+	public float getCantidadActual() {
 		return CantidadActual;
 	}
 
@@ -46,7 +46,7 @@ public class StockEntity {
 		CantidadActual = cantidadActual;
 	}
 
-	public int getPuntoDeReposicion() {
+	public float getPuntoDeReposicion() {
 		return PuntoDeReposicion;
 	}
 

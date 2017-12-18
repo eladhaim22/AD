@@ -1,10 +1,12 @@
 package model;
 
+import daos.FacturaDao;
 import dto.FacturaDto;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Factura {
 
@@ -77,11 +79,39 @@ public class Factura {
 		FacturaDto.setMedioPago(this.getMedioPago());
 		FacturaDto.setMonto(this.getMonto());
 		FacturaDto.setPagado(this.isPagado());
+		FacturaDto.setItemsFacutra(this.itemsFactura.stream().map(itemFactura ->
+				itemFactura.toDto()).collect(Collectors.toList()));
 		return FacturaDto;
 	}
 
 	public void calcularFactura() {
 		this.Monto = this.itemsFactura.stream().mapToDouble(itemFactura ->
 				itemFactura.getPrecio() * itemFactura.getCantidad()).sum();
+	}
+
+	public Factura generarFactura(Pedido pedido) {
+		Set<ItemFactura> itemFacturas = new HashSet<>();
+		itemFacturas = pedido.getComandas().stream().map(comanda -> {
+				return new ItemFactura() {{
+					setCantidad(comanda.getCantidad());
+					setNombrePlato(comanda.getItem().getPlatoAsociado().getNombre());
+					setPrecio(comanda.getItem().getPrecio());
+				}};
+			}
+		).collect(Collectors.toSet());
+		this.itemsFactura = itemFacturas;
+		this.setFecha(new Date());
+		this.calcularFactura();
+		return this;
+	}
+
+	public void update(){
+		FacturaDao.getDao().update(this);
+	}
+
+    public void cerrarFactura(String medioPago) {
+    	this.medioPago = medioPago;
+    	this.pagado = true;
+    	this.update();
 	}
 }

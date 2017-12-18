@@ -8,9 +8,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import entities.ComandaEntity;
 import entities.MesaEntity;
 import entities.PedidoEntity;
 import hbt.HibernateUtil;
+import model.Comanda;
 import model.Pedido;
 import org.hibernate.Session;
 
@@ -54,8 +56,8 @@ public class PedidoDao extends GenericDao<Pedido,PedidoEntity> {
 
 	@Override
 	public PedidoEntity toEntity(Pedido pedido) {
-		return new PedidoEntity(pedido.getNumeroPedido(),
-				FacturaDao.getDao().toEntity(pedido.getFactura()),
+		return pedido == null ? null : new PedidoEntity(pedido.getNumeroPedido(),
+				pedido.getCantComensales(),FacturaDao.getDao().toEntity(pedido.getFactura()),
 				MozoDao.getDao().toEntity(pedido.getMozo()),pedido.getFechaApertura(),
 				pedido.getFechaCierre(),pedido.getComandas().stream().map(comanda ->
 				ComandaDao.getDao().toEntity(comanda)).collect(Collectors.toSet()),
@@ -65,11 +67,21 @@ public class PedidoDao extends GenericDao<Pedido,PedidoEntity> {
 
 	@Override
 	public Pedido toNegocio(PedidoEntity pedidoEntity) {
-		return new Pedido(pedidoEntity.getNumeroPedido(),pedidoEntity.getCantComensales(),FacturaDao.getDao().toNegocio(pedidoEntity.getFactura()),
+		return pedidoEntity == null ? null : new Pedido(pedidoEntity.getNumeroPedido(),pedidoEntity.getCantComensales(),FacturaDao.getDao().toNegocio(pedidoEntity.getFactura()),
 				MozoDao.getDao().toNegocio(pedidoEntity.getMozo()),pedidoEntity.getFechaApertura(),
 				pedidoEntity.getFechaCierre(),pedidoEntity.getComandas().stream().map(comanda ->
 				ComandaDao.getDao().toNegocio(comanda)).collect(Collectors.toSet()),
 				MesaDao.getDao().toNegocio(pedidoEntity.getMesaAsociada()),
 				SucursalDao.getDao().toNegocio(pedidoEntity.getSucursal()));
+	}
+
+	public List<Pedido> obtenerPedidosConComandasIniciadas() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		List<PedidoEntity> pedidosE = session.createQuery("select P from PedidoEntity P join P.comandas C where C.estado = 'Iniciado'").list();
+		List<Pedido> pedidos = new ArrayList<>();
+		pedidos = pedidosE.stream().map(comanda -> this.toNegocio(comanda)).collect(Collectors.toList());
+		session.close();
+		return pedidos;
 	}
 }

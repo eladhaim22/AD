@@ -15,10 +15,10 @@ public class ItemFacturaDao extends GenericDao<ItemFactura, ItemFacturaEntity> {
     }
 
     public ItemFacturaEntity toEntity(ItemFactura itemFactura) {
-        return new ItemFacturaEntity(itemFactura.getId(),itemFactura.getNombrePlato(),itemFactura           .getCantidad(),itemFactura.getPrecio());
+        return itemFactura == null ? null : new ItemFacturaEntity(itemFactura.getId(),itemFactura.getNombrePlato(),itemFactura           .getCantidad(),itemFactura.getPrecio());
     }
 
     public ItemFactura toNegocio(ItemFacturaEntity itemFacturaEntity) {
-        return new ItemFactura(itemFacturaEntity.getId(),itemFacturaEntity.getNombrePlato(),                itemFacturaEntity.getCantidad(),itemFacturaEntity.getPrecio());
+        return itemFacturaEntity == null ? null : new ItemFactura(itemFacturaEntity.getId(),itemFacturaEntity.getNombrePlato(),                itemFacturaEntity.getCantidad(),itemFacturaEntity.getPrecio());
     }
 }

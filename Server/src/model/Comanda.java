@@ -1,23 +1,21 @@
 package model;
 
+import daos.ComandaDao;
 import dto.ComandaDto;
 
 public class Comanda {
 
-	public Comanda(Integer id, Integer cantidad, String estado, Pedido pedido, ItemCarta item) {
+	public Comanda(Integer id, Integer cantidad, String estado, ItemCarta item) {
 		this.id = id;
 		this.cantidad = cantidad;
 		this.estado = estado;
-		this.pedido = pedido;
 		this.item = item;
 	}
 
 	private Integer id;
 	private Integer cantidad;
 	private String estado;
-	
-	private Pedido pedido;
-	
+
 	private ItemCarta item;
 
 	public Integer getId() {
@@ -52,14 +50,6 @@ public class Comanda {
 		this.item = item;
 	}
 
-	public Pedido getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
-
 	public ComandaDto toDto(){
 		ComandaDto comandaDto = new ComandaDto();
 		comandaDto.setItemPedidoId(this.getId());
@@ -67,5 +57,9 @@ public class Comanda {
 		comandaDto.setEstado(this.getEstado());
 		comandaDto.setItem(this.getItem().toDto());
 		return comandaDto;
+	}
+
+	public void save(){
+		ComandaDao.getDao().save(this);
 	}
 }

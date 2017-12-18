@@ -16,14 +16,14 @@ public class IngredienteDAO extends GenericDao<Ingrediente, IngredienteEntity>{
 
 	@Override
 	public IngredienteEntity toEntity(Ingrediente ingrediente) {
-			return new IngredienteEntity(ingrediente.getIngredienteId(),
+		return ingrediente == null ? null : new IngredienteEntity(ingrediente.getIngredienteId(),
 					ingrediente.getNombre(), StockDao.getDao().toEntity(ingrediente.getStock()),
 					ingrediente.getUnidadDeMedida());
 	}
 
 	@Override
 	public Ingrediente toNegocio(IngredienteEntity ingredienteEntity) {
-			return new Ingrediente(ingredienteEntity.getIngredienteId(),
+		return ingredienteEntity == null ? null : new Ingrediente(ingredienteEntity.getIngredienteId(),
 				ingredienteEntity.getNombre(), StockDao.getDao().toNegocio(ingredienteEntity.getStock()),ingredienteEntity.getUnidadDeMedida());
 	}
 }

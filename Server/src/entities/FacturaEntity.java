@@ -13,7 +13,7 @@ public class FacturaEntity {
 	public FacturaEntity() {
 	}
 
-	public FacturaEntity(int numeroFactura, Date fecha, double monto, String medioPago, boolean pagado, Set<ItemFacturaEntity> itemsFactura) {
+	public FacturaEntity(Integer numeroFactura, Date fecha, double monto, String medioPago, boolean pagado, Set<ItemFacturaEntity> itemsFactura) {
 		this.numeroFactura = numeroFactura;
 		this.fecha = fecha;
 		Monto = monto;
@@ -34,7 +34,7 @@ public class FacturaEntity {
 	
 	private boolean pagado;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="factura_id")
 	private Set<ItemFacturaEntity> itemsFactura = new HashSet<>();
 

@@ -11,7 +11,7 @@ public class PlatoEntity {
 	public PlatoEntity() {
 	}
 
-	public PlatoEntity(int platoId, String nombre, String unidadMedida, Float porcionesXUnidad, String comentarios, String rubro, Set<ItemIngredienteEntity> ingredientes, AreaEntity area, String receta) {
+	public PlatoEntity(Integer platoId, String nombre, String unidadMedida, Float porcionesXUnidad, String comentarios, String rubro, Set<ItemIngredienteEntity> ingredientes, AreaEntity area, String receta) {
 		this.platoId = platoId;
 		this.nombre = nombre;
 		this.unidadMedida = unidadMedida;

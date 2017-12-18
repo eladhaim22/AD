@@ -15,7 +15,7 @@ public class ItemRemitoEntity {
 	public ItemRemitoEntity() {
 	}
 
-	public ItemRemitoEntity(int cantidad, IngredienteEntity ingrediente) {
+	public ItemRemitoEntity(Integer cantidad, IngredienteEntity ingrediente) {
 		this.cantidad = cantidad;
 		this.ingrediente = ingrediente;
 	}

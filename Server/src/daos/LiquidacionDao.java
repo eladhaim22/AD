@@ -36,13 +36,13 @@ public class LiquidacionDao extends GenericDao<Liquidacion,LiquidacionEntity>{
 
     @Override
     public LiquidacionEntity toEntity(Liquidacion liquidacion) {
-        return new LiquidacionEntity(liquidacion.getId(),
+        return liquidacion == null ? null : new LiquidacionEntity(liquidacion.getId(),
                 MozoDao.getDao().toEntity(liquidacion.getUsuario()),liquidacion.getFecha(),liquidacion.getValue());
     }
 
     @Override
     public Liquidacion toNegocio(LiquidacionEntity liquidacionEntity) {
-        return new Liquidacion(liquidacionEntity.getId(),
+        return liquidacionEntity == null ? null : new Liquidacion(liquidacionEntity.getId(),
                 MozoDao.getDao().toNegocio(liquidacionEntity.getUsuario()),liquidacionEntity.getFecha(),     liquidacionEntity.getValue());
     }
 }

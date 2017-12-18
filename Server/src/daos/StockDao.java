@@ -16,11 +16,11 @@ public class StockDao extends GenericDao<Stock, StockEntity> {
 
 	@Override
 	public StockEntity toEntity(Stock stock) {
-		return new StockEntity(stock.getStockId(),stock.getCantidadActual(),stock.getPuntoDeReposicion());
+		return stock == null ? null : new StockEntity(stock.getStockId(),stock.getCantidadActual(),stock.getPuntoDeReposicion());
 	}
 
 	@Override
 	public Stock toNegocio(StockEntity stockEntity) {
-		return new Stock(stockEntity.getStockId(),stockEntity.getCantidadActual(),stockEntity.getPuntoDeReposicion());
+		return stockEntity == null ? null : new Stock(stockEntity.getStockId(),stockEntity.getCantidadActual(),stockEntity.getPuntoDeReposicion());
 	}
 }

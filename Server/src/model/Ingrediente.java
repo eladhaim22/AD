@@ -1,5 +1,8 @@
 package model;
 
+import daos.IngredienteDAO;
+import dto.IngredienteDto;
+
 public class Ingrediente {
 
 	public Ingrediente(Integer ingredienteId, String nombre, Stock stock,String unidadDeMedida) {
@@ -47,5 +50,18 @@ public class Ingrediente {
 
 	public void setUnidadDeMedida(String unidadDeMedida) {
 		this.unidadDeMedida = unidadDeMedida;
+	}
+
+	public IngredienteDto toDto(){
+		return new IngredienteDto(this.ingredienteId,this.nombre,this.unidadDeMedida);
+	}
+
+	public void update(){
+		IngredienteDAO.getDao().update(this);
+	}
+
+    public void descontar(float v) {
+		this.stock.setCantidadActual(this.stock.getCantidadActual() - v);
+		this.update();
 	}
 }

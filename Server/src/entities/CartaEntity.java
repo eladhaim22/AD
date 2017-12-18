@@ -12,7 +12,7 @@ public class CartaEntity {
 	public CartaEntity() {
 	}
 
-	public CartaEntity(int cartaId, String nombre, Date fechaInicio, Date fechaFinal, boolean activo, Set<ItemCartaEntity> items) {
+	public CartaEntity(Integer cartaId, String nombre, Date fechaInicio, Date fechaFinal, boolean activo, Set<ItemCartaEntity> items) {
 		this.cartaId = cartaId;
 		this.nombre = nombre;
 		this.fechaInicio = fechaInicio;

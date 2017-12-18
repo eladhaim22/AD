@@ -27,13 +27,13 @@ public class ItemCartaDao extends GenericDao<ItemCarta, ItemCartaEntity> {
     }
 
     public ItemCartaEntity toEntity(ItemCarta itemCarta) {
-        return new ItemCartaEntity(itemCarta.getItemCartaId(),itemCarta.getPrecio(),
+        return itemCarta == null ? null : new ItemCartaEntity(itemCarta.getItemCartaId(),itemCarta.getPrecio(),
                 PlatoDao.getDao().toEntity(itemCarta.getPlatoAsociado()),
                 itemCarta.getAdicionalComision());
     }
 
     public ItemCarta toNegocio(ItemCartaEntity itemCartaEntity) {
-        return new ItemCarta(itemCartaEntity.getItemCartaId(),itemCartaEntity.getPrecio(),
+        return itemCartaEntity == null ? null : new ItemCarta(itemCartaEntity.getItemCartaId(),itemCartaEntity.getPrecio(),
                 PlatoDao.getDao().toNegocio(itemCartaEntity.getPlatoAsociado()),
                 itemCartaEntity.getAdicionalComision());
     }

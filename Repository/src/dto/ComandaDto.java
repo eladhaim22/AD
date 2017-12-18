@@ -3,11 +3,7 @@ package dto;
 import java.io.Serializable;
 
 public class ComandaDto implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 	private Integer itemPedidoId;
 	private Integer cantidad;
 	private String estado;

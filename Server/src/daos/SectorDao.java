@@ -18,7 +18,7 @@ public class SectorDao extends GenericDao<Sector,SectorEntity> {
 
     @Override
     public SectorEntity toEntity(Sector sector) {
-        return new SectorEntity(sector.getNumeroSector(),sector.getNombre(),
+        return sector == null ? null : new SectorEntity(sector.getNumeroSector(),sector.getNombre(),
                 sector.getMesas().stream().map(mesa -> MesaDao.getDao().toEntity(mesa))
                 .collect(Collectors.toSet()),
                 sector.getCantMesas(),MozoDao.getDao().toEntity(sector.getMozoAsociado()));
@@ -26,7 +26,7 @@ public class SectorDao extends GenericDao<Sector,SectorEntity> {
 
     @Override
     public Sector toNegocio(SectorEntity sectorEntity) {
-        return new Sector(sectorEntity.getNumeroSector(),sectorEntity.getNombre(),
+        return sectorEntity == null ? null : new Sector(sectorEntity.getNumeroSector(),sectorEntity.getNombre(),
                 sectorEntity.getMesas().stream().map(mesa -> MesaDao.getDao().toNegocio(mesa))
                         .collect(Collectors.toSet()),
                 sectorEntity.getCantMesas(),MozoDao.getDao().toNegocio(sectorEntity.getMozoAsociado()));

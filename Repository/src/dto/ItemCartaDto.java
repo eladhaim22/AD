@@ -3,11 +3,23 @@ package dto;
 import java.io.Serializable;
 
 public class ItemCartaDto implements Serializable{
-	private static final long serialVersionUID = 1L;
+
+	public ItemCartaDto(Integer itemCartaId, float precio, PlatoDto platoAsociado, float adicionalComision) {
+		this.itemCartaId = itemCartaId;
+		this.precio = precio;
+		this.platoAsociado = platoAsociado;
+		this.adicionalComision = adicionalComision;
+	}
+
 	private Integer itemCartaId;
 	private float precio;
 	private PlatoDto platoAsociado;
 	private float adicionalComision;
+
+	public ItemCartaDto() {
+
+	}
+
 	public Integer getItemCartaId() {
 		return itemCartaId;
 	}

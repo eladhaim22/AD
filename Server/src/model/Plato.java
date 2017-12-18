@@ -116,4 +116,10 @@ public class Plato {
 		PlatoDto.setReceta(this.getReceta());
 		return PlatoDto;
 	}
+
+    public void descontarStock(float cantidad) {
+		this.itemsIngredientes.stream().
+				forEach(itemIngrediente -> itemIngrediente.getIngrediente()
+						.descontar(cantidad * itemIngrediente.getCantidad()));
+    }
 }

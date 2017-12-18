@@ -11,7 +11,7 @@ public class SectorEntity {
 	public SectorEntity() {
 	}
 
-	public SectorEntity(int numeroSector, String nombre, Set<MesaEntity> mesas, Integer cantMesas, MozoEntity mozoAsociado) {
+	public SectorEntity(Integer numeroSector, String nombre, Set<MesaEntity> mesas, Integer cantMesas, MozoEntity mozoAsociado) {
 		this.numeroSector = numeroSector;
 		this.nombre = nombre;
 		this.mesas = mesas;

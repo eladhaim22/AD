@@ -16,11 +16,11 @@ public class ItemPPDao extends GenericDao<ItemPP, ItemPPEntity>{
 
 	@Override
 	public ItemPPEntity toEntity(ItemPP itemPP) {
-		return new ItemPPEntity(itemPP.getItemPPId(),SemielaboradoDao.getDao().toEntity(itemPP.getSemielaborado()),itemPP.getCantidad(),itemPP.isFinalizado_flag());
+		return itemPP == null ? null : new ItemPPEntity(itemPP.getItemPPId(),SemielaboradoDao.getDao().toEntity(itemPP.getSemielaborado()),itemPP.getCantidad(),itemPP.isFinalizado_flag());
 	}
 
 	@Override
 	public ItemPP toNegocio(ItemPPEntity itemPPEntity) {
-		return new ItemPP(itemPPEntity.getItemPPId(),SemielaboradoDao.getDao().toNegocio(itemPPEntity.getSemielaborado()),itemPPEntity.getCantidad(),itemPPEntity.isFinalizado_flag());
+		return itemPPEntity == null ? null : new ItemPP(itemPPEntity.getItemPPId(),SemielaboradoDao.getDao().toNegocio(itemPPEntity.getSemielaborado()),itemPPEntity.getCantidad(),itemPPEntity.isFinalizado_flag());
 	}
 }

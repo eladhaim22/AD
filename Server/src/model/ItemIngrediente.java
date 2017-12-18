@@ -5,7 +5,7 @@ public class ItemIngrediente {
     private Ingrediente ingrediente;
     private float cantidad;
 
-    public ItemIngrediente(int id, Ingrediente ingrediente, float cantidad) {
+    public ItemIngrediente(Integer id, Ingrediente ingrediente, float cantidad) {
         this.ingrediente = ingrediente;
         this.cantidad = cantidad;
         this.id = id;

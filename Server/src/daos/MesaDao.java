@@ -75,11 +75,13 @@ public class MesaDao extends GenericDao<Mesa,MesaEntity> {
 
     @Override
     public MesaEntity toEntity(Mesa mesa) {
-        return new MesaEntity(mesa.getMesaId(),mesa.getNumeroMesa(),mesa.getCapacidad(),mesa.isEmpty(),mesa.isEstaPago());
+        MesaEntity mesaEntity = null;
+        mesaEntity = mesa == null ? null : new MesaEntity(mesa.getMesaId(),mesa.getNumeroMesa(),mesa.getCapacidad(),mesa.isEmpty(),mesa.isEstaPago());
+        return mesaEntity;
     }
 
     @Override
     public Mesa toNegocio(MesaEntity mesaEntity) {
-        return new Mesa(mesaEntity.getMesaId(),mesaEntity.getNumeroMesa(),mesaEntity.getCapacidad(),mesaEntity.isEmpty(),mesaEntity.isEstaPago());
+        return mesaEntity == null ? null : new Mesa(mesaEntity.getMesaId(),mesaEntity.getNumeroMesa(),mesaEntity.getCapacidad(),mesaEntity.isEmpty(),mesaEntity.isEstaPago());
     }
 }

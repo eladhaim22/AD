@@ -16,7 +16,8 @@ public class PedidoEntity{
 	public PedidoEntity() {
 	}
 
-	public PedidoEntity(Integer cantComensales, FacturaEntity factura, MozoEntity mozo, Date fechaApertura, Date fechaCierre, Set<ComandaEntity> comandas, MesaEntity mesaAsociada, SucursalEntity sucursal) {
+	public PedidoEntity(Integer numeroPedido,int cantComensales, FacturaEntity factura, MozoEntity mozo, Date fechaApertura, Date fechaCierre, Set<ComandaEntity> comandas, MesaEntity mesaAsociada, SucursalEntity sucursal) {
+		this.numeroPedido = numeroPedido;
 		this.cantComensales = cantComensales;
 		this.factura = factura;
 		this.mozo = mozo;

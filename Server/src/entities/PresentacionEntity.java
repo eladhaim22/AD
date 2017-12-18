@@ -10,7 +10,7 @@ public class PresentacionEntity{
 	public PresentacionEntity() {
 	}
 
-	public PresentacionEntity(int presentacionId, String nombre, float tamanio) {
+	public PresentacionEntity(Integer presentacionId, String nombre, float tamanio) {
 		this.presentacionId = presentacionId;
 		this.nombre = nombre;
 		this.tamanio = tamanio;

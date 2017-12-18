@@ -36,14 +36,12 @@ public class CartaDao extends GenericDao<Carta,CartaEntity>{
 	}
 
 	public CartaEntity toEntity(Carta carta) {
-		CartaEntity cartaEntity = new CartaEntity(carta.getCartaId(),carta.getNombre(),carta.getFechaInicio(),carta.getFechaFinal(),carta.getActivo(),
+		return carta == null ? null : new CartaEntity(carta.getCartaId(),carta.getNombre(),carta.getFechaInicio(),carta.getFechaFinal(),carta.getActivo(),
 				carta.getItems().stream().map(item -> ItemCartaDao.getDao().toEntity(item)).collect(Collectors.toSet()));
-		return cartaEntity;
 	}
 
 	public Carta toNegocio(CartaEntity cartaEntity) {
-		Carta carta = new Carta(cartaEntity.getCartaId(),cartaEntity.getNombre(),cartaEntity.getFechaInicio(),cartaEntity.getFechaFinal(),cartaEntity.getActivo(),
+		return cartaEntity == null ? null : new Carta(cartaEntity.getCartaId(),cartaEntity.getNombre(),cartaEntity.getFechaInicio(),cartaEntity.getFechaFinal(),cartaEntity.getActivo(),
 				cartaEntity.getItems().stream().map(item -> ItemCartaDao.getDao().toNegocio(item)).collect(Collectors.toSet()));
-		return carta;
 	}
 }

@@ -33,11 +33,11 @@ public class MozoDao extends GenericDao<Mozo,MozoEntity>{
 
 	@Override
 	public MozoEntity toEntity(Mozo mozo) {
-		return new MozoEntity(mozo.getId(),mozo.getNombre(),mozo.getPorcComision());
+		return mozo == null ? null : new MozoEntity(mozo.getId(),mozo.getNombre(),mozo.getPorcComision());
 	}
 
 	@Override
 	public Mozo toNegocio(MozoEntity mozoEntity) {
-		return new Mozo(mozoEntity.getId(),mozoEntity.getNombre(),mozoEntity.getPorcComision());
+		return mozoEntity == null ? null : new Mozo(mozoEntity.getId(),mozoEntity.getNombre(),mozoEntity.getPorcComision());
 	}
 }

@@ -4,15 +4,17 @@ import java.io.Serializable;
 
 public class IngredienteDto implements Serializable{
 
+    public IngredienteDto(Integer ingredienteId, String nombre, String unidadDeMedida) {
+        this.ingredienteId = ingredienteId;
+        this.nombre = nombre;
+        this.unidadDeMedida = unidadDeMedida;
+    }
+
     private Integer ingredienteId;
 
-    private float cantidad;
-
-    private StockDto stock;
+    private String nombre;
 
     private String unidadDeMedida;
-
-    private ProductoDto productoAsociado;
 
     public Integer getIngredienteId() {
         return ingredienteId;
@@ -20,22 +22,6 @@ public class IngredienteDto implements Serializable{
 
     public void setIngredienteId(Integer ingredienteId) {
         this.ingredienteId = ingredienteId;
-    }
-
-    public float getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(float cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public StockDto getStock() {
-        return stock;
-    }
-
-    public void setStock(StockDto stock) {
-        this.stock = stock;
     }
 
     public String getUnidadDeMedida() {
@@ -46,11 +32,11 @@ public class IngredienteDto implements Serializable{
         this.unidadDeMedida = unidadDeMedida;
     }
 
-    public ProductoDto getProductoAsociado() {
-        return productoAsociado;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setProductoAsociado(ProductoDto productoAsociado) {
-        this.productoAsociado = productoAsociado;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

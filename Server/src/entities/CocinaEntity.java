@@ -9,7 +9,7 @@ public class CocinaEntity extends AreaEntity {
     public CocinaEntity() {
     }
 
-    public CocinaEntity(int areaId) {
+    public CocinaEntity(Integer areaId) {
         super(areaId);
     }
 }

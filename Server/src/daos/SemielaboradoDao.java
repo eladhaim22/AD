@@ -18,7 +18,7 @@ public class SemielaboradoDao extends GenericDao<Semielaborado,SemielaboradoEnti
 
     @Override
     public SemielaboradoEntity toEntity(Semielaborado semielaborado) {
-        return new SemielaboradoEntity(semielaborado.getSeminelabodadoId(),
+        return semielaborado == null ? null : new SemielaboradoEntity(semielaborado.getSeminelabodadoId(),
                 semielaborado.getNombre(),semielaborado.getUnidadMedida(),
                 semielaborado.getPorcionesXUnidad(),semielaborado.getTiempoElaboracionXUnidad(),
                 semielaborado.getIngredientes().stream().map(ingrediente ->
@@ -27,7 +27,7 @@ public class SemielaboradoDao extends GenericDao<Semielaborado,SemielaboradoEnti
 
     @Override
     public Semielaborado toNegocio(SemielaboradoEntity semielaboradoEntity) {
-        return new Semielaborado(semielaboradoEntity.getSeminelabodadoId(),
+        return semielaboradoEntity == null ? null : new Semielaborado(semielaboradoEntity.getSeminelabodadoId(),
                 semielaboradoEntity.getNombre(),semielaboradoEntity.getUnidadMedida(),
                 semielaboradoEntity.getPorcionesXUnidad(),semielaboradoEntity.getTiempoElaboracionXUnidad(),
                 semielaboradoEntity.getIngredientes().stream().map(ingredienteEntity ->

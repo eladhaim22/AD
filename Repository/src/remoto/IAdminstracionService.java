@@ -5,16 +5,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
-import dto.CartaDto;
-import dto.ComandaDto;
-import dto.FacturaDto;
-import dto.ItemCartaDto;
-import dto.LoginDto;
-import dto.MesaDto;
-import dto.MozoDto;
-import dto.PedidoDto;
-import dto.SectorDto;
-import dto.SucursalDto;
+import dto.*;
 
 public interface IAdminstracionService extends Remote {
 	void cargarDatosIniciales() throws RemoteException;
@@ -38,5 +29,9 @@ public interface IAdminstracionService extends Remote {
 	void registrarPagoFactura(int facturaId, String medioPago, int mesaId) throws RemoteException;
 	Map<String,Double> calcularComissionEnSucursal(int sucursalId) throws RemoteException;
 	Double cerrarCaja(int sucursalId,double dineroEnCaja) throws RemoteException;
-	void generarRemito() throws RemoteException;
+    void crearPlato(PlatoDto platoDto) throws RemoteException;
+	List<PedidoDto> obtenerPedidosConComandasIniciadas() throws RemoteException;
+	List<AreaDto> obtenerAreas() throws RemoteException;
+	void aprobarComandas(List<Integer> comandasIds) throws RemoteException;
+    List<IngredienteDto> obtenerIngredientes() throws RemoteException;
 }

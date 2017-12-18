@@ -13,7 +13,7 @@ public class SucursalEntity{
 	public SucursalEntity() {
 	}
 
-	public SucursalEntity(int sucursalId, String nombre, String direccion, String telefono, String email, Integer capacidadMaxima, List<SectorEntity> sectores, List<CartaEntity> cartas) {
+	public SucursalEntity(Integer sucursalId, String nombre, String direccion, String telefono, String email, Integer capacidadMaxima, List<SectorEntity> sectores, List<CartaEntity> cartas) {
 		this.sucursalId = sucursalId;
 		this.nombre = nombre;
 		this.direccion = direccion;

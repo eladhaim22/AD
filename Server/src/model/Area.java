@@ -1,5 +1,7 @@
 package model;
 
+import dto.AreaDto;
+
 public abstract class Area {
 	protected Integer areaId;
 
@@ -14,4 +16,6 @@ public abstract class Area {
 	public void setAreaId(Integer areaId) {
 		this.areaId = areaId;
 	}
+
+	public abstract AreaDto toDto();
 }

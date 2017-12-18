@@ -10,7 +10,7 @@ public class MarcaEntity {
 
 	}
 
-	public MarcaEntity(int marcaId, String nombre, Integer nivel, String comentarios) {
+	public MarcaEntity(Integer marcaId, String nombre, Integer nivel, String comentarios) {
 		this.marcaId = marcaId;
 		this.nombre = nombre;
 		this.nivel = nivel;

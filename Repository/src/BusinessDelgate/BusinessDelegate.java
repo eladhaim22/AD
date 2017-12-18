@@ -1,15 +1,6 @@
 package BusinessDelgate;
 
-import dto.CartaDto;
-import dto.ComandaDto;
-import dto.FacturaDto;
-import dto.ItemCartaDto;
-import dto.LoginDto;
-import dto.MesaDto;
-import dto.MozoDto;
-import dto.PedidoDto;
-import dto.SectorDto;
-import dto.SucursalDto;
+import dto.*;
 import remoto.IAdminstracionService;
 
 import java.net.MalformedURLException;
@@ -79,6 +70,7 @@ public class BusinessDelegate {
 
     public List<MesaDto> obtenerMesas(int sucursal_id, int mozoId, int CantComensales) throws ServiceError{
         try {
+			getStub();
             return administracionService.obtenerMesas(sucursal_id, mozoId, CantComensales);
         } catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
@@ -87,6 +79,7 @@ public class BusinessDelegate {
     
     public PedidoDto confirmarAperturaMesa(int mesaId, int CantComensales,int mozoId) throws ServiceError{
     	try {
+			getStub();
 			return administracionService.confirmarAperturaMesa(mesaId,CantComensales,mozoId);
     	} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
@@ -95,6 +88,7 @@ public class BusinessDelegate {
 
 	public List<MesaDto> obtenerMesasAbiertaPorSucursal(int sucursalId) throws  ServiceError{
     	try{
+			getStub();
     		return administracionService.obtenerMesasAbiertaPorSucursal(sucursalId);
 		} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
@@ -103,6 +97,7 @@ public class BusinessDelegate {
         
 	public List<MesaDto> getMesasImpagas(int sucursalId, int mozoId)throws ServiceError{
 		try {
+			getStub();
 			return administracionService.getMesasImpagas(sucursalId, mozoId);
 		} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
@@ -111,22 +106,34 @@ public class BusinessDelegate {
 	
 	public FacturaDto getDatosFactura(int mesaId)throws ServiceError{
 		try {
+			getStub();
 			return administracionService.getDatosFactura(mesaId);
 		} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
 		}	
 	}
-	
+
 	public void registrarPagoFactura(int facturaId, String medioPago, int mesaId)throws ServiceError{
 		try {
+			getStub();
 			administracionService.registrarPagoFactura(facturaId, medioPago, mesaId);
 		} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
 		}	
 	}
 
+	public void crearPlato(PlatoDto platoDto)throws ServiceError{
+		try {
+			getStub();
+			administracionService.crearPlato(platoDto);
+		} catch (RemoteException e) {
+			throw new ServiceError(e.getMessage());
+		}
+	}
+
 	public List<CartaDto> obtenerCartasPorSucursal(int sucursalId) throws ServiceError {
     	try{
+			getStub();
     		return administracionService.obtenerCartasPorSucursal(sucursalId);
     	} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
@@ -136,6 +143,7 @@ public class BusinessDelegate {
 	public PedidoDto obtenerPedidoPorMesa(int mesaId) throws ServiceError
 	{
     	try{
+			getStub();
     		return administracionService.obtenerPedidoPorMesa(mesaId);
     	} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
@@ -145,6 +153,7 @@ public class BusinessDelegate {
 	public CartaDto obtenerCartaPorId(int cartaId) throws ServiceError
 	{
     	try{
+			getStub();
     		return administracionService.obtenerCartaPorId(cartaId);
     	} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
@@ -153,6 +162,7 @@ public class BusinessDelegate {
 
 	public void agregarComanda(int pedidoId, List<ComandaDto> comandas) throws  ServiceError {
     	try{
+			getStub();
     		administracionService.agregarComandas(pedidoId,comandas);
     	} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
@@ -161,6 +171,7 @@ public class BusinessDelegate {
 
 	public PedidoDto obtenerPedido(int pedidoId) throws ServiceError {
     	try{
+			getStub();
     		return administracionService.obtenerPedido(pedidoId);
     	} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
@@ -169,6 +180,7 @@ public class BusinessDelegate {
 
 	public ItemCartaDto obtenerItemCartaById(int id) throws ServiceError {
     	try{
+			getStub();
     		return administracionService.obtenerItemCartaById(id);
     	} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
@@ -177,6 +189,7 @@ public class BusinessDelegate {
 
 	public void cerrarMesa(int mesaId) throws ServiceError{
     	try{
+			getStub();
     		administracionService.cerrarMesa(mesaId);
     	} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
@@ -185,6 +198,7 @@ public class BusinessDelegate {
 
 	public void generarFactura(int mesaId) throws ServiceError{
     	try{
+			getStub();
     		administracionService.generarFactura(mesaId);
     	} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
@@ -194,6 +208,7 @@ public class BusinessDelegate {
 	public List<MesaDto> obtenerMesasDisponibles(int sucursal_id,int mozoId,int cantComensales) throws ServiceError
 	{
 		try{
+			getStub();
     		return administracionService.obtenerMesasDisponibles(sucursal_id, mozoId, cantComensales);
     	} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
@@ -202,6 +217,7 @@ public class BusinessDelegate {
 	
 	public Map<String,Double> calcularComissionEnSucursal(int sucursalId) throws ServiceError {
 		try{
+			getStub();
     		return administracionService.calcularComissionEnSucursal(sucursalId);
 		} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
@@ -210,18 +226,47 @@ public class BusinessDelegate {
 	
 	public Double cerrarCaja(int sucursalId,double dineroEnCaja) throws ServiceError{
 		try{
+			getStub();
 			return administracionService.cerrarCaja(sucursalId, dineroEnCaja);
 		} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
 		}	
 	}
-	
-	public void generarRemito() throws ServiceError{
+
+	public List<AreaDto> obtenerAreas() throws ServiceError{
 		try{
-			administracionService.generarRemito();
+			getStub();
+			return administracionService.obtenerAreas();
 		} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
-		}	
+		}
+	}
+
+	public List<IngredienteDto> obtenerIngredientes() throws ServiceError {
+		try{
+			getStub();
+			return administracionService.obtenerIngredientes();
+		} catch (RemoteException e) {
+			throw new ServiceError(e.getMessage());
+		}
+    }
+
+	public List<PedidoDto> obtenerPedidosConComandasIniciadas() throws ServiceError {
+		try{
+			getStub();
+			return administracionService.obtenerPedidosConComandasIniciadas();
+		} catch (RemoteException e) {
+			throw new ServiceError(e.getMessage());
+		}
+	}
+
+	public void aprobarComandas(List<Integer> comandasIds) throws ServiceError{
+		try{
+			getStub();
+			administracionService.aprobarComandas(comandasIds);
+		} catch (RemoteException e) {
+			throw new ServiceError(e.getMessage());
+		}
 	}
 
 }

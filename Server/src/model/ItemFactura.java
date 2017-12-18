@@ -1,5 +1,7 @@
 package model;
 
+import dto.ItemFacturaDto;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -46,5 +48,10 @@ public class ItemFactura {
 	}
 	public void setPrecio(float precio) {
 		this.precio = precio;
+	}
+
+	public ItemFacturaDto toDto(){
+    	return new ItemFacturaDto(this.getId(),this.getNombrePlato(),this.getCantidad(),
+				this.getPrecio());
 	}
 }

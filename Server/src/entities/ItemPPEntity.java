@@ -22,7 +22,7 @@ public class ItemPPEntity {
 	
 	public ItemPPEntity(){}
 	
-	public ItemPPEntity(int itemPPId,SemielaboradoEntity semielaborado, Integer cantidad,
+	public ItemPPEntity(Integer itemPPId,SemielaboradoEntity semielaborado, Integer cantidad,
 						boolean finalizado_flag) {
 		this.itemPPId = itemPPId;
 		this.semielaborado = semielaborado;

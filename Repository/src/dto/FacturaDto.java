@@ -2,6 +2,7 @@ package dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class FacturaDto implements Serializable{
 	
@@ -9,7 +10,9 @@ public class FacturaDto implements Serializable{
 	private Integer numeroFactura;
 	
 	private Date fecha;
-	
+
+	private List<ItemFacturaDto> itemsFactura;
+
 	private double Monto;
 
 	private String medioPago;
@@ -56,5 +59,11 @@ public class FacturaDto implements Serializable{
 		this.pagado = pagado;
 	}
 
-	
+	public List<ItemFacturaDto> getItemsFacutra() {
+		return itemsFactura;
+	}
+
+	public void setItemsFacutra(List<ItemFacturaDto> itemsFacutra) {
+		this.itemsFactura = itemsFacutra;
+	}
 }

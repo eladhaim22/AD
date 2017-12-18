@@ -11,16 +11,6 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>Login</display-name>
-    <servlet-name>Login</servlet-name>
-    <servlet-class>servlets.Login</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Login</servlet-name>
-    <url-pattern>/Login</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>ObtenerMozos</display-name>
     <servlet-name>ObtenerMozos</servlet-name>
     <servlet-class>servlets.ObtenerMozos</servlet-class>
@@ -172,4 +162,26 @@
     <servlet-name>ConfirmarCerrarMesa</servlet-name>
     <url-pattern>/ConfirmarCerrarMesa</url-pattern>
   </servlet-mapping>
+    <servlet>
+        <description></description>
+        <display-name>CrearPlato</display-name>
+        <servlet-name>CrearPlato</servlet-name>
+        <servlet-class>servlets.CrearPlato</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CrearPlato</servlet-name>
+        <url-pattern>/CrearPlato</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <description></description>
+        <display-name>MarcarComandasListas</display-name>
+        <servlet-name>MarcarComandasListas</servlet-name>
+        <servlet-class>servlets.MarcarComandasListas</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MarcarComandasListas</servlet-name>
+        <url-pattern>/MarcarComandasListas</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

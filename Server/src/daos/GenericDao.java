@@ -43,7 +43,16 @@ public abstract class GenericDao<Negocio,Entity>{
         return resultado;
     }
 
-    public void save(Negocio negocio){
+    public Integer save(Negocio negocio){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Integer id = (Integer) session.save(this.toEntity(negocio));
+        session.getTransaction().commit();
+        session.close();
+        return id;
+    }
+
+    public void update(Negocio negocio){
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.saveOrUpdate(this.toEntity(negocio));

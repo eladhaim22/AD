@@ -20,7 +20,7 @@ public class SucursalDao extends GenericDao<Sucursal,SucursalEntity> {
 
     @Override
     public SucursalEntity toEntity(Sucursal sucursal) {
-        return new SucursalEntity(sucursal.getSucursalId(),sucursal.getNombre(),
+        return sucursal == null ? null : new SucursalEntity(sucursal.getSucursalId(),sucursal.getNombre(),
                 sucursal.getDireccion(),sucursal.getTelefono(),sucursal.getEmail(),
                 sucursal.getCapacidadMaxima(),sucursal.getSectores().stream().map                           (sector -> SectorDao.getDao().toEntity(sector)).collect(Collectors.toList()),
                 sucursal.getCartas().stream().map(carta ->
@@ -29,7 +29,7 @@ public class SucursalDao extends GenericDao<Sucursal,SucursalEntity> {
 
     @Override
     public Sucursal toNegocio(SucursalEntity sucursalEntity) {
-        return new Sucursal(sucursalEntity.getSucursalId(),sucursalEntity.getNombre(),
+        return sucursalEntity == null ? null : new Sucursal(sucursalEntity.getSucursalId(),sucursalEntity.getNombre(),
                 sucursalEntity.getDireccion(),sucursalEntity.getTelefono(),sucursalEntity.getEmail(),
                 sucursalEntity.getCapacidadMaxima(),sucursalEntity.getSectores().stream().map                           (sectorEntity ->
                         SectorDao.getDao().toNegocio(sectorEntity)).collect(Collectors.toList()),

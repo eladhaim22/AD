@@ -14,7 +14,7 @@ public class PlanDeProduccionEntity {
 
 
 
-	public PlanDeProduccionEntity(int id,List<ItemPPEntity> items, String nombre, SucursalEntity sucursal, AreaEntity area, float objetivo) {
+	public PlanDeProduccionEntity(Integer id,List<ItemPPEntity> items, String nombre, SucursalEntity sucursal, AreaEntity area, float objetivo) {
 		this.id = id;
 		this.items = items;
 		this.nombre = nombre;
