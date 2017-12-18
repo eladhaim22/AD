@@ -2,10 +2,6 @@ package model;
 
 import dto.ItemFacturaDto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 public class ItemFactura {
 
@@ -20,9 +16,11 @@ public class ItemFactura {
 	private String nombrePlato;
 	private float cantidad;
 	private float precio;
-
-    public ItemFactura() {
-
+	
+	public ItemFactura (float cantidad,String nombre,float precio) {
+    	this.nombrePlato=nombre;
+    	this.cantidad=cantidad;
+    	this.precio=precio;
     }
 
     public Integer getId() {
@@ -53,5 +51,9 @@ public class ItemFactura {
 	public ItemFacturaDto toDto(){
     	return new ItemFacturaDto(this.getId(),this.getNombrePlato(),this.getCantidad(),
 				this.getPrecio());
+	}
+	
+	public float totalItemFactura(){
+		return this.cantidad*this.precio;
 	}
 }

@@ -1,6 +1,5 @@
 package entities;
 
-import model.Ingrediente;
 
 import javax.persistence.*;
 

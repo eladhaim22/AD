@@ -1,6 +1,12 @@
 package model;
 
+import daos.LiquidacionDao;
+import dto.LiquidacionDto;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
 
 public class Liquidacion {
 
@@ -16,11 +22,18 @@ public class Liquidacion {
 	private Date fecha;
 	private Double value;
 
-    public Liquidacion() {
+	public Liquidacion(Mozo usuario,Double value){
+		Instant instant = Instant.now().truncatedTo(ChronoUnit.DAYS);
+		this.fecha=Date.from(instant);
+		this.value=value;
+		this.usuario=usuario;
+	}
 
-    }
+	public Liquidacion() {
 
-    public Integer getId() {
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
@@ -51,6 +64,37 @@ public class Liquidacion {
 	public void setValue(Double value) {
 		this.value = value;
 	}
-	
-	
+
+	public void save(){
+		LiquidacionDao.getDao().save(this);
+	}
+
+	public void update(){
+		LiquidacionDao.getDao().update(this);
+	}
+
+	public Liquidacion calcularLiqidacion(Mozo mozo, List<Pedido> pedidos) {
+		Double comision = 0.0;
+		for(Pedido p : pedidos) {
+			comision+=p.getComandas().stream().filter(item -> item.getItem().getPlatoAsociado().
+					getRubro().compareTo("cafeteria") != 0)
+					.mapToDouble(pr ->
+							mozo.calcularComision(pr.calcularMontoComanda(),
+									pr.getItem().getAdicionalComision())).sum();
+		}
+		this.value = comision;
+		if(this.id == null) {
+			this.usuario = mozo;
+			this.fecha = Date.from(Instant.now().truncatedTo(ChronoUnit.DAYS));
+			this.save();
+		}
+		else {
+			this.update();
+		}
+		return LiquidacionDao.getDao().obtenerLiquidacionDeLaFecha(mozo.getId());
+	}
+
+	public LiquidacionDto toDto(){
+		return new LiquidacionDto(this.id,this.usuario.toDto(),this.getFecha(),this.getValue());
+	}
 }

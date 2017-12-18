@@ -9,7 +9,6 @@ import daos.*;
 import dto.*;
 import model.*;
 import remoto.IAdminstracionService;
-import service.MozoService;
 
 public class AdminstracionService extends UnicastRemoteObject implements IAdminstracionService {
 
@@ -43,7 +42,12 @@ public class AdminstracionService extends UnicastRemoteObject implements IAdmins
 	public void generarFactura(int mesaId) throws RemoteException {
 		Pedido pedido = PedidoDao.getDao().buscarPorMesa(mesaId);
 		Factura factura = new Factura();
-		pedido.setFactura(factura.generarFactura(pedido));
+		for(Comanda comanda : pedido.getComandas()){
+			ItemFactura item = new ItemFactura(comanda.getCantidad(),comanda.getItem().getPlatoAsociado().getNombre(),comanda.getItem().getPrecio());
+			factura.agregarItemFactura(item);
+		}
+		factura.calcularFactura();
+		pedido.setFactura(factura);
 		pedido.update();
 	}
 
@@ -86,8 +90,7 @@ public class AdminstracionService extends UnicastRemoteObject implements IAdmins
 		List<Comanda> comandas = comandasIds.stream().map(comandaId -> ComandaDao.getDao()
 		.buscar(comandaId)).collect(Collectors.toList());
 		for(Comanda c : comandas){
-			c.setEstado("Finalizado");
-			c.getItem().getPlatoAsociado().descontarStock(c.getCantidad());
+			c.aprobarComanda();
 			c.update();
 		}
 	}
@@ -127,7 +130,7 @@ public class AdminstracionService extends UnicastRemoteObject implements IAdmins
 		Pedido pedido = PedidoDao.getDao().buscarPorMesa(mesaId);
 		pedido.cerrarPedido();
 		Mesa mesa = MesaDao.getDao().buscar(mesaId);
-		mesa.cerrarMesa();
+		mesa.actualizarEstado(true,true);
 	}
 
 	public List<MesaDto> obtenerMesas(int sucursal_id, int mozoId, int CantComensales) throws RemoteException {
@@ -135,35 +138,42 @@ public class AdminstracionService extends UnicastRemoteObject implements IAdmins
 				.stream().map(mesa -> mesa.toDto()).collect(Collectors.toList());
 	}
 
-	public PedidoDto confirmarAperturaMesa(int mesaId, int cantComensales,int mozoId) throws RemoteException {
+	public PedidoDto confirmarAperturaMesa(int mesaId, int cantComensales,int mozoId,int sucursalId) throws RemoteException {
 		Mesa mesaAsignada = MesaDao.getDao().buscar(mesaId);
-		Pedido nuevoPedido = new Pedido();
-		nuevoPedido.setCantComensales(cantComensales);
-		nuevoPedido.setFechaApertura(new Date(System.currentTimeMillis()));
-		nuevoPedido.setMesaAsociada(mesaAsignada);
 		Mozo mozo = MozoDao.getDao().buscar(mozoId);
-		nuevoPedido.setMozo(mozo);
-		mesaAsignada.setEmpty(false);
-		mesaAsignada.setEstaPago(false);
-		nuevoPedido = nuevoPedido.save();
+		Sucursal sucursal = SucursalDao.getDao().buscar(sucursalId);
+		Pedido nuevoPedido = new Pedido(cantComensales,mesaAsignada,mozo,sucursal);
+		mesaAsignada.actualizarEstado(false,false);
+		nuevoPedido.save();
 		mesaAsignada.update();
 		return nuevoPedido.toDto();
 	}
 	
-	public Map<String,Double> calcularComissionEnSucursal(int sucursalId) throws RemoteException {
-		return MozoService.getInstance().calcularComissionEnSucursal(sucursalId);
+	public List<LiquidacionDto> calcularComissionEnSucursal(int sucursalId) throws RemoteException {
+		List<Pedido> pedidos = PedidoDao.getDao().listarPedidosDeHoy(sucursalId);
+		Map<Mozo, List<Pedido>> mozosPedidos =
+				pedidos.stream().collect(Collectors.groupingBy(Pedido::getMozo));
+		List<Liquidacion> liquidacions = new ArrayList<>();
+		for(Mozo mozo : mozosPedidos.keySet()) {
+			Liquidacion liquidacion =  LiquidacionDao.getDao().obtenerLiquidacionDeLaFecha(mozo.getId());
+			if(liquidacion == null){
+				liquidacion = new Liquidacion();
+			}
+			liquidacions.add(liquidacion.calcularLiqidacion(mozo,mozosPedidos.get(mozo)));
+		}
+		return liquidacions.stream().map(liquidacion -> liquidacion.toDto()).collect(Collectors.toList());
 	}
 	
-	public Double cerrarCaja(int sucursalId,double dineroEnCaja) throws RemoteException {
+	public RegistroCajaDto cerrarCaja(int sucursalId,double dineroEnCaja) throws RemoteException {
 		RegistroCaja registroCaja = RegistroCajaDao.getDao().getByDate(new Date(),sucursalId);
 		if(registroCaja == null){
-			registroCaja = new RegistroCaja();
+			Sucursal sucursal = SucursalDao.getDao().buscar(sucursalId);
+			registroCaja = new RegistroCaja(sucursal,dineroEnCaja);
 		}
-		registroCaja.setDate(new Date());
-		registroCaja.setSucursal(SucursalDao.getDao().buscar(sucursalId));
-		registroCaja.setValorCaja(dineroEnCaja);
-		List<Factura> facturas = FacturaDao.getDao().obtenerFacturasDeHoy(sucursalId);
-		return registroCaja.cerrarCaja(facturas);
+		else{
+			return null;
+		}
+		return registroCaja.cerrarCaja(sucursalId).toDto();
 	}
 
 	public void crearPlato(PlatoDto platoDto) throws RemoteException{

@@ -1,4 +1,5 @@
 package daos;
+
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -19,18 +20,17 @@ public class LiquidacionDao extends GenericDao<Liquidacion,LiquidacionEntity>{
         }
         return dao;
     }
-    
-    public Liquidacion obtenerLiquidacionDeLaFecha(int mozo) {
+
+	public Liquidacion obtenerLiquidacionDeLaFecha(int mozo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Instant instant = Instant.now().truncatedTo(ChronoUnit.DAYS);
 		Date date = Date.from(instant);
-		List<LiquidacionEntity> liquidacions = session.createQuery("select L from LiquidacionEntity L where L.fecha = :date and L.mozo.id = :mozoId")
-			.setInteger("mozoId",mozo).setTimestamp("date", date).list();
-		Liquidacion liquidacion = null;
-		if(!liquidacions.isEmpty()) {
-        	liquidacion = this.toNegocio(liquidacions.get(0));
-        }
+		LiquidacionEntity liquidacionE = (LiquidacionEntity) session.createQuery("select L from LiquidacionEntity L where L.fecha = :date and L.usuario.id = :mozoId")
+			.setInteger("mozoId",mozo).setTimestamp("date", date).uniqueResult();
+        Liquidacion liquidacion = this.toNegocio(liquidacionE);
+        session.beginTransaction().commit();
+        session.close();
         return liquidacion;
     }
 

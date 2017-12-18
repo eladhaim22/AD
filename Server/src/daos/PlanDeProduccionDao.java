@@ -1,13 +1,10 @@
 package daos;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.stream.Collectors;
 
 import entities.PlanDeProduccionEntity;
-import hbt.HibernateUtil;
 import model.PlanDeProduccion;
-import org.hibernate.Session;
 
 public class PlanDeProduccionDao extends GenericDao<PlanDeProduccion,PlanDeProduccionEntity> {
 

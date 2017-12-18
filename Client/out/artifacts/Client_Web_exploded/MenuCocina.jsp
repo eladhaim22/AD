@@ -10,7 +10,7 @@
 <h1> Menu Cocina </h1>
 <form>
 <input type="button" value="Crear Plato" onClick="parent.location='CrearPlato.jsp'"/><br><br>
-    <input type="button" value="Crear Plato" onClick="parent.location='MarcarComandasListas.jsp'"/><br><br>
+    <input type="button" value="Ver Comandas" onClick="parent.location='MarcarComandasListas.jsp?areaId=1'"/><br><br>
 </form>
 </body>
 </html>

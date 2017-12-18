@@ -21,6 +21,7 @@ public class MozoDao extends GenericDao<Mozo,MozoEntity>{
 	    }
 
 
+	@SuppressWarnings("unchecked")
 	public List<Mozo> obtenerMozosSucursal(int sucursal_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();

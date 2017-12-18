@@ -40,6 +40,15 @@ public class CargarPlatos extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String itemsIds = request.getParameter("hddItemsIds");
 		String cantidades = request.getParameter("hddItemsCants");
 		int pedidoId = Integer.parseInt(request.getParameter("hddPedidoId"));
@@ -81,16 +90,6 @@ public class CargarPlatos extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 		out.println(HTML);
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

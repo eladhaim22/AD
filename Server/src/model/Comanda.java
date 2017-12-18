@@ -58,6 +58,14 @@ public class Comanda {
 		comandaDto.setItem(this.getItem().toDto());
 		return comandaDto;
 	}
+	
+	public void aprobarComanda(){
+		this.estado="Finalizado";
+	}
+	
+	public float calcularMontoComanda(){
+		return this.cantidad*this.item.getPrecio();
+	}
 
 	public void save(){
 		ComandaDao.getDao().save(this);

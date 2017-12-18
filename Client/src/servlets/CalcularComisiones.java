@@ -2,10 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import BusinessDelgate.BusinessDelegate;
 import Exceptions.ServiceError;
+import dto.LiquidacionDto;
 import dto.MozoDto;
 import excepciones.LookupException;
 import excepciones.ObtenerSectoresException;
@@ -42,8 +40,8 @@ public class CalcularComisiones extends HttpServlet {
 		 	response.setContentType("text/html");
 		    PrintWriter out = response.getWriter();
 		    String title = "Listar Comisiones";
-		    
-		    Map<String,Double> lista = new HashMap<String,Double>();
+
+			List<LiquidacionDto> lista = new ArrayList<>();
 		    
 		
 		
@@ -75,8 +73,8 @@ public class CalcularComisiones extends HttpServlet {
 							"<th>Nombre</th><th>Comision</th>\n" +
 						"</tr>\n";
 		
-			    	for (String nombre : lista.keySet()) {
-			    		HTML=HTML + "<tr><td>" + nombre + "</td><td>" + lista.get(nombre).intValue() + " $</td></tr>\n";
+			    	for (LiquidacionDto liquidacionDto : lista) {
+			    		HTML=HTML + "<tr><td>" + liquidacionDto.getMozo().getNombre() + "</td><td>" + liquidacionDto.getValue() + " $</td></tr>\n";
 			    	}
 			    	
 			    	HTML=HTML + "</table>\n" +

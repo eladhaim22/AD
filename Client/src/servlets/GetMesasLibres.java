@@ -63,7 +63,7 @@ public class GetMesasLibres extends HttpServlet {
 				"<div>\n" +
 				"<h2>" + title + "</h2>\n" +
 				"</div>\n" +
-				"<form name=\"frmAbrirM\" id=\"frmAbrirMesa\" method=\"GET\" action=\"ConfirmarAbrirMesa\">\n" +
+				"<form name=\"frmAbrirM\" id=\"frmAbrirMesa\" method=\"POST\" action=\"ConfirmarAbrirMesa\">\n" +
 				"<blockquote>\n" +
 				"<h3>Mesa:\n" +
 				"<select name=\"cbMesa\" id=\"comboMesasDisponibles\" size=\"1\">\n";
@@ -78,6 +78,7 @@ public class GetMesasLibres extends HttpServlet {
     			"</h3><br/>\n" +						
 			    "<input type=\"hidden\" name=\"cbCantComensales\" id=\"cbComensales\" value=\"" + request.getParameter("txtCantComensales") + "\">\n" +
 			    "<input type=\"hidden\" name=\"cbMozo\" id=\"cbMozo\" value=\"" + request.getParameter("cbMozo") + "\">\n" +
+				"<input type=\"hidden\" name=\"cbSucursal\" id=\"cbSucursal\" value=\"" + request.getParameter("cbSucursal") + "\">\n" +
 			    "<input name=\"btnAbrirMesa\" type=\"submit\" value=\"Abrir Mesa\">\n" +
 			    "</blockquote>\n" +					    
 			    "</form>\n" +    

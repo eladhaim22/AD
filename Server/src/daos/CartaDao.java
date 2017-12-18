@@ -6,10 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import entities.CartaEntity;
-import entities.ItemCartaEntity;
 import hbt.HibernateUtil;
 import model.Carta;
-import model.ItemCarta;
 import org.hibernate.Session;
 
 public class CartaDao extends GenericDao<Carta,CartaEntity>{
@@ -23,6 +21,7 @@ public class CartaDao extends GenericDao<Carta,CartaEntity>{
         return dao;
     }
 
+	@SuppressWarnings("unchecked")
 	public List<Carta> obtenerCartasPorSucursal(int sucursalId) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();

@@ -1,15 +1,9 @@
 package daos;
 
 import entities.ComandaEntity;
-import entities.FacturaEntity;
-import hbt.HibernateUtil;
 import model.Comanda;
-import model.Factura;
-import org.hibernate.Session;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class ComandaDao extends GenericDao<Comanda, ComandaEntity>{
 

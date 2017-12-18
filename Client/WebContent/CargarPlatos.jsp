@@ -13,6 +13,10 @@
 	var itemsCarta = new Array();
 	var cantidades = new Array();
 
+    function actualizarPrecio(value,id){
+
+    }
+
 	function agregarPlato()
 	{
 		 var tbl = document.getElementById('tblPlatos');
@@ -20,9 +24,11 @@
 		 var myRow = document.createElement("tr");
 		 var myCellPlate = document.createElement("td");
 		 var myCellCant = document.createElement("td");
+		 var myCellPrice = document.createElement("td");
+
 
 		 myTbody.appendChild(myRow);
-		 
+		 myCellPrice.id = 'priceTd' + myTbody.rows.length;
 		 var platos =document.getElementById("comboItemCarta");
 		 var plato = platos.options[platos.options.selectedIndex];
 		 myRow.appendChild(myCellPlate);
@@ -31,22 +37,45 @@
 		 hidden.type = 'hidden';
 		 hidden.name = 'hddRow' + myTbody.rows.length;
 		 hidden.id = 'hddRow' + myTbody.rows.length;
-		 hidden.value = plato.value;
+		 hidden.value = plato.value.split(";")[0];
+		 hidden.className = 'submitable';
+		 var hiddenPrice = document.createElement('input');
+         hiddenPrice.type = 'hidden';
+         hiddenPrice.name = 'priceRow' + myTbody.rows.length;
+         hiddenPrice.id = 'priceRow' + myTbody.rows.length;
+         hiddenPrice.value = plato.value.split(";")[1];
 		 myCellPlate.appendChild(textNode);
 		 myCellPlate.appendChild(hidden);
+		 myCellPlate.appendChild(hiddenPrice);
 
 		 myRow.appendChild(myCellCant);
+		 myRow.appendChild	(myCellPrice);
 		 var el = document.createElement('input');
-		  el.type = 'text';
-		  el.name = 'txtRow' + myTbody.rows.length;
-		  el.id = 'txtRow' + myTbody.rows.length;
-		  myCellCant.appendChild(el);
+		 el.type = 'text';
+		 el.name = 'txtRow' + myTbody.rows.length;
+		 el.id = 'txtRow' + myTbody.rows.length;
+         el.className = 'submitable';
+         el.onchange = function(){
+             if(this.value && this.id) {
+                 var index = this.id.replace("txtRow", "");
+                 var precio = document.getElementById("priceRow" + index).value;
+                 var tdPrecio = document.getElementById("priceTd" + index);
+                 if(tdPrecio.childNodes.length > 0) {
+                     tdPrecio.removeChild(tdPrecio.childNodes[0]);
+                 }
+				 var textNode = document.createTextNode(precio * this.value);
+                 tdPrecio.appendChild(textNode);
+             }
+		 };
+		 myCellCant.appendChild(el);
 	}
+
+
 	
 	function obtenerValores()
 	{
 		var tbl = document.getElementById('tblPlatos');
-		var inputs = tbl.getElementsByTagName('input');
+		var inputs = tbl.getElementsByClassName('submitable');
 
 		for(var i=0; i < inputs.length; i++)
 		{
@@ -68,7 +97,7 @@
 </script>
 </head>
 <body>
-	<form name="frmAgregarPlatos" id="formulario" method="GET" action="CargarPlatos">
+	<form name="frmAgregarPlatos" id="formulario" method="POST" action="CargarPlatos">
 		<% PedidoDto pedido = BusinessDelegate.getInstance().obtenerPedidoPorMesa(Integer.parseInt(request.getParameter("mesaId")));%>
 		<table>
 			<tr>
@@ -85,8 +114,8 @@
 				<td>
 	               <select name="cbItemCarta" id="comboItemCarta">
 	           		<% for (ItemCartaDto m : BusinessDelegate.getInstance().obtenerCartaPorId(Integer.parseInt(request.getParameter("cartaId"))).getItemCartaDtos()) { %>
-			            <option value="<%=m.getItemCartaId().toString() %>">
-			            	<%=m.getPlatoAsociado().getNombre() %>			            
+			            <option value="<%=m.getItemCartaId().toString() + ";" + m.getPrecio() %>">
+			            	<%=m.getPlatoAsociado().getNombre() %>
 			            </option>
 					<% } %>
 	           		</select>
@@ -100,21 +129,24 @@
 				<td colspan="4">
 					<table id="tblPlatos" align="center" border="1" width="400px">
 						<tr align="center">
-							<td width="50%">Plato</td>
-							<td width="50%">Cantidad</td>
+							<td width="33%%">Plato</td>
+							<td width="33%">Cantidad</td>
+							<td>Precio</td>
 						</tr>
 						<% int count =1;
 							for (ComandaDto c :pedido.getComandas()){ %>
 						    <tr>
 								<td>
 									<%= c.getItem().getPlatoAsociado().getNombre().toString() %>
-									<input type="hidden" name="<%= String.join("hddRow",String.valueOf(count)) %>" id="<%= String.join("hddRow",String.valueOf(count)) %>" value="<%= c.getItem().getItemCartaId().toString() %>"/>
 								</td>
 								<td>
-									<input type="text" name="<%= String.join("txtRow",String.valueOf(count)) %>" id="<%= String.join("txtRow",String.valueOf(count)) %>" value="<%= c.getCantidad().toString() %>"/>
+									<%= c.getCantidad().toString() %>
+								</td>
+								<td>
+									<%= c.getCantidad() * c.getItem().getPrecio() %>
 								</td>
 							</tr>
-						<% count++; }%>
+						<% }%>
 					</table>
 				</td>
 			</tr>

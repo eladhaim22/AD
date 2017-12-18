@@ -1,6 +1,6 @@
 package model;
 
-import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class Remito {
 	private List<ItemRemito> itemsRemito;
 
     public Remito() {
-
+    	this.fecha=new Date();
     }
 
     public Integer getNumero() {
@@ -36,6 +36,10 @@ public class Remito {
 	}
 	public void setItemsRemito(List<ItemRemito> itemsRemito) {
 		this.itemsRemito = itemsRemito;
+	}
+	
+	public void agregarItemRemito(ItemRemito item){
+		this.itemsRemito.add(item);
 	}
 	
 }

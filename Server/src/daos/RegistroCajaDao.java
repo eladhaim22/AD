@@ -1,17 +1,14 @@
 package daos;
 
+
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import entities.FacturaEntity;
-import entities.MesaEntity;
+
 import entities.RegistroCajaEntity;
 import hbt.HibernateUtil;
-import model.Factura;
 import model.RegistroCaja;
 import org.hibernate.Session;
 
@@ -25,16 +22,15 @@ public class RegistroCajaDao extends GenericDao<RegistroCaja,RegistroCajaEntity>
 		}
 		return dao;
 	}
-    
-    public RegistroCaja getByDate(Date date, int sucursalId) {
+
+	public RegistroCaja getByDate(Date date, int sucursalId) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
     	RegistroCaja registroCaja = null;
-		List<RegistroCajaEntity> registroCajaE = session.createQuery("select RC from RegistroCajaEntity RC where date = :date and RC.sucursal.sucursalId  = :sucursalId")
-    			.setTimestamp("date",date).setInteger("sucursalId", sucursalId).list();
-    	if(!registroCajaE.isEmpty()) {
-    		registroCaja = this.toNegocio(registroCajaE.get(0));
-		}
+		Date truncatedDate = Date.from(date.toInstant().truncatedTo(ChronoUnit.DAYS));
+		RegistroCajaEntity registroCajaE = (RegistroCajaEntity) session.createQuery("select RC from RegistroCajaEntity RC where date = :date and RC.sucursal.sucursalId  = :sucursalId")
+    			.setTimestamp("date",truncatedDate).setInteger("sucursalId", sucursalId).uniqueResult();
+		registroCaja = this.toNegocio(registroCajaE);
 		session.close();
     	return registroCaja;
     }

@@ -1,7 +1,11 @@
 package model;
 
+import daos.FacturaDao;
 import daos.RegistroCajaDao;
+import dto.RegistroCajaDto;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -20,9 +24,11 @@ public class RegistroCaja {
 	private double valorCaja;
 	private double valorEsperado;
 
-    public RegistroCaja() {
-
-    }
+	public RegistroCaja(Sucursal sucursal,double valorCaja) {
+		this.date= Date.from(Instant.now().truncatedTo(ChronoUnit.DAYS));
+		this.sucursal=sucursal;
+		this.valorCaja=valorCaja;
+	}
 
     public Integer getId() {
 		return id;
@@ -68,10 +74,16 @@ public class RegistroCaja {
 		RegistroCajaDao.getDao().save(this);
 	}
 
-	public Double cerrarCaja(List<Factura> facturas){
-		this.valorCaja = facturas.stream().mapToDouble(factura -> factura.getMonto()).sum();
+	public RegistroCaja cerrarCaja(int sucursalId){
+		List<Factura> facturas = FacturaDao.getDao().obtenerFacturasDeHoy(sucursalId);
+		this.valorEsperado = facturas.stream().mapToDouble(factura -> factura.getMonto()).sum();
 		save();
-		return this.valorCaja;
+		return this;
 	}
+
+	public RegistroCajaDto toDto(){
+		return new RegistroCajaDto(this.id,this.sucursal.getSucursalId(),this.getDate(),this.getValorCaja(),this.getValorEsperado());
+	}
+
 
 }

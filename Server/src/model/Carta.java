@@ -1,7 +1,6 @@
 package model;
 
 import dto.CartaDto;
-import sun.text.resources.ar.CollationData_ar;
 
 import java.util.Date;
 import java.util.HashSet;

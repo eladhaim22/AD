@@ -91,7 +91,7 @@
             var myRow = document.createElement("tr");
             var myCellPlate = document.createElement("td");
             var myCellCant = document.createElement("td");
-
+			var myCellUnidad = document.createElement("td");
             tbl.appendChild(myRow);
 
             var platos =document.getElementById("comboIngrediente");
@@ -102,16 +102,19 @@
             hidden.type = 'hidden';
             hidden.name = 'hddRow' + ingredientes;
             hidden.id = 'hddRow' + ingredientes;
-            hidden.value = plato.value;
+            hidden.value = plato.value.split(";")[0];
             myCellPlate.appendChild(textNode);
             myCellPlate.appendChild(hidden);
 
             myRow.appendChild(myCellCant);
             var el = document.createElement('input');
-            el.type = 'text';
+            el.type = 'number';
             el.name = 'txtRow' + ingredientes;
             el.id = 'txtRow' + ingredientes;
             myCellCant.appendChild(el);
+            txtElement = document.createTextNode(plato.value.split(";")[1]);
+            myCellUnidad.appendChild(txtElement);
+            myRow.appendChild(myCellUnidad);
             ingredientes++;
         }
 
@@ -120,20 +123,20 @@
 </head>
 <body>
 <div>
-	<h2>Cargar Pedido</h2>
+	<h2>Crear Plato </h2>
 </div>
 <form name="frmCargarPedido" id="formulario" method="POST" action="CrearPlato" >
 		<table id="tablePlato">
-			<tr>
+			<!--tr>
 				<td>Sucursal:</td>
 				<td>
 					<select name="cbSucursal" id="comboSucursales" onchange="cargarCartaPorSucursal()">
 						<option value="">Elija una sucursal</option>
-						<% for (SucursalDto m : BusinessDelegate.getInstance().obtenerSucursales()) { %>
-						<option value="<%=m.getSucursalId() %>">
-							<%=m.getNombre() %>
+						 <%-- for (SucursalDto m : BusinessDelegate.getInstance().obtenerSucursales()) { %>
+						<option value="<%= m.getSucursalId() %>">
+							<%=//m.getNombre() %>
 						</option>
-						<% } %>
+						<% } --%>
 					</select>
 				</td>
 				<td>&nbsp;</td>
@@ -143,7 +146,7 @@
 						<option value=" ">Elija una carta</option>
 					</select>
 				</td>
-			</tr>
+			</tr-->
 			<tr>
 				<td>Nombre:</td>
 				<td><input name="nombre" type="text" id="txtnombre"/></td>
@@ -160,7 +163,7 @@
 			</tr>
 			<tr>
 				<td>Porciones x unidad:</td>
-				<td><input name="porcionesXUnidad" type="text" id="txtporcionesXUnidad"/></td>
+				<td><input name="porcionesXUnidad" type="number" id="txtporcionesXUnidad"/></td>
 				<td colspan="3">&nbsp;</td>
 			</tr>
 			<tr>
@@ -175,7 +178,7 @@
 				<td colspan="3">&nbsp;</td>
 			</tr>
 			<tr>
-				<td>Carta:</td>
+				<td>Area:</td>
 				<td>
 					<select name="areaId" id="comboArea">
 						<option value=" ">Elija una area:</option>
@@ -194,7 +197,7 @@
 					<select name="areaId" id="comboIngrediente">
 						<option value=" ">Elija un ingrediente:</option>
 						<% for (IngredienteDto ingredienteDto : BusinessDelegate.getInstance().obtenerIngredientes()) { %>
-						<option value="<%= ingredienteDto.getIngredienteId() %>">
+						<option value="<%= ingredienteDto.getIngredienteId() + ";" + ingredienteDto.getUnidadDeMedida() %>">
 							<%=ingredienteDto.getNombre() %>
 						</option>
 						<% } %>
@@ -202,11 +205,22 @@
 				</td>
 				<td colspan="2" align="center"><input name="btnAgregar" type="button" value="Agregar Ingrediente" onclick="agregarItemIngrediente()"></td>
 			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td>Ingrediente</td>
+				<td>Cantidad</td>
+				<td colspan="2">Unidad de medida</td>
+			</tr>
 		</table>
-		<tr>
-			<td colspan="4">&nbsp;</td>
-			<td><input name="btnAceptar" type="submit" value="Aceptar"></td>
-		</tr>
+		<br>
+		<br>
+
+	<input name="btnAceptar" type="submit" value="Aceptar">
+
 </form>
 </br>
 <a href='MenuMozo.jsp'>volver al menu</a>

@@ -23,7 +23,7 @@ public class IngredienteEntity {
 	private String nombre;
 
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private StockEntity stock;
 
 	private String unidadDeMedida;

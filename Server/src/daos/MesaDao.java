@@ -20,7 +20,8 @@ public class MesaDao extends GenericDao<Mesa,MesaEntity> {
         return dao;
     }
     
-    public List<Mesa> ListarMesasDisponibles(int sucursal_id, int mozoId, int cantComensales){
+    @SuppressWarnings("unchecked")
+	public List<Mesa> ListarMesasDisponibles(int sucursal_id, int mozoId, int cantComensales){
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         List<MesaEntity> returnValue = session.createQuery("Select M from SucursalEntity S join S.sectores SS join SS.mozoAsociado MZ join SS.mesas M where MZ.id = :mozoId and S.sucursalId = :sucursal_id and M.capacidad >= :cantComensales and M.isEmpty = true")
@@ -33,10 +34,11 @@ public class MesaDao extends GenericDao<Mesa,MesaEntity> {
         return  mesas;
     }
     
-    public List<Mesa> buscarMesasImpagas(int sucursal_id, int mozoId){
+    @SuppressWarnings("unchecked")
+	public List<Mesa> buscarMesasImpagas(int sucursal_id, int mozoId){
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        List<MesaEntity> returnValue = session.createQuery("Select M from SucursalEntity S join S.sectores SS join SS.mozoAsociado MZ join SS.mesas M where MZ.id = :mozoId and S.sucursalId = :sucursal_id and M.estaPago = false and M.isEmpty = true")
+		List<MesaEntity> returnValue = session.createQuery("Select M from SucursalEntity S join S.sectores SS join SS.mozoAsociado MZ join SS.mesas M where MZ.id = :mozoId and S.sucursalId = :sucursal_id and M.estaPago = false and M.isEmpty = true")
         															.setInteger("mozoId", mozoId).setInteger("sucursal_id", sucursal_id).list();
         List<Mesa> mesas = new ArrayList<>();
         if(!returnValue.isEmpty()){
@@ -46,7 +48,8 @@ public class MesaDao extends GenericDao<Mesa,MesaEntity> {
         return  mesas;
     }
     
-    public List<Mesa> obtenerMesasAbiertaPorSucursal(int sucursalId){
+    @SuppressWarnings("unchecked")
+	public List<Mesa> obtenerMesasAbiertaPorSucursal(int sucursalId){
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         List<MesaEntity> returnValue = session.createQuery("Select M from SucursalEntity S join S.sectores SS join SS.mesas M where S.sucursalId = :sucursal_id and M.isEmpty = false")
@@ -58,7 +61,8 @@ public class MesaDao extends GenericDao<Mesa,MesaEntity> {
         session.close();
         return  mesas;
     }
-    public List<Mesa> obtenerMesasPorSucursal(int sucursalId){
+    @SuppressWarnings("unchecked")
+	public List<Mesa> obtenerMesasPorSucursal(int sucursalId){
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         List<MesaEntity> returnValue = session.createQuery("Select M from SucursalEntity S join S.sectores SS join SS.mesas M where S.sucursalId = :sucursal_id")

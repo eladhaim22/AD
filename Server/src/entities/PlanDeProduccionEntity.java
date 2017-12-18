@@ -1,6 +1,5 @@
 package entities;
 
-import model.Area;
 
 import java.util.ArrayList;
 import java.util.List;

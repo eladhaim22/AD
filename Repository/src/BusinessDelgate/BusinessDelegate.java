@@ -77,10 +77,10 @@ public class BusinessDelegate {
 		}	
     }
     
-    public PedidoDto confirmarAperturaMesa(int mesaId, int CantComensales,int mozoId) throws ServiceError{
+    public PedidoDto confirmarAperturaMesa(int mesaId, int CantComensales,int mozoId,int sucursalId) throws ServiceError{
     	try {
 			getStub();
-			return administracionService.confirmarAperturaMesa(mesaId,CantComensales,mozoId);
+			return administracionService.confirmarAperturaMesa(mesaId,CantComensales,mozoId,sucursalId);
     	} catch (RemoteException e) {
 			throw new ServiceError(e.getMessage());
 		}	
@@ -215,7 +215,7 @@ public class BusinessDelegate {
 		}	
 	}
 	
-	public Map<String,Double> calcularComissionEnSucursal(int sucursalId) throws ServiceError {
+	public List<LiquidacionDto> calcularComissionEnSucursal(int sucursalId) throws ServiceError {
 		try{
 			getStub();
     		return administracionService.calcularComissionEnSucursal(sucursalId);
@@ -224,7 +224,7 @@ public class BusinessDelegate {
 		}	
 	}
 	
-	public Double cerrarCaja(int sucursalId,double dineroEnCaja) throws ServiceError{
+	public RegistroCajaDto cerrarCaja(int sucursalId,double dineroEnCaja) throws ServiceError{
 		try{
 			getStub();
 			return administracionService.cerrarCaja(sucursalId, dineroEnCaja);

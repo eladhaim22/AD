@@ -2,8 +2,6 @@ package model;
 
 import dto.AreaDto;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
 
 public class Barra extends Area {
 

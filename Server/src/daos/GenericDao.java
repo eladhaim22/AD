@@ -9,9 +9,11 @@ import java.util.List;
 
 public abstract class GenericDao<Negocio,Entity>{
 
-    protected Class<Entity> entityClass = getEntityClass();
+    @SuppressWarnings("unchecked")
+	protected Class<Entity> entityClass = getEntityClass();
 
-    protected Class getEntityClass() {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	protected Class getEntityClass() {
         if (entityClass == null) {
             ParameterizedType thisType = (ParameterizedType) getClass()
                     .getGenericSuperclass();
@@ -21,7 +23,8 @@ public abstract class GenericDao<Negocio,Entity>{
     }
 
 
-    public Negocio buscar(int index) {
+    @SuppressWarnings("unchecked")
+	public Negocio buscar(int index) {
         Negocio resultado = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -32,7 +35,8 @@ public abstract class GenericDao<Negocio,Entity>{
     }
 
 
-    public List<Negocio> ListarTodos() throws HibernateException {
+    @SuppressWarnings("unchecked")
+	public List<Negocio> ListarTodos() throws HibernateException {
         List<Negocio> resultado = new ArrayList<Negocio>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();

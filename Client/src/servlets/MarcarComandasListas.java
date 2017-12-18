@@ -40,7 +40,7 @@ public class MarcarComandasListas extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        String jspPage = "/MarcarComandasListas.jsp";
+        String jspPage = "/MarcarComandasListas.jsp?areaId=" + request.getParameter("areaId");
         dispatch(jspPage, request, response);
     }
 

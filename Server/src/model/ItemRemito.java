@@ -1,6 +1,6 @@
 package model;
 
-import javax.persistence.*;
+
 
 public class ItemRemito {
 	public ItemRemito(Integer itemRemitoId, int cantidad, Ingrediente ingrediente) {
@@ -10,12 +10,13 @@ public class ItemRemito {
 	}
 
 	private Integer itemRemitoId;
-	private int cantidad;
+	private float cantidad;
 	private Ingrediente ingrediente;
 
-    public ItemRemito() {
-
-    }
+	public ItemRemito(float cantidad,Ingrediente ingrediente){
+		this.cantidad=cantidad;
+		this.ingrediente=ingrediente;
+	}
 
 
     public Integer getItemRemitoId() {
@@ -28,12 +29,12 @@ public class ItemRemito {
 	}
 
 
-	public int getCantidad() {
+	public float getCantidad() {
 		return cantidad;
 	}
 
 
-	public void setCantidad(int cantidad) {
+	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
 	}
 

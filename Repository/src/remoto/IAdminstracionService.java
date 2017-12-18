@@ -23,12 +23,12 @@ public interface IAdminstracionService extends Remote {
 	List<SectorDto> obtenerSectores() throws RemoteException;
 	List<SucursalDto> obtenerSucursales() throws RemoteException;
 	List<MozoDto> obtenerMozos(int sucursal_id) throws RemoteException;
-	PedidoDto confirmarAperturaMesa(int mesaId, int cantComensales,int mozoId) throws RemoteException;	
+	PedidoDto confirmarAperturaMesa(int mesaId, int cantComensales,int mozoId,int sucursalId) throws RemoteException;
 	List<MesaDto> getMesasImpagas(int sucursalId, int mozoId) throws RemoteException;
 	FacturaDto getDatosFactura(int mesaId) throws RemoteException;
 	void registrarPagoFactura(int facturaId, String medioPago, int mesaId) throws RemoteException;
-	Map<String,Double> calcularComissionEnSucursal(int sucursalId) throws RemoteException;
-	Double cerrarCaja(int sucursalId,double dineroEnCaja) throws RemoteException;
+	List<LiquidacionDto> calcularComissionEnSucursal(int sucursalId) throws RemoteException;
+	RegistroCajaDto cerrarCaja(int sucursalId,double dineroEnCaja) throws RemoteException;
     void crearPlato(PlatoDto platoDto) throws RemoteException;
 	List<PedidoDto> obtenerPedidosConComandasIniciadas() throws RemoteException;
 	List<AreaDto> obtenerAreas() throws RemoteException;

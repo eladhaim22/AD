@@ -15,14 +15,15 @@ public class Ingrediente {
 	private Integer ingredienteId;
 	
 	private String nombre;
-
-	public Integer getIngredienteId() {
-		return ingredienteId;
-	}
 	
 	private Stock stock;
 
 	private String unidadDeMedida;
+	
+	
+	public Integer getIngredienteId() {
+		return ingredienteId;
+	}
 
 	public void setIngredienteId(Integer ingredienteId) {
 		this.ingredienteId = ingredienteId;
@@ -32,7 +33,7 @@ public class Ingrediente {
 		return nombre;
 	}
 
-	public void setNombre(float cantidad) {
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
@@ -62,5 +63,6 @@ public class Ingrediente {
 
     public void descontar(float v) {
 		this.stock.setCantidadActual(this.stock.getCantidadActual() - v);
+		this.update();
 	}
 }

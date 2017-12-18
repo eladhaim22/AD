@@ -1,10 +1,9 @@
 package model;
 
-import daos.PedidoDao;
 import daos.PlatoDao;
 import dto.PlatoDto;
 
-import javax.persistence.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -114,6 +113,7 @@ public class Plato {
 		PlatoDto.setPorcionesXUnidad(this.getPorcionesXUnidad());
 		PlatoDto.setComentarios(this.getComentarios());
 		PlatoDto.setReceta(this.getReceta());
+		PlatoDto.setAreaId(this.getArea().getAreaId());
 		return PlatoDto;
 	}
 

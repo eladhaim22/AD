@@ -8,11 +8,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import entities.ComandaEntity;
-import entities.MesaEntity;
+
 import entities.PedidoEntity;
 import hbt.HibernateUtil;
-import model.Comanda;
 import model.Pedido;
 import org.hibernate.Session;
 
@@ -37,6 +35,7 @@ public class PedidoDao extends GenericDao<Pedido,PedidoEntity> {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Pedido> listarPedidosDeHoy(int sucursalId) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
@@ -49,7 +48,7 @@ public class PedidoDao extends GenericDao<Pedido,PedidoEntity> {
 				.setTimestamp("dateFrom", datefrom).setTimestamp("dateTo", dateto)
 				.setInteger("sucursalId",sucursalId).list();
 		List<Pedido> pedidos = new ArrayList<>();
-		pedidosE.stream().map(pedidoEntity -> this.toNegocio(pedidoEntity)).collect(Collectors.toList());
+		pedidos = pedidosE.stream().map(pedidoEntity -> this.toNegocio(pedidoEntity)).collect(Collectors.toList());
 		session.close();
         return pedidos;
 	}
@@ -75,10 +74,11 @@ public class PedidoDao extends GenericDao<Pedido,PedidoEntity> {
 				SucursalDao.getDao().toNegocio(pedidoEntity.getSucursal()));
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Pedido> obtenerPedidosConComandasIniciadas() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		List<PedidoEntity> pedidosE = session.createQuery("select P from PedidoEntity P join P.comandas C where C.estado = 'Iniciado'").list();
+		List<PedidoEntity> pedidosE = session.createQuery("select distinct P from PedidoEntity P join P.comandas C where C.estado = 'Iniciado'").list();
 		List<Pedido> pedidos = new ArrayList<>();
 		pedidos = pedidosE.stream().map(comanda -> this.toNegocio(comanda)).collect(Collectors.toList());
 		session.close();

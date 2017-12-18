@@ -2,7 +2,7 @@ package model;
 
 import dto.MozoDto;
 
-import javax.persistence.*;
+
 public class Mozo {
 
 	public Mozo(Integer id, String nombre, float porcComision) {

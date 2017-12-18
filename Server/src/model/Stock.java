@@ -1,8 +1,5 @@
 package model;
 
-import daos.SucursalDao;
-
-import javax.persistence.*;
 
 public class Stock {
 	public Stock(Integer stockId, float cantidadActual, float puntoDeReposicion) {
@@ -37,6 +34,10 @@ public class Stock {
 
 	public void setPuntoDeReposicion(float puntoDeReposicion) {
 		PuntoDeReposicion = puntoDeReposicion;
+	}
+	
+	public void reponerStock(){
+		this.CantidadActual = this.CantidadActual+this.PuntoDeReposicion;
 	}
 
 }

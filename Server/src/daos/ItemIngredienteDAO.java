@@ -1,7 +1,6 @@
 package daos;
 
 import entities.ItemIngredienteEntity;
-import model.Ingrediente;
 import model.ItemIngrediente;
 
 public class ItemIngredienteDAO extends GenericDao<ItemIngrediente, ItemIngredienteEntity>{

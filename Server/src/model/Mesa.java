@@ -3,8 +3,6 @@ package model;
 import daos.MesaDao;
 import dto.MesaDto;
 
-import javax.persistence.*;
-import java.io.Serializable;
 
 public class 	Mesa{
 	public Mesa(Integer mesaId, Integer numeroMesa, Integer capacidad, boolean isEmpty, boolean estaPago) {
@@ -78,10 +76,9 @@ public class 	Mesa{
 		mesaDto.setEmpty(this.isEstaPago());
 		return mesaDto;
 	}
-
-    public void cerrarMesa() {
-		this.isEmpty = true;
-		this.estaPago = true;
-		this.update();
-    }
+    
+    public void actualizarEstado(boolean isEmpty,boolean estaPago){
+		this.isEmpty=isEmpty;
+		this.estaPago=estaPago;
+	}
 }

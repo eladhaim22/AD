@@ -33,7 +33,8 @@ public class FacturaDao extends GenericDao<Factura,FacturaEntity> {
 		return factura;
 	}
 
-    public List<Factura> obtenerFacturasDeHoy(int sucursalId) {
+    @SuppressWarnings("unchecked")
+	public List<Factura> obtenerFacturasDeHoy(int sucursalId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Instant instant = Instant.now().truncatedTo(ChronoUnit.DAYS);

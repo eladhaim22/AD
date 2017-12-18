@@ -5,8 +5,7 @@ import daos.PedidoDao;
 import dto.ComandaDto;
 import dto.PedidoDto;
 
-import javax.persistence.*;
-import java.io.Serializable;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -35,9 +34,13 @@ public class Pedido {
 	private Set<Comanda> comandas = new HashSet<Comanda>();
 	private Mesa mesaAsociada;
 	private Sucursal sucursal;
-
-    public Pedido() {
-
+	
+	public Pedido(Integer cantComensales,Mesa mesaAsignada,Mozo mozo,Sucursal sucursal) {
+    	this.cantComensales=cantComensales;
+    	this.mesaAsociada=mesaAsignada;
+    	this.FechaApertura=new Date(System.currentTimeMillis());
+    	this.mozo=mozo;
+    	this.sucursal = sucursal;
     }
 
     public Integer getNumeroPedido() {
@@ -135,11 +138,11 @@ public class Pedido {
 	}
 
 	public void agregarComandas(List<ComandaDto> comandas) {
-		Comanda comanda = null;
-		this.comandas.clear();
 		comandas.stream().forEach(comandaDto -> {
+			ItemCarta itemCarta = ItemCartaDao.getDao().buscar(comandaDto.getItem().getItemCartaId());
+			itemCarta.getPlatoAsociado().descontarStock(comandaDto.getCantidad());
 			this.comandas.add(new Comanda(null,comandaDto.getCantidad(),"Iniciado",
-					ItemCartaDao.getDao().buscar(comandaDto.getItem().getItemCartaId())));
+					itemCarta));
 		});
 		this.update();
 	}

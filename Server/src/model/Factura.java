@@ -32,7 +32,7 @@ public class Factura {
 	private Set<ItemFactura> itemsFactura = new HashSet<>();
 
 	public Factura() {
-
+		this.setFecha(new Date());
 	}
 
 	public String getMedioPago() {
@@ -86,23 +86,7 @@ public class Factura {
 
 	public void calcularFactura() {
 		this.Monto = this.itemsFactura.stream().mapToDouble(itemFactura ->
-				itemFactura.getPrecio() * itemFactura.getCantidad()).sum();
-	}
-
-	public Factura generarFactura(Pedido pedido) {
-		Set<ItemFactura> itemFacturas = new HashSet<>();
-		itemFacturas = pedido.getComandas().stream().map(comanda -> {
-				return new ItemFactura() {{
-					setCantidad(comanda.getCantidad());
-					setNombrePlato(comanda.getItem().getPlatoAsociado().getNombre());
-					setPrecio(comanda.getItem().getPrecio());
-				}};
-			}
-		).collect(Collectors.toSet());
-		this.itemsFactura = itemFacturas;
-		this.setFecha(new Date());
-		this.calcularFactura();
-		return this;
+		itemFactura.totalItemFactura()).sum();
 	}
 
 	public void update(){
@@ -113,5 +97,9 @@ public class Factura {
     	this.medioPago = medioPago;
     	this.pagado = true;
     	this.update();
+	}
+    
+    public void agregarItemFactura(ItemFactura item){
+		this.itemsFactura.add(item);
 	}
 }

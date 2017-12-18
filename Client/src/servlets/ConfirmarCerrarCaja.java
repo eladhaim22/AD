@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import BusinessDelgate.BusinessDelegate;
 import Exceptions.ServiceError;
 import dto.MozoDto;
+import dto.RegistroCajaDto;
 import excepciones.LookupException;
 import excepciones.ObtenerSectoresException;
 
@@ -40,13 +41,13 @@ public class ConfirmarCerrarCaja extends HttpServlet {
 		 	response.setContentType("text/html");
 		    PrintWriter out = response.getWriter();
 		    String title = "Cerrar Caja";
-		    
-		    Double diffEnCaja = null;
+
+			RegistroCajaDto registroCajaDto = null;
 		    
 		
 		
 				try {
-					diffEnCaja  = BusinessDelegate.getInstance().cerrarCaja(
+					registroCajaDto  = BusinessDelegate.getInstance().cerrarCaja(
 							Integer.parseInt(request.getParameter("cbSucursal")),Double.parseDouble(request.getParameter("txtValorCaja")));
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
@@ -65,11 +66,11 @@ public class ConfirmarCerrarCaja extends HttpServlet {
 						"<title>" + title + "</title>\n" +
 						"</head>\n";
 									
-					if(diffEnCaja !=null) {
+					if(registroCajaDto !=null) {
 					HTML=HTML +	"<body>\n" +
 							"<div>\n" +
 							"<h1> Se ha cerrado la caja exitosamente!</h1>\n" +
-							"<h3> differencia entre valor facturado y valor ingresado: " + String.valueOf(diffEnCaja)  + "</h3>\n" +
+							"<h3> differencia entre valor facturado y valor ingresado: " + String.valueOf(registroCajaDto.getValorEsperado() - registroCajaDto.getValorCaja())  + "</h3>\n" +
 							"</div>\n"+
 							"<a href='MenuCaja.jsp'>Menu Caja</a>"+
 							"</body>\n" +

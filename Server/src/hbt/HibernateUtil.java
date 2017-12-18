@@ -1,6 +1,6 @@
 package hbt;
 
-import model.ItemIngrediente;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import entities.*;
